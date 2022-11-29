@@ -1,0 +1,30 @@
+def  hasLibraryPlugin = pluginManager.hasPlugin("com.android.library")
+def  hasApplicationPlugin = pluginManager.hasPlugin("com.android.application")
+
+if (hasLibraryPlugin || hasApplicationPlugin) {
+    android {
+        compileSdk = Versions.COMPILE_SDK_VERSION
+        buildToolsVersion = Versions.BUILD_TOOLS_VERSION
+
+        defaultConfig {
+            minSdk = Versions.MIN_SDK_VERSION
+            targetSdk = Versions.TARGET_SDK_VERSION
+            vectorDrawables.useSupportLibrary = true
+            versionCode = 1
+            versionName = "1.0"
+            testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
+        }
+
+        compileOptions {
+            sourceCompatibility = JavaVersion.VERSION_1_8
+            targetCompatibility = JavaVersion.VERSION_1_8
+        }
+        kotlinOptions {
+            jvmTarget = JavaVersion.VERSION_1_8.toString()
+        }
+
+    }
+
+    
+
+}
