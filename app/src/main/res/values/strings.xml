@@ -12,4 +12,12 @@
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="title_core">core</string>
+    <string name="title_data">data</string>
+    <string name="title_designsystem">designsystem</string>
+    <string name="title_domain">domain</string>
+    <string name="title_network">network</string>
+    <string name="title_common">common</string>
+    <string name="title_feature">Module Title</string>
+    <string name="title_join">join</string>
+    <string name="title_login">login</string>
 </resources>

@@ -1,4 +1,3 @@
-
 subprojects {
     repositories {
         google()

@@ -54,3 +54,11 @@ for (project in rootProject.children) {
 rootProject.name = "rejord"
 include (":app")
 include(":core")
+include(":core:data")
+include(":core:designsystem")
+include(":core:domain")
+include(":core:network")
+include(":common")
+include(":feature")
+include(":feature:join")
+include(":feature:login")
