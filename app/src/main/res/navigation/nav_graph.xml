@@ -11,5 +11,4 @@
         android:label="@string/first_fragment_label"
         tools:layout="@layout/fragment_main">
     </fragment>
-
 </navigation>

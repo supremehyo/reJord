@@ -1,30 +1,17 @@
 plugins {
-    id("com.android.dynamic-feature")
     id("org.jetbrains.kotlin.android")
+    id("com.android.library")
     kotlin("kapt")
 }
 android {
-    namespace = "com.dev6.network"
-    compileSdk = 32
-
-    defaultConfig {
-        minSdk = 21
-        testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
-    }
-
-    buildTypes {
-        release {
-            isMinifyEnabled = false
-            proguardFiles(
-                getDefaultProguardFile("proguard-android-optimize.txt"),
-                "proguard-rules.pro"
-            )
-        }
+    buildFeatures {
+        viewBinding = true
+        dataBinding = true
     }
 }
 
+
 dependencies {
-    implementation(project(":app"))
     implementation("androidx.core:core-ktx:1.7.0")
     testImplementation("junit:junit:4.13.2")
     androidTestImplementation("androidx.test.ext:junit:1.1.4")

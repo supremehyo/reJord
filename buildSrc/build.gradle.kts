@@ -10,7 +10,7 @@ repositories {
 }
 
 object PluginVersion {
-    const val KOTLIN = "1.7.0"
+    const val KOTLIN = "1.7.10"
     const val GRADLE_PLUGIN = "0.41.0"
     const val NAVIGATION = "2.5.0"
 }

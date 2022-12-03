@@ -1,5 +1,7 @@
 plugins {
     id("com.android.application")
+    id("dagger.hilt.android.plugin")
+    id("com.github.ben-manes.versions")
     kotlin("android")
     kotlin("kapt")
 }
@@ -25,8 +27,11 @@ android {
 
 
     buildTypes {
+        /*
         getByName("release") {
         }
+
+         */
     }
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_1_8
@@ -35,16 +40,6 @@ android {
     kotlinOptions {
         jvmTarget = JavaVersion.VERSION_1_8.toString()
     }
-    dynamicFeatures += setOf(
-        ":core:domain",
-        ":core:network",
-        ":common",
-        ":feature",
-        ":feature:join",
-        ":feature:login"
-    )
-    // dynamicFeatures += setOf(":core", ":core:data", ":core:designsystem")
-
 }
 
 dependencies {
@@ -61,9 +56,24 @@ dependencies {
     implementation(AndroidX.LIFECYCLE_VIEWMODEL_KTX)
     implementation(AndroidX.LIFECYCLE_LIVEDATA_KTX)
     implementation(AndroidX.LIFECYCLE_EXTENSIONNS)
+
+    //retrofit2
+    implementation(Network.OKHTTP)
+    implementation(Network.OKHTTP3)
+    implementation(Network.RETROFIT)
+    implementation(Network.GSON)
+    implementation(Network.SCALAR)
+
+
     implementation("androidx.navigation:navigation-ui-ktx:2.5.3")
     implementation("androidx.navigation:navigation-fragment-ktx:2.5.3")
+    implementation("androidx.navigation:navigation-dynamic-features-fragment:2.5.3")
+    implementation(project(":feature:join"))
+    implementation(project(":core:data"))
+    implementation(project(":core:domain"))
+    implementation(project(":core"))
+    implementation(project(":common"))
 
-    implementation(project(mapOf("path" to ":feature:join")))
-    implementation(project(mapOf("path" to ":core:data")))
+
+
 }

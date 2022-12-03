@@ -1,18 +1,22 @@
 package com.dev6.rejord
+import com.dev6.core.base.BindingFragment
+import com.dev6.rejord.databinding.FragmentMainBinding
 
-import android.os.Bundle
-import androidx.fragment.app.Fragment
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
+class MainFragment : BindingFragment<FragmentMainBinding>(R.layout.fragment_main) {
+    override fun initView() {
+        super.initView()
+    }
 
-class MainFragment : Fragment() {
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
+    override fun initViewModel() {
+        super.initViewModel()
+    }
 
-        return inflater.inflate(R.layout.fragment_main, container, false)
+    override fun initListener() {
+        super.initListener()
+    }
+
+    override fun afterViewCreated() {
+        super.afterViewCreated()
     }
 }
 
