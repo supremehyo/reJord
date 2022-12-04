@@ -16,7 +16,7 @@ import javax.inject.Singleton
 @InstallIn(SingletonComponent::class)
 @Module
 open class NetworkModule {
-    protected open fun baseUrl() = "".toHttpUrl()
+    protected open fun baseUrl() = "https://leadpet-dev6.com".toHttpUrl()
 
     @Provides
     @Singleton

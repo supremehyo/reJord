@@ -1,4 +1,4 @@
-package com.dev.join
+package com.dev6.join
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.dev6.common.uistate.UiState

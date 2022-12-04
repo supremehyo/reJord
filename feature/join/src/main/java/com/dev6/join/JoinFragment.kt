@@ -1,4 +1,4 @@
-package com.dev.join
+package com.dev6.join
 import androidx.fragment.app.viewModels
 import com.dev6.common.uistate.UiState
 import com.dev6.core.base.BindingFragment
@@ -7,6 +7,7 @@ import com.dev6.join.R
 import com.dev6.join.databinding.FragmentJoinBinding
 import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class JoinFragment : BindingFragment<FragmentJoinBinding>(R.layout.fragment_join) {
     private val joinViewModel: JoinViewModel by viewModels()
 

@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/join_graph"
+    app:startDestination="@id/JoinFragment">
+
+    <fragment
+        android:id="@+id/JoinFragment"
+        android:name="com.dev6.join.JoinFragment"
+        tools:layout="@layout/fragment_join">
+    </fragment>
+
+</navigation>
