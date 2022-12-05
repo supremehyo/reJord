@@ -24,7 +24,8 @@ jobs:
       id: date
       run: echo "::set-output name=date::$(date +'%Y-%m-%d')"
      
-     
+
+         
     - name: Build APK
       run: bash ./gradlew assembleDebug --stacktrace
      
@@ -33,7 +34,7 @@ jobs:
     - uses: MeilCli/slack-upload-file@v1
       with:
         slack_token: ${{ secrets.SLACK_READ_WRITE_TOKEN }}
-        channels: ${{ secrets.SLACK_CHANNEL_DEPLOY }}
+        channels: ${{ secrets.SLACK_CHANNEL_DEPOLY }}
         file_path: 'app/build/outputs/apk/debug/app-debug.apk'
         file_name: 'app-debug.apk'
         file_type: 'apk'
@@ -45,3 +46,11 @@ jobs:
       with:
         name: app-debug.apk
         path: app/build/outputs/apk/debug/app-debug.apk
+        
+    - name: action-slack
+      uses: 8398a7/action-slack@v3.8.0
+      with:
+        status: ${{ job.status }}
+        author_name: 빌드 알림
+      env:
+         SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
