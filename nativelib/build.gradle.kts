@@ -21,13 +21,16 @@ android {
     }
 
     buildTypes {
+        /*
         release {
-            isMinifyEnabled = false
+            //isMinifyEnabled = false
             proguardFiles(
                 getDefaultProguardFile("proguard-android-optimize.txt"),
                 "proguard-rules.pro"
             )
         }
+
+         */
     }
     externalNativeBuild {
         cmake {

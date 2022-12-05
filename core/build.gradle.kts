@@ -1,35 +1,26 @@
 plugins {
-    id("com.android.dynamic-feature")
+    id("com.android.library")
     id("org.jetbrains.kotlin.android")
+    //id("dagger.hilt.android.plugin")
+    kotlin("kapt")
 }
 android {
-    namespace = "com.dev6.core"
-    compileSdk = 32
-
-    defaultConfig {
-        minSdk = 21
-        testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
-    }
-
-    buildTypes {
-        release {
-            isMinifyEnabled = false
-            proguardFiles(
-                getDefaultProguardFile("proguard-android-optimize.txt"),
-                "proguard-rules.pro"
-            )
-        }
+    buildFeatures {
+        viewBinding = true
+        dataBinding = true
     }
 }
 
+
 dependencies {
-    implementation(project(":app"))
+    implementation(project(":common"))
     //Android Core
     implementation(Kotlin.KOTLIN_STDLIB)
     implementation(Kotlin.COROUTINES_ANDROID)
     implementation(Kotlin.COROUTINES_CORE)
+    implementation(Google.HILT_ANDROID)
+    kapt(Google.HILT_ANDROID_COMPILER)
     implementation(AndroidX.CORE_KTX)
-    implementation(AndroidX.APP_COMPAT)
     implementation(AndroidX.ACTIVITY_KTX)
     implementation(AndroidX.FRAGMENT_KTX)
     implementation(AndroidX.LIFECYCLE_VIEWMODEL_KTX)
