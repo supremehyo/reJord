@@ -1,4 +1,5 @@
 package com.dev6.join
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.dev6.common.uistate.UiState
@@ -18,6 +19,7 @@ class JoinViewModel @Inject constructor(
 
     private val _eventFlow = MutableSharedFlow<Event>()
     val eventFlow = _eventFlow.asSharedFlow()
+
 
     private fun event(event: Event) {
         viewModelScope.launch {

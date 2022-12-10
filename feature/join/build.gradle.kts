@@ -25,6 +25,7 @@ dependencies {
 
     implementation(project(":core"))
     implementation(project(":common"))
+    implementation(project(":core:designsystem"))
     implementation(project(":core:domain"))
 
     implementation(AndroidX.ACTIVITY_KTX)
