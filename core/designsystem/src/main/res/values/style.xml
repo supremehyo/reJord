@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <style name="CustomOutlineBox" parent="Widget.MaterialComponents.TextInputLayout.FilledBox.Dense">
+        <item name="colorControlNormal">@color/white</item>
+        <item name="boxStrokeWidth">0dp</item>
+        <item name="colorControlActivated">@color/mainColor</item>
+        <item name="boxStrokeColor">@color/white</item>
+        <item name="android:textColorHint">@color/hintColor</item>
+        <item name="hintTextColor">@color/hintColor</item>
+        <item name="helperTextEnabled">true</item>
+        <item name="hintEnabled">false</item>
+    </style>
+
+    <style name="CustomCheckBox" parent="Widget.AppCompat.CompoundButton.CheckBox">
+        <item name="colorControlActivated">@color/mainColor</item>
+        <item name="checkedIconTint">@color/white</item>
+    </style>
+
+
+    <style name="MyInputTextLayoutStyle" parent="Widget.Design.TextInputLayout"> // important : parent 를 이것으로.
+    <item name="colorControlNormal">@color/mainColor</item>  // unFocus 상태일때 밑줄 색.
+        <item name="hintEnabled">false</item>
+    <item name="colorControlActivated">@color/mainColor</item> // Focus 상태일때 밑줄 색.
+    <item name="android:textCursorDrawable">@color/mainColor</item>  // cursor 색.
+    <item name="android:textColorHint">@color/hintColor</item>  // hint 색
+    <item name="android:textSize">32dp</item>   // textSize를 설정하면 textInputLayout과 editText의 글자 크기가 모두 바뀝니다.
+    </style>
+
+    <style name="Widget_Join_Button" parent="Widget.MaterialComponents.Button.TextButton">
+        <item name="android:insetTop">0dp</item>
+        <item name="android:insetBottom">0dp</item>
+        <item name="android:minWidth">0dp</item>
+        <item name="android:minHeight">0dp</item>
+        <item name="android:paddingLeft">18dp</item>
+        <item name="android:paddingTop">8dp</item>
+        <item name="android:paddingRight">18dp</item>
+        <item name="android:paddingBottom">8dp</item>
+        <item name="android:textColor">@color/nonActiveButtonTextColor</item>
+        <item name="cornerRadius">9dp</item>
+    </style>
+
+    <style name="DefaultTextViewStyle" parent="@android:style/Widget.DeviceDefault.TextView" />
+    <style name="h2" parent="DefaultTextViewStyle">
+        <item name="android:textSize">18sp</item>
+        <item name="fontFamily">@font/roboto_bold</item>
+        <item name="android:textStyle">bold</item>
+
+    </style>
+</resources>
