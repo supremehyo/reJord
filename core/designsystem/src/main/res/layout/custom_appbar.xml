@@ -9,19 +9,18 @@
         android:layout_height="wrap_content">
 
         <TextView
-            style="@style/h2"
             android:id="@+id/tv_top"
+            style="@style/h2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="24dp"
             android:layout_marginBottom="15dp"
             android:text="타이틀"
-            android:textColor="#323232"
+            android:textColor="@color/optionTextColor"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/tv_left"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintEnd_toStartOf="@+id/tv_right"
-            />
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
             android:id="@+id/tv_right"
@@ -34,16 +33,22 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="@+id/tv_top" />
 
-        <ImageButton
+
+        <TextView
             android:id="@+id/tv_left"
-            android:layout_width="10dp"
+            android:layout_width="50dp"
             android:layout_height="24dp"
-            android:layout_marginStart="16dp"
-            android:background="@drawable/back_arrow"
-            android:text="Button"
+            android:layout_gravity="left"
+            android:layout_marginLeft="16dp"
+            android:gravity="center"
+            android:textSize="16dp"
+            android:drawableLeft="@drawable/back_arrow"
+            android:text="뒤로"
             app:layout_constraintBottom_toBottomOf="@+id/tv_top"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="@+id/tv_top" />
+
+
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

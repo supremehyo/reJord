@@ -5,12 +5,14 @@ import com.dev6.model.JoinReqDTO
 import com.dev6.model.JoinResDTO
 
 internal fun JoinReq.toMapper() = JoinReqDTO(
+    nickname = nickname,
     password = password,
     userId = userId,
     userType = userType
 )
 
 internal fun JoinReqDTO.toDomain() = JoinReq(
+    nickname = nickname,
     password = password,
     userId = userId,
     userType = userType

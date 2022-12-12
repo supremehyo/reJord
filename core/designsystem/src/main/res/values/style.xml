@@ -9,7 +9,7 @@
         <item name="hintTextColor">@color/hintColor</item>
         <item name="errorIconDrawable">@null</item>
         <item name="helperTextEnabled">true</item>
-        <item name="hintEnabled">false</item>
+        <item name="hintEnabled">true</item>
         <item name="errorTextAppearance">@style/ErrorTextAppearance</item>
     </style>
 
