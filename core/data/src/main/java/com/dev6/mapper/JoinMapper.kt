@@ -5,32 +5,30 @@ import com.dev6.model.JoinReqDTO
 import com.dev6.model.JoinResDTO
 
 internal fun JoinReq.toMapper() = JoinReqDTO(
-    nickname = nickname,
-    password = password,
-    userId = userId,
-    userType = userType
+    password = password ?: "",
+    userId = userId ?:"",
+    userType = userType?:""
 )
 
 internal fun JoinReqDTO.toDomain() = JoinReq(
-    nickname = nickname,
-    password = password,
-    userId = userId,
-    userType = userType
+    password = this.password,
+    userId = this.userId,
+    userType = this.userType
 )
 
 internal fun JoinRes.toMapper() = JoinResDTO(
     nickname = nickname,
-    errors = errors,
+    errors = errors ?: emptyList(),
     uid = uid,
     userId = userId,
     userType = userType
 )
 
 internal fun JoinResDTO.toDomain() = JoinRes(
-    nickname = nickname,
-    errors = errors,
-    uid = uid,
-    userId = userId,
-    userType = userType
+    nickname = this.nickname,
+    errors = this.errors ?: emptyList(),
+    uid = this.uid,
+    userId = this.userId,
+    userType = this.userType
 )
 

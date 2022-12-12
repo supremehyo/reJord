@@ -31,6 +31,10 @@ class LoginFragment : BindingFragment<FragmentLoginBinding>(R.layout.fragment_lo
         binding.goJoin.setOnClickListener {
             findNavController().navigate(R.id.action_LoginFragment_to_join_graph)
         }
+
+        binding.findPassWord.setOnClickListener {
+            findNavController().navigate(R.id.action_LoginFragment_to_PassWordFragment)
+        }
     }
 
     override fun afterViewCreated() {

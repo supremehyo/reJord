@@ -2,6 +2,7 @@ package com.dev6.join
 
 import android.text.Editable
 import android.text.TextWatcher
+import android.util.Log
 import android.util.Patterns
 import android.widget.Toast
 import androidx.core.content.ContextCompat.getColor
@@ -9,6 +10,7 @@ import androidx.core.os.bundleOf
 import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
+import com.dev6.common.uistate.UiState
 import com.dev6.core.base.BindingFragment
 import com.dev6.domain.model.join.JoinReq
 import com.dev6.join.databinding.FragmentJoinBinding
@@ -17,25 +19,27 @@ import java.util.regex.Pattern
 
 @AndroidEntryPoint
 class JoinFragment : BindingFragment<FragmentJoinBinding>(R.layout.fragment_join) {
-   // private val joinViewModel: JoinViewModel by activityViewModels()
+    private val joinViewModel: JoinViewModel by activityViewModels()
     private var terms = mutableListOf(false,false,false)
     val emailPattern: Pattern = Patterns.EMAIL_ADDRESS
-    var userId = "test2@test.com"
+    var userId = "test.com"
     var passWord = "12345678"
     var userType = "ADMIN"
 
     override fun initView() {
         super.initView()
-
-      //  val bundle = bundleOf("JoinReq" to JoinReq(nickname = "",password = passWord , userId = userId, userType))
-      //  findNavController().navigate(R.id.action_JoinFragment_to_JoinNickNameFragemnt , bundle)
-
+        //val bundle = bundleOf("JoinReq" to JoinReq(password = passWord , userId = userId, userType))
+        //findNavController().navigate(R.id.action_JoinFragment_to_JoinNickNameFragemnt , bundle)
         binding.include.tvTop.text = ""
         binding.include.tvRight.text = ""
     }
 
     override fun initViewModel() {
         super.initViewModel()
+        joinViewModel.userJoin(JoinReq(password = passWord , userId = userId, userType))
+        repeatOnStartedFragment {
+            joinViewModel.eventFlow.collect { event -> handleEvent(event) }
+        }
 
     }
 
@@ -125,7 +129,7 @@ class JoinFragment : BindingFragment<FragmentJoinBinding>(R.layout.fragment_join
     private fun AuthButton(){
         binding.authButton.setOnClickListener {
             if(allDataComplete()){
-                val bundle = bundleOf("JoinReq" to JoinReq(nickname = "", password = passWord , userId = userId, userType))
+                val bundle = bundleOf("JoinReq" to JoinReq( password = passWord , userId = userId, userType))
                 findNavController().navigate(R.id.action_JoinFragment_to_JoinNickNameFragemnt , bundle)
             }else if(ActiveAuthButton(terms)
                 && binding.customEditTextEmail.error != null
@@ -157,6 +161,24 @@ class JoinFragment : BindingFragment<FragmentJoinBinding>(R.layout.fragment_join
             false -> {
                 binding.authButton.setBackgroundResource(com.dev6.designsystem.R.drawable.round_non)
                 binding.authButton.setTextColor(getColor(requireActivity(), com.dev6.designsystem.R.color.nonActiveButtonTextColor))
+            }
+        }
+    }
+
+
+    private fun handleEvent(event: JoinViewModel.Event) = when (event) {
+        is JoinViewModel.Event.UiEvent -> {
+            when (event.uiState) {
+                is UiState.Loding -> {
+                    Log.v("join api 상태", "요청중")
+                }
+                is UiState.Success -> {
+                    Log.v("join api 상태", "성공")
+                }
+                is UiState.Error -> {
+                    Toast.makeText(requireContext(), event.toString(), Toast.LENGTH_SHORT).show()
+                    Log.v("join api 상태", "실패")
+                }
             }
         }
     }

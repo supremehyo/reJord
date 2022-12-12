@@ -32,9 +32,7 @@ class JoinViewModel @Inject constructor(
 
     fun userJoin(joinReq: JoinReq) {
         viewModelScope.launch{
-            joinUseCase(joinReq).catch {
-
-            }.collect{ uiState ->
+            joinUseCase(joinReq).catch {}.collect{ uiState ->
                 event(Event.UiEvent(uiState))
             }
         }

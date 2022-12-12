@@ -36,10 +36,8 @@ class JoinNickNameFragment :
 
     override fun initViewModel() {
         super.initViewModel()
-        joinReq = arguments?.getSerializable("JoinReq") as JoinReq
-        repeatOnStartedFragment {
-            joinViewModel.eventFlow.collect { event -> handleEvent(event) }
-        }
+    //    joinReq = arguments?.getSerializable("JoinReq") as JoinReq
+
     }
 
     override fun initListener() {
@@ -54,7 +52,7 @@ class JoinNickNameFragment :
         })
 
         binding.authButton.setOnClickListener {
-            joinViewModel.userJoin(joinReq = joinReq.copy(nickname = binding.nameTextSub.text.toString()))
+          //  joinViewModel.userJoin(joinReq = joinReq.copy(nickname = binding.nameTextSub.text.toString()))
         }
 
         binding.include.tvLeft.setOnClickListener {
@@ -66,22 +64,7 @@ class JoinNickNameFragment :
         super.afterViewCreated()
     }
 
-    private fun handleEvent(event: JoinViewModel.Event) = when (event) {
-        is JoinViewModel.Event.UiEvent -> {
-            when (event.uiState) {
-                is UiState.Loding -> {
-                    Log.v("join api 상태", "요청중")
-                }
-                is UiState.Success -> {
-                    Log.v("join api 상태", "성공")
-                }
-                is UiState.Error -> {
-                    Toast.makeText(requireContext(), event.toString(), Toast.LENGTH_SHORT).show()
-                    Log.v("join api 상태", "실패")
-                }
-            }
-        }
-    }
+
 
     private fun editTextHandler() {
         binding.apply {
