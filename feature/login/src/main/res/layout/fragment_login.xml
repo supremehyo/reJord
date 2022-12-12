@@ -37,7 +37,7 @@
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/customEditTextId"
             style="@style/CustomOutlineBox"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="70dp"
             android:layout_marginTop="42dp"
             app:boxBackgroundColor="@color/white"
@@ -51,7 +51,7 @@
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/customEditTextId_sub"
                 android:layout_width="match_parent"
-                android:layout_height="50dp"
+                android:layout_height="match_parent"
                 android:layout_marginHorizontal="@dimen/layout_side_margin"
                 android:fontFamily="@font/roboto_medium"
                 android:hint="아이디"
@@ -62,7 +62,7 @@
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/customEditTextPassword1"
             style="@style/CustomOutlineBox"
-            android:layout_width="0dp"
+            android:layout_width="match_parent"
             android:layout_height="70dp"
             app:boxBackgroundColor="@color/white"
             app:endIconDrawable="@drawable/password_icon"
@@ -76,7 +76,7 @@
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/customEditTextPasswordSub1"
                 android:layout_width="match_parent"
-                android:layout_height="50dp"
+                android:layout_height="match_parent"
                 android:layout_marginHorizontal="@dimen/layout_side_margin"
                 android:fontFamily="@font/roboto_medium"
                 android:hint="비밀번호"

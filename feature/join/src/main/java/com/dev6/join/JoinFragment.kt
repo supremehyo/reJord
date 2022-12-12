@@ -27,8 +27,8 @@ class JoinFragment : BindingFragment<FragmentJoinBinding>(R.layout.fragment_join
     override fun initView() {
         super.initView()
 
-        val bundle = bundleOf("JoinReq" to JoinReq(nickname = "",password = passWord , userId = userId, userType))
-        findNavController().navigate(R.id.action_JoinFragment_to_JoinNickNameFragemnt , bundle)
+      //  val bundle = bundleOf("JoinReq" to JoinReq(nickname = "",password = passWord , userId = userId, userType))
+      //  findNavController().navigate(R.id.action_JoinFragment_to_JoinNickNameFragemnt , bundle)
 
         binding.include.tvTop.text = ""
         binding.include.tvRight.text = ""
@@ -43,6 +43,10 @@ class JoinFragment : BindingFragment<FragmentJoinBinding>(R.layout.fragment_join
         super.initListener()
         checkTerms()
         AuthButton()
+
+        binding.include.tvLeft.setOnClickListener {
+            findNavController().popBackStack()
+        }
 
         binding.customEditTextEmailSub.addTextChangedListener(object : TextWatcher {
             override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {}

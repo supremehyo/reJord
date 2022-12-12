@@ -22,6 +22,7 @@ dependencies {
 
     implementation(project(":core"))
     implementation(project(":common"))
+    implementation(project(":feature:join"))
     implementation(project(":core:designsystem"))
     implementation(project(":core:domain"))
     implementation(project(":core:data"))

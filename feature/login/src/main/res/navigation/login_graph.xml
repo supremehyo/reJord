@@ -2,11 +2,19 @@
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    app:startDestination="@id/LoginFragment"
     android:id="@+id/login_graph">
 
     <fragment
         tools:layout="@layout/fragment_login"
         android:name="com.dev6.login.LoginFragment"
         android:id="@+id/LoginFragment">
+        <action
+            android:id="@+id/action_LoginFragment_to_join_graph"
+            app:destination="@id/join_graph" />
     </fragment>
+
+    <include app:graph="@navigation/join_graph" />
+
+
 </navigation>

@@ -21,7 +21,7 @@ class MainFragment : BindingFragment<FragmentMainBinding>(R.layout.fragment_main
         }
 
         binding.gologin.setOnClickListener {
-            findNavController().navigate(R.id.action_Mainfragment_to_login_graph)
+            findNavController().navigate(R.id.action_Mainfragment_to_login_graph4)
         }
     }
 

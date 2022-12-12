@@ -13,7 +13,7 @@
             android:id="@+id/action_random_fragment_to_settings_nav_graph"
             app:destination="@id/join_graph" />
         <action
-            android:id="@+id/action_Mainfragment_to_login_graph"
+            android:id="@+id/action_Mainfragment_to_login_graph4"
             app:destination="@id/login_graph" />
     </fragment>
 
