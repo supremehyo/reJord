@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="TitleColor">#FF000000</color>
+    <color name="white">#ffffff</color>
+    <color name="subTitleColor">#434343</color>
+    <color name="nonActiveButtonColor">#DDDDDD</color>
+    <color name="hintColor">#C0C0C0</color>
+    <color name="defaultTextColor">#000000</color>
+    <color name="editTextLineColor">#6F6F6F</color>
+    <color name="nonActiveButtonTextColor">#626262</color>
+    <color name="mainColor">#00B968</color>
+</resources>
