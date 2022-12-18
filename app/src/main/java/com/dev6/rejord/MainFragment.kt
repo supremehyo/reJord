@@ -19,6 +19,10 @@ class MainFragment : BindingFragment<FragmentMainBinding>(R.layout.fragment_main
         binding.goJoin.setOnClickListener {
             findNavController().navigate(R.id.action_random_fragment_to_settings_nav_graph)
         }
+
+        binding.gologin.setOnClickListener {
+            findNavController().navigate(R.id.action_Mainfragment_to_login_graph4)
+        }
     }
 
     override fun afterViewCreated() {
