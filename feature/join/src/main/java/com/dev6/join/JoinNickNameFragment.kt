@@ -30,14 +30,14 @@ class JoinNickNameFragment :
     lateinit var joinReq: JoinReq
     override fun initView() {
         super.initView()
+        binding.include.tvLeft.visibility = View.GONE
         binding.include.tvTop.text = ""
-        binding.include.tvRight.text = ""
+        binding.include.tvRight.text = "건너뛰기 >"
     }
 
     override fun initViewModel() {
         super.initViewModel()
-    //    joinReq = arguments?.getSerializable("JoinReq") as JoinReq
-
+        //TODO 닉네임 수정 api 호출 결과값 핸들러 작성
     }
 
     override fun initListener() {
@@ -52,7 +52,7 @@ class JoinNickNameFragment :
         })
 
         binding.authButton.setOnClickListener {
-          //  joinViewModel.userJoin(joinReq = joinReq.copy(nickname = binding.nameTextSub.text.toString()))
+            //TODO 클릭시 닉네임 수정 api 호출
         }
 
         binding.include.tvLeft.setOnClickListener {
@@ -62,8 +62,8 @@ class JoinNickNameFragment :
 
     override fun afterViewCreated() {
         super.afterViewCreated()
-    }
 
+    }
 
 
     private fun editTextHandler() {

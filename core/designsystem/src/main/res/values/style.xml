@@ -9,11 +9,24 @@
         <item name="hintTextColor">@color/hintColor</item>
         <item name="errorIconDrawable">@null</item>
         <item name="helperTextEnabled">true</item>
-        <item name="hintEnabled">true</item>
+        <item name="hintEnabled">false</item>
+        <item name="errorTextAppearance">@style/ErrorTextAppearance</item>
+    </style>
+
+    <style name="NickNameCustom" parent="Widget.MaterialComponents.TextInputLayout.FilledBox.Dense">
+        <item name="colorControlNormal">@color/white</item>
+        <item name="boxStrokeWidth">0dp</item>
+        <item name="colorControlActivated">@color/mainColor</item>
+        <item name="boxStrokeColor">@color/white</item>
+        <item name="errorIconDrawable">@null</item>
+        <item name="helperTextEnabled">false</item>
+        <item name="hintEnabled">false</item>
+        <item name="android:textColor">@color/TitleColor</item>
         <item name="errorTextAppearance">@style/ErrorTextAppearance</item>
     </style>
 
     <style name="ErrorTextAppearance">
+        <item name="marginHorizontal">16dp</item>
         <item name="android:textStyle">normal</item>
         <item name="android:textColor">#FF0000</item>
         <item name="android:includeFontPadding">false</item>

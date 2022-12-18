@@ -5,125 +5,185 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        tools:context=".JoinFragment">
+        android:layout_height="match_parent">
 
-        <include
-            android:id="@+id/include"
-            layout="@layout/custom_appbar"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
             android:id="@+id/textView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="@dimen/layout_side_margin"
-            android:layout_marginTop="43dp"
+            android:layout_marginTop="102dp"
             android:fontFamily="@font/roboto_bold"
             android:includeFontPadding="false"
             android:text="로그인"
             android:textColor="@color/TitleColor"
             android:textSize="25sp"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/include" />
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0" />
+
+
+        <TextView
+            android:id="@+id/textView6"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="@dimen/layout_side_margin"
+            android:layout_marginTop="46dp"
+            android:text="아이디"
+            android:textColor="@color/TitleColor"
+            android:textSize="16dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textView"></TextView>
 
 
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/customEditTextId"
             style="@style/CustomOutlineBox"
             android:layout_width="match_parent"
-            android:layout_height="70dp"
-            android:layout_marginTop="42dp"
+            android:layout_height="wrap_content"
             app:boxBackgroundColor="@color/white"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0"
+            app:layout_constraintHorizontal_bias="1.0"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textView"
+            app:layout_constraintTop_toBottomOf="@+id/textView6"
             app:layout_constraintVertical_bias="0">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/customEditTextId_sub"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_height="wrap_content"
                 android:layout_marginHorizontal="@dimen/layout_side_margin"
                 android:fontFamily="@font/roboto_medium"
-                android:hint="아이디"
-                android:paddingTop="8dp" />
+                android:hint="아이디를 입력해주세요"
+                android:includeFontPadding="false"
+                android:padding="16dp"
+                android:paddingStart="0dp"
+                android:paddingEnd="0dp" />
         </com.google.android.material.textfield.TextInputLayout>
 
+
+        <TextView
+            android:id="@+id/emailErrorText"
+            android:layout_width="wrap_content"
+            android:layout_height="18dp"
+            android:layout_marginHorizontal="@dimen/layout_side_margin"
+            android:text="아이디를 입력해주세요."
+            android:textColor="#FF0000"
+            android:visibility="gone"
+            app:layout_constraintHorizontal_bias="0"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/customEditTextId" />
+
+        <LinearLayout
+            android:id="@+id/linearLayout"
+            android:layout_width="match_parent"
+            android:layout_height="31dp"
+            android:orientation="horizontal"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/emailErrorText" />
+
+        <TextView
+            android:id="@+id/textView7"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="@dimen/layout_side_margin"
+            android:text="비밀번호"
+            android:textColor="@color/TitleColor"
+            android:textSize="16dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/linearLayout" />
 
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/customEditTextPassword1"
             style="@style/CustomOutlineBox"
             android:layout_width="match_parent"
-            android:layout_height="70dp"
+            android:layout_height="wrap_content"
             app:boxBackgroundColor="@color/white"
             app:endIconDrawable="@drawable/password_icon"
             app:endIconMode="password_toggle"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/customEditTextId"
-            app:layout_constraintVertical_bias="0.036">
+            app:layout_constraintTop_toBottomOf="@+id/textView7"
+            app:layout_constraintVertical_bias="0">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/customEditTextPasswordSub1"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_height="wrap_content"
                 android:layout_marginHorizontal="@dimen/layout_side_margin"
                 android:fontFamily="@font/roboto_medium"
-                android:hint="비밀번호"
+                android:hint="비밀번호를 입력해주세요"
+                android:includeFontPadding="false"
                 android:inputType="textPassword"
-                android:paddingTop="0dp" />
+                android:padding="16dp"
+                android:paddingStart="0dp"
+                android:paddingEnd="0dp" />
         </com.google.android.material.textfield.TextInputLayout>
 
+
+        <LinearLayout
+            android:id="@+id/linearLayout2"
+            android:layout_width="match_parent"
+            android:layout_height="31dp"
+            android:orientation="horizontal"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/passwordErrorText" />
+
+        <TextView
+            android:id="@+id/passwordErrorText"
+            android:visibility="gone"
+            android:layout_width="wrap_content"
+            android:layout_height="18dp"
+            android:layout_marginHorizontal="@dimen/layout_side_margin"
+            android:text="아이디 또는 비밀번호가 일치하지 않습니다."
+            android:textColor="#FF0000"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/customEditTextPassword1" />
 
         <TextView
             android:id="@+id/authButton"
             android:layout_width="match_parent"
-            android:layout_height="50dp"
+            android:layout_height="47dp"
             android:layout_marginHorizontal="@dimen/layout_side_margin"
-            android:background="@drawable/round_non"
+            android:background="@drawable/round_button"
             android:fontFamily="@font/roboto_bold"
             android:gravity="center"
-            android:text="로그인"
+            android:layout_marginTop="27dp"
+            android:text="로그인하기"
             android:textColor="@color/white"
+            android:textSize="20sp"
             android:textStyle="bold"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/customEditTextPassword1"
-            app:layout_constraintVertical_bias="0.1" />
-
-        <TextView
-            android:id="@+id/findPassWord"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginHorizontal="@dimen/layout_side_margin"
-            android:text="@string/find_password"
-            android:layout_marginTop="29dp"
-            android:textColor="@color/optionTextColor"
-            android:textSize="16sp"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/authButton" />
+            app:layout_constraintTop_toBottomOf="@+id/linearLayout2"
+            app:layout_constraintVertical_bias="0" />
 
         <TextView
             android:id="@+id/goJoin"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="29dp"
             android:layout_marginHorizontal="@dimen/layout_side_margin"
+            android:layout_marginTop="31dp"
             android:text="@string/go_join"
-            android:textColor="@color/optionTextColor"
+            android:textColor="#A1A1A1"
             android:textSize="16sp"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/authButton" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
