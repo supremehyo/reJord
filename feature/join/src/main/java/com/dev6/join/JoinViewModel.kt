@@ -1,14 +1,17 @@
 package com.dev6.join
-import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.dev6.common.uistate.UiState
+import com.dev6.core.util.MutableEventFlow
+import com.dev6.core.util.asEventFlow
 import com.dev6.domain.model.join.JoinReq
 import com.dev6.domain.model.join.JoinRes
+import com.dev6.domain.usecase.JoinReposBaseUseCase
 import com.dev6.domain.usecase.JoinUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.flow.MutableSharedFlow
-import kotlinx.coroutines.flow.asSharedFlow
+import kotlinx.coroutines.InternalCoroutinesApi
+import kotlinx.coroutines.flow.*
+import kotlinx.coroutines.launch
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -17,9 +20,8 @@ class JoinViewModel @Inject constructor(
     private val joinUseCase: JoinUseCase
 ) : ViewModel() {
 
-    private val _eventFlow = MutableSharedFlow<Event>()
-    val eventFlow = _eventFlow.asSharedFlow()
-
+    private val _eventFlow = MutableEventFlow<Event>()
+    val eventFlow = _eventFlow.asEventFlow()
 
     private fun event(event: Event) {
         viewModelScope.launch {
@@ -27,11 +29,19 @@ class JoinViewModel @Inject constructor(
         }
     }
 
-    fun userJoin(joinReq: JoinReq) = viewModelScope.launch {
 
+    fun userJoin(joinReq: JoinReq) {
+        viewModelScope.launch{
+            joinUseCase(joinReq).catch {}.collect{ uiState ->
+                event(Event.UiEvent(uiState))
+            }
+        }
+    }
+
+
+
+    sealed class Event {
+        data class UiEvent(val uiState: UiState<JoinRes>) : Event()
     }
 }
 
-sealed class Event {
-    data class JoinEvent(val uiState: UiState<JoinRes>) : Event()
-}

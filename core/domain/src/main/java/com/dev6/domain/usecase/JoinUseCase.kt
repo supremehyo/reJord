@@ -1,4 +1,5 @@
 package com.dev6.domain.usecase
+import android.util.Log
 import com.dev6.common.uistate.UiState
 import com.dev6.domain.model.join.JoinReq
 import com.dev6.domain.model.join.JoinRes
@@ -19,6 +20,7 @@ class JoinUseCase @Inject constructor(
         }.onSuccess { result ->
             emit(UiState.Success(result))
         }.onFailure {
+            Log.v("asdfsdf" , it.message.toString())
             emit(UiState.Error(it))
         }
     }

@@ -8,7 +8,7 @@ import retrofit2.http.POST
 interface JoinAPI {
 
     @Headers("Content-Type: application/json")
-    @POST("v1/user/signup")
-    fun signUp(@Body joinReqDTO: JoinReqDTO): JoinResDTO
+    @POST("/v1/users")
+    suspend fun signUp(@Body joinReqDTO: JoinReqDTO): JoinResDTO
 
 }

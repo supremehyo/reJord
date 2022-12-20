@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    app:startDestination="@id/LoginFragment"
+    android:id="@+id/login_graph">
+
+    <fragment
+        tools:layout="@layout/fragment_login"
+        android:name="com.dev6.login.LoginFragment"
+        android:id="@+id/LoginFragment">
+        <action
+            android:id="@+id/action_LoginFragment_to_join_graph"
+            app:destination="@id/join_graph" />
+        <action
+            android:id="@+id/action_LoginFragment_to_PassWordFragment"
+            app:destination="@id/PassWordFragment" />
+    </fragment>
+
+    <fragment
+        tools:layout="@layout/fragment_password_find"
+        android:name="com.dev6.login.PasswordFindFragment"
+        android:id="@+id/PassWordFragment">
+    </fragment>
+
+    <include app:graph="@navigation/join_graph" />
+
+
+</navigation>
