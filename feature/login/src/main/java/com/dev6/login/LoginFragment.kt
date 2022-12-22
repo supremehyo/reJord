@@ -3,6 +3,7 @@ package com.dev6.login
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -11,6 +12,7 @@ import android.widget.Toast
 import androidx.core.content.ContextCompat
 import androidx.navigation.fragment.findNavController
 import com.dev6.core.base.BindingFragment
+import com.dev6.core.util.Validation
 import com.dev6.login.databinding.FragmentLoginBinding
 
 
@@ -19,7 +21,7 @@ class LoginFragment : BindingFragment<FragmentLoginBinding>(R.layout.fragment_lo
     var userId = ""
     var passWord = ""
     private var errors = mutableListOf(true,true)
-
+    var validation = Validation()
     override fun initView() {
         super.initView()
     }
@@ -70,7 +72,7 @@ class LoginFragment : BindingFragment<FragmentLoginBinding>(R.layout.fragment_lo
 
 
     private fun emailValidation(id : String){
-        if(id.isNotEmpty()){
+        if(validation.checkIdPattern(id)){
             userId = id
             binding.emailErrorText.visibility = View.GONE
             errors[0] = true
@@ -80,9 +82,9 @@ class LoginFragment : BindingFragment<FragmentLoginBinding>(R.layout.fragment_lo
         }
     }
 
-    private fun passWordValidation(password : String){
-        if(password.isNotEmpty()){
-            passWord = password
+    private fun passWordValidation(pw : String){
+        if(validation.checkPwPattern(pw)){
+            passWord = pw
             binding.passwordErrorText.visibility = View.GONE
             errors[1] = true
         } else {
