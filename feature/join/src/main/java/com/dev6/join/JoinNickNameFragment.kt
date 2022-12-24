@@ -30,9 +30,6 @@ class JoinNickNameFragment :
     lateinit var joinReq: JoinReq
     override fun initView() {
         super.initView()
-        binding.include.tvLeft.visibility = View.GONE
-        binding.include.tvTop.text = ""
-        binding.include.tvRight.text = "건너뛰기 >"
     }
 
     override fun initViewModel() {
@@ -59,9 +56,6 @@ class JoinNickNameFragment :
             //TODO 클릭시 닉네임 수정 api 호출
         }
 
-        binding.include.tvLeft.setOnClickListener {
-            findNavController().popBackStack()
-        }
     }
 
     override fun afterViewCreated() {
