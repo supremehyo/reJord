@@ -43,7 +43,7 @@
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="@dimen/layout_side_margin"
             android:fontFamily="@font/nickname"
-            android:text="회원가입 완료! 👋"
+            android:text="회원가입 완료!"
             android:textColor="@color/mainColor"
             android:textSize="30sp"
             app:layout_constraintBottom_toTopOf="@+id/nameText"
