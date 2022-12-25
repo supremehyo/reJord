@@ -26,13 +26,10 @@ import kotlinx.coroutines.launch
 @AndroidEntryPoint
 class JoinNickNameFragment :
     BindingFragment<FragmentJoinNickNameBinding>(R.layout.fragment_join_nick_name) {
-    private val joinViewModel: JoinViewModel by viewModels()
+    private  val joinViewModel: JoinViewModel by viewModels()
     lateinit var joinReq: JoinReq
     override fun initView() {
         super.initView()
-        binding.include.tvLeft.visibility = View.GONE
-        binding.include.tvTop.text = ""
-        binding.include.tvRight.text = "건너뛰기 >"
     }
 
     override fun initViewModel() {
@@ -47,7 +44,11 @@ class JoinNickNameFragment :
             override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {}
             override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {}
             override fun afterTextChanged(p0: Editable?) {
-                editTextHandler()
+                if(p0.toString().length > 10){
+                    nickNameError()
+                }else if(p0.toString().length in 1..9){
+                    nickNameSuccess()
+                }
             }
         })
 
@@ -55,9 +56,6 @@ class JoinNickNameFragment :
             //TODO 클릭시 닉네임 수정 api 호출
         }
 
-        binding.include.tvLeft.setOnClickListener {
-            findNavController().popBackStack()
-        }
     }
 
     override fun afterViewCreated() {
@@ -65,10 +63,24 @@ class JoinNickNameFragment :
 
     }
 
+    fun nickNameError(){
+        binding.nickNameStatusTv.setTextColor(
+            ContextCompat.getColor(requireActivity(), com.dev6.designsystem.R.color.typoError)
+        )
+        editTextHandler(false)
+    }
 
-    private fun editTextHandler() {
+    fun nickNameSuccess(){
+        binding.nickNameStatusTv.setTextColor(
+            ContextCompat.getColor(requireActivity(), com.dev6.designsystem.R.color.mainColor)
+        )
+        editTextHandler(true)
+    }
+
+
+    private fun editTextHandler(boolean: Boolean) {
         binding.apply {
-            when (true) { // 중복체크?
+            when (boolean) { // 중복체크?
                 true -> {
                     authButton.isClickable = true
                     authButton.setBackgroundResource(com.dev6.designsystem.R.drawable.round_active)

@@ -45,8 +45,11 @@ class JoinFragment : BindingFragment<FragmentJoinBinding>(R.layout.fragment_join
 
     override fun initListener() {
         super.initListener()
-        checkTerms()
         AuthButton()
+
+        binding.backHomeLl.setOnClickListener {
+            findNavController().popBackStack()
+        }
 
         binding.customEditTextEmailSub.addTextChangedListener(object : TextWatcher {
             override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {}
@@ -116,16 +119,6 @@ class JoinFragment : BindingFragment<FragmentJoinBinding>(R.layout.fragment_join
             binding.passwordErrorConfirmText.visibility = View.GONE
             errors[2] = true
         }
-    }
-
-
-    private fun checkTerms(){
-        //약관 체크 박스
-        /*
-        binding.checkBox1.setOnCheckedChangeListener { compoundButton, isChecked -> terms[0] = isChecked }
-        binding.checkBox2.setOnCheckedChangeListener { compoundButton, isChecked -> terms[1] = isChecked }
-        binding.checkBox3.setOnCheckedChangeListener { compoundButton, isChecked -> terms[2] = isChecked }
-         */
     }
 
     private fun ActiveAuthButton(mutableList: MutableList<Boolean> , mutableList2: MutableList<Boolean>) : Boolean{
