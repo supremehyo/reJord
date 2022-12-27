@@ -17,6 +17,7 @@ import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.dev6.common.uistate.UiState
 import com.dev6.core.base.BindingFragment
+import com.dev6.core.util.Validation
 import com.dev6.domain.model.join.JoinReq
 import com.dev6.enums.UserType
 import com.dev6.join.databinding.FragmentJoinNickNameBinding
@@ -27,7 +28,7 @@ import kotlinx.coroutines.launch
 class JoinNickNameFragment :
     BindingFragment<FragmentJoinNickNameBinding>(R.layout.fragment_join_nick_name) {
     private  val joinViewModel: JoinViewModel by viewModels()
-    lateinit var joinReq: JoinReq
+    var validation = Validation()
     override fun initView() {
         super.initView()
     }
@@ -44,11 +45,7 @@ class JoinNickNameFragment :
             override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {}
             override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {}
             override fun afterTextChanged(p0: Editable?) {
-                if(p0.toString().length > 10){
-                    nickNameError()
-                }else if(p0.toString().length in 1..9){
-                    nickNameSuccess()
-                }
+                checkNicknameValidation(binding.nameTextSub.text.toString())
             }
         })
 
@@ -61,6 +58,14 @@ class JoinNickNameFragment :
     override fun afterViewCreated() {
         super.afterViewCreated()
 
+    }
+
+    private fun checkNicknameValidation(nickname : String){
+        if(validation.checkNickNamePattern(nickname)){
+            nickNameSuccess()
+        }else{
+            nickNameError()
+        }
     }
 
     fun nickNameError(){
