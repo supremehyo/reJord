@@ -68,14 +68,14 @@ class JoinNickNameFragment :
         }
     }
 
-    fun nickNameError(){
+    private fun nickNameError(){
         binding.nickNameStatusTv.setTextColor(
             ContextCompat.getColor(requireActivity(), com.dev6.designsystem.R.color.typoError)
         )
         editTextHandler(false)
     }
 
-    fun nickNameSuccess(){
+    private fun nickNameSuccess(){
         binding.nickNameStatusTv.setTextColor(
             ContextCompat.getColor(requireActivity(), com.dev6.designsystem.R.color.mainColor)
         )

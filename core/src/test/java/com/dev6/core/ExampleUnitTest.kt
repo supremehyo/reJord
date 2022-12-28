@@ -1,17 +1,36 @@
 package com.dev6.core
-
+import com.dev6.core.util.Validation
 import org.junit.Test
-
 import org.junit.Assert.*
+import org.junit.Before
+import org.junit.runner.RunWith
+import org.mockito.Mockito
+import org.mockito.Mockito.spy
+import org.mockito.junit.MockitoJUnitRunner
 
-/**
- * Example local unit test, which will execute on the development machine (host).
- *
- * See [testing documentation](http://d.android.com/tools/testing).
- */
+@RunWith(MockitoJUnitRunner::class)
 class ExampleUnitTest {
+    private lateinit var validation : Validation
+
+    @Before
+    fun setUp(){}
+
+
     @Test
-    fun addition_isCorrect() {
-        assertEquals(4, 2 + 2)
+    fun checkIdPattern() {
+        validation = spy(Validation::class.java)
+        assertEquals(true, validation.checkIdPattern("dfgdfgdf1"))
+    }
+
+    @Test
+    fun checkPwPattern() {
+        validation = spy(Validation::class.java)
+        assertEquals(true, validation.checkPwPattern("1234sdfd"))
+    }
+
+    @Test
+    fun checkNicknamePattern() {
+        validation = spy(Validation::class.java)
+        assertEquals(true, validation.checkNickNamePattern("테스트"))
     }
 }
