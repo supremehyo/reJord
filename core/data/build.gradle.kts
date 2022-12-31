@@ -16,6 +16,7 @@ dependencies {
     implementation(Kotlin.COROUTINES_ANDROID)
     implementation(Kotlin.COROUTINES_CORE)
     implementation(Google.HILT_ANDROID)
+    implementation(project(mapOf("path" to ":core")))
     kapt(Google.HILT_ANDROID_COMPILER)
     //retrofit2
     implementation(Network.OKHTTP)

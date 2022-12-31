@@ -1,6 +1,7 @@
 package com.dev6.remote
 import com.dev6.model.JoinReqDTO
 import com.dev6.model.JoinResDTO
+import com.dev6.model.executeNetworkHandling
 import com.dev6.network.JoinAPI
 import javax.inject.Inject
 
@@ -14,6 +15,6 @@ class JoinRemoteDataSourceImpl @Inject constructor(
 ) : JoinRemoteDataSource {
 
     override suspend fun signUp(joinEntitiy: JoinReqDTO): JoinResDTO {
-        return joinService.signUp(joinEntitiy)
+        return joinService.signUp(joinEntitiy).executeNetworkHandling()
     }
 }
