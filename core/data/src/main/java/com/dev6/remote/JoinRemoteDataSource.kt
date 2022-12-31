@@ -2,12 +2,17 @@ package com.dev6.remote
 import com.dev6.model.JoinReqDTO
 import com.dev6.model.JoinResDTO
 import com.dev6.model.executeNetworkHandling
+import com.dev6.model.nickname.NicknameExistCheckResDTO
+import com.dev6.model.nickname.NicknameReqDTO
+import com.dev6.model.nickname.NicknameUpdateResDTO
 import com.dev6.network.JoinAPI
 import javax.inject.Inject
 
 
 interface JoinRemoteDataSource {
     suspend fun signUp(joinReqDTO: JoinReqDTO): JoinResDTO
+    suspend fun joinUpdate(nicknameReqDTO: NicknameReqDTO) : NicknameUpdateResDTO
+    suspend fun nicknameExistCheck(userId : String) : NicknameExistCheckResDTO
 }
 
 class JoinRemoteDataSourceImpl @Inject constructor(
@@ -16,5 +21,13 @@ class JoinRemoteDataSourceImpl @Inject constructor(
 
     override suspend fun signUp(joinEntitiy: JoinReqDTO): JoinResDTO {
         return joinService.signUp(joinEntitiy).executeNetworkHandling()
+    }
+
+    override suspend fun joinUpdate(nicknameReqDTO: NicknameReqDTO): NicknameUpdateResDTO {
+        return joinService.joinUpdate(nicknameReqDTO).executeNetworkHandling()
+    }
+
+    override suspend fun nicknameExistCheck(userId: String): NicknameExistCheckResDTO {
+        return joinService.nicknameExistCheck(userId).executeNetworkHandling()
     }
 }
