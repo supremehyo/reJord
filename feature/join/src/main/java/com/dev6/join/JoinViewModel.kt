@@ -6,8 +6,13 @@ import com.dev6.core.util.MutableEventFlow
 import com.dev6.core.util.asEventFlow
 import com.dev6.domain.model.join.JoinReq
 import com.dev6.domain.model.join.JoinRes
+import com.dev6.domain.model.join.nickName.NicknameExistCheckRes
+import com.dev6.domain.model.join.nickName.NicknameReq
+import com.dev6.domain.model.join.nickName.NicknameUpdateRes
 import com.dev6.domain.usecase.JoinReposBaseUseCase
+import com.dev6.domain.usecase.JoinUpdateUseCase
 import com.dev6.domain.usecase.JoinUseCase
+import com.dev6.domain.usecase.NicknameExistCheckUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.InternalCoroutinesApi
 import kotlinx.coroutines.flow.*
@@ -17,7 +22,9 @@ import javax.inject.Inject
 
 @HiltViewModel
 class JoinViewModel @Inject constructor(
-    private val joinUseCase: JoinUseCase
+    private val joinUseCase: JoinUseCase,
+    private val userDataUpdateUseCase: JoinUpdateUseCase,
+    private val userNicknameExistCheckUseCase: NicknameExistCheckUseCase
 ) : ViewModel() {
 
     private val _eventFlow = MutableEventFlow<Event>()
@@ -38,10 +45,25 @@ class JoinViewModel @Inject constructor(
         }
     }
 
-
+    fun userDataUpdate(updateReq: NicknameReq) {
+        viewModelScope.launch{
+            userDataUpdateUseCase(updateReq).catch {}.collect{ uiState ->
+                event(Event.userDataUpdateUiEvent(uiState))
+            }
+        }
+    }
+    fun userNicknameExistCheck(nickname: String) {
+        viewModelScope.launch{
+            userNicknameExistCheckUseCase(nickname).catch {}.collect{ uiState ->
+                event(Event.userNickNameExistUiEvent(uiState))
+            }
+        }
+    }
 
     sealed class Event {
         data class UiEvent(val uiState: UiState<JoinRes>) : Event()
+        data class userDataUpdateUiEvent(val uiState: UiState<NicknameUpdateRes>) : Event()
+        data class userNickNameExistUiEvent(val uiState: UiState<NicknameExistCheckRes>) : Event()
     }
 }
 
