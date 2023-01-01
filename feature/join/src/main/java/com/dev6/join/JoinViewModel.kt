@@ -52,10 +52,29 @@ class JoinViewModel @Inject constructor(
             }
         }
     }
-    fun userNicknameExistCheck(nickname: String) {
+
+    fun checkNickNameAndUpdate(nickname: String , updateReq: NicknameReq){
         viewModelScope.launch{
             userNicknameExistCheckUseCase(nickname).catch {}.collect{ uiState ->
-                event(Event.userNickNameExistUiEvent(uiState))
+                when(uiState){
+                    is UiState.Success<NicknameExistCheckRes> ->{
+                        userDataUpdate(updateReq)
+                    }
+                    is UiState.Error ->{
+
+                    }
+                    is UiState.Loding->{
+
+                    }
+                }
+            }
+        }
+    }
+
+    fun userUserIdExistCheck(nickname: String) {
+        viewModelScope.launch{
+            userNicknameExistCheckUseCase(nickname).catch {}.collect{ uiState ->
+                event(Event.userUserIdExistUiEvent(uiState))
             }
         }
     }
@@ -63,7 +82,7 @@ class JoinViewModel @Inject constructor(
     sealed class Event {
         data class UiEvent(val uiState: UiState<JoinRes>) : Event()
         data class userDataUpdateUiEvent(val uiState: UiState<NicknameUpdateRes>) : Event()
-        data class userNickNameExistUiEvent(val uiState: UiState<NicknameExistCheckRes>) : Event()
+        data class userUserIdExistUiEvent(val uiState: UiState<NicknameExistCheckRes>) : Event()
     }
 }
 
