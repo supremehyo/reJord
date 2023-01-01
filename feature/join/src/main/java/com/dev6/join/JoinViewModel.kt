@@ -45,31 +45,14 @@ class JoinViewModel @Inject constructor(
         }
     }
 
-    fun userDataUpdate(updateReq: NicknameReq) {
+    fun userDataUpdate(updateReq: NicknameReq , userUid: String) {
         viewModelScope.launch{
-            userDataUpdateUseCase(updateReq).catch {}.collect{ uiState ->
+            userDataUpdateUseCase(Pair(updateReq , userUid)).catch {}.collect{ uiState ->
                 event(Event.userDataUpdateUiEvent(uiState))
             }
         }
     }
 
-    fun checkNickNameAndUpdate(nickname: String , updateReq: NicknameReq){
-        viewModelScope.launch{
-            userNicknameExistCheckUseCase(nickname).catch {}.collect{ uiState ->
-                when(uiState){
-                    is UiState.Success<NicknameExistCheckRes> ->{
-                        userDataUpdate(updateReq)
-                    }
-                    is UiState.Error ->{
-
-                    }
-                    is UiState.Loding->{
-
-                    }
-                }
-            }
-        }
-    }
 
     fun userUserIdExistCheck(nickname: String) {
         viewModelScope.launch{

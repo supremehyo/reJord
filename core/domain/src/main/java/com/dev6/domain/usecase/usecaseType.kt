@@ -10,4 +10,4 @@ import kotlinx.coroutines.flow.Flow
 
 typealias JoinReposBaseUseCase = BaseUseCase<JoinReq, Flow<UiState<JoinRes>>>
 typealias NicknameExistCheckBaseUseCase = BaseUseCase<String, Flow<UiState<NicknameExistCheckRes>>>
-typealias JoinUpdateReposBaseUseCase = BaseUseCase<NicknameReq, Flow<UiState<NicknameUpdateRes>>>
+typealias JoinUpdateReposBaseUseCase = BaseUseCase<Pair<NicknameReq,String>, Flow<UiState<NicknameUpdateRes>>>

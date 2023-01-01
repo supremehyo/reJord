@@ -18,6 +18,7 @@ import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.dev6.common.uistate.UiState
 import com.dev6.core.base.BindingFragment
+import com.dev6.core.enums.NickNameErrorType
 import com.dev6.core.util.Validation
 import com.dev6.domain.model.join.JoinReq
 import com.dev6.domain.model.join.nickName.NicknameReq
@@ -33,8 +34,10 @@ class JoinNickNameFragment :
     private val joinViewModel: JoinViewModel by viewModels()
     var validation = Validation()
     var nickname = ""
+    var userUid = ""
     override fun initView() {
         super.initView()
+        userUid = arguments?.getString("userUid").toString()
     }
 
     override fun initViewModel() {
@@ -63,17 +66,16 @@ class JoinNickNameFragment :
         })
 
         binding.authButton.setOnClickListener {
-
+            joinViewModel.userDataUpdate(NicknameReq(nickname), userUid)
         }
     }
 
     override fun afterViewCreated() {
         super.afterViewCreated()
-
     }
 
-    private fun handleEvent(event: JoinViewModel.Event) = when (event) {
 
+    private fun handleEvent(event: JoinViewModel.Event) = when (event) {
         is JoinViewModel.Event.userDataUpdateUiEvent -> {
             when (event.uiState) {
                 is UiState.Loding -> {
@@ -85,34 +87,43 @@ class JoinNickNameFragment :
                     //findNavController().navigate()
                 }
                 is UiState.Error -> {
-                    Toast.makeText(requireContext(), event.toString(), Toast.LENGTH_SHORT).show()
+                    nickNameAlreadyError()
                     Log.v("join 회원정보 수정", "실패")
                 }
             }
-
         }
         else -> {}
     }
 
     private fun checkNicknameValidation(nickname: String) {
         if (validation.checkNickNamePattern(nickname)) {
-            nickNameSuccess()
+            nickNameFormSuccess()
         } else {
-            nickNameError()
+            nickNameNotFormError()
         }
     }
 
-    private fun nickNameError() {
+    private fun nickNameNotFormError() {
         binding.nickNameStatusTv.setTextColor(
             ContextCompat.getColor(requireActivity(), com.dev6.designsystem.R.color.typoError)
         )
+        binding.nickNameStatusTv.text ="형식에 맞지 않은 닉네임입니다."
         editTextHandler(false)
     }
 
-    private fun nickNameSuccess() {
+    private fun nickNameAlreadyError() {
+        binding.nickNameStatusTv.setTextColor(
+            ContextCompat.getColor(requireActivity(), com.dev6.designsystem.R.color.typoError)
+        )
+        binding.nickNameStatusTv.text ="이미 사용중인 닉네임입니다."
+        editTextHandler(false)
+    }
+
+    private fun nickNameFormSuccess() {
         binding.nickNameStatusTv.setTextColor(
             ContextCompat.getColor(requireActivity(), com.dev6.designsystem.R.color.mainColor)
         )
+        binding.nickNameStatusTv.text ="사용가능한 닉네임입니다 :)"
         editTextHandler(true)
     }
 

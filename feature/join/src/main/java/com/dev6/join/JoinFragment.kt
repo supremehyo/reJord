@@ -175,35 +175,35 @@ class JoinFragment : BindingFragment<FragmentJoinBinding>(R.layout.fragment_join
         is JoinViewModel.Event.UiEvent -> {
             when (event.uiState) {
                 is UiState.Loding -> {
-                    Log.v("join api 상태", "요청중")
+
                 }
                 is UiState.Success -> {
-                    Log.v("join api 상태", "성공")
+
                     JoinDialogFragment(){
-                        val bundle = bundleOf("JoinReq" to JoinReq( password = passWord , userId = userId, userType))
+                        val bundle = bundleOf("userUid" to event.uiState.data.uid)
                         findNavController().navigate(R.id.action_JoinFragment_to_JoinNickNameFragemnt , bundle)
                     }.show(parentFragmentManager,"")
                 }
                 is UiState.Error -> {
                     Toast.makeText(requireContext(), event.toString(), Toast.LENGTH_SHORT).show()
-                    Log.v("join api 상태", "실패")
+
                 }
             }
         }
         is JoinViewModel.Event.userUserIdExistUiEvent -> {
             when (event.uiState) {
                 is UiState.Loding -> {
-                    Log.v("join id 체크", "요청중")
+
                 }
                 is UiState.Success -> {
-                    Log.v("join id 체크", "성공")
+
                     nickNameCheck = true
                     binding.emailErrorText.visibility = View.VISIBLE
                     binding.emailErrorText.setTextColor(getColor(requireActivity(), com.dev6.designsystem.R.color.mainColor))
                     binding.emailErrorText.text = "사용가능한 아이디입니다."
                 }
                 is UiState.Error -> {
-                    Log.v("join id 체크", "실패")
+
                     binding.emailErrorText.visibility = View.VISIBLE
                     binding.emailErrorText.setTextColor(getColor(requireActivity(), com.dev6.designsystem.R.color.typoError))
                     binding.emailErrorText.text = "이미 가입된 아이디입니다."

@@ -15,7 +15,7 @@ interface JoinAPI {
 
     @Headers("Content-Type: application/json")
     @PATCH("/v1/users/{uid}")
-    suspend fun joinUpdate(@Body nicknameReqDTO: NicknameReqDTO): Response<NicknameUpdateResDTO>
+    suspend fun joinUpdate(@Body nicknameReqDTO: NicknameReqDTO , @Path("uid") uid : String): Response<NicknameUpdateResDTO>
 
     @Headers("Content-Type: application/json")
     @GET("/v1/users/{userId}/duplication")

@@ -16,8 +16,8 @@ class JoinRepositoryImple @Inject constructor(
     override suspend fun signUp(JoinReq: JoinReq): JoinRes
     = joinRemoteSource.signUp(JoinReq.toMapper()).toDomain()
 
-    override suspend fun joinUpdate(nicknameReqDTO: NicknameReq): NicknameUpdateRes
-    = joinRemoteSource.joinUpdate(nicknameReqDTO.toMapper()).toDomain()
+    override suspend fun joinUpdate(nicknameReqPair: Pair<NicknameReq,String>): NicknameUpdateRes
+    = joinRemoteSource.joinUpdate(nicknameReqPair.first.toMapper(), nicknameReqPair.second).toDomain()
 
     override suspend fun nicknameExistCheck(userId: String): NicknameExistCheckRes
     = joinRemoteSource.nicknameExistCheck(userId).toMapper()

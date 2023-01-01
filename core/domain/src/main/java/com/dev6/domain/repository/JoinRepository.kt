@@ -7,6 +7,6 @@ import com.dev6.domain.model.join.nickName.NicknameUpdateRes
 
 interface JoinRepository {
     suspend fun signUp(joinReqDTO: JoinReq) : JoinRes
-    suspend fun joinUpdate(nicknameReqDTO: NicknameReq) : NicknameUpdateRes
+    suspend fun joinUpdate(nicknameReqPair: Pair<NicknameReq,String>) : NicknameUpdateRes
     suspend fun nicknameExistCheck(userId : String) : NicknameExistCheckRes
 }

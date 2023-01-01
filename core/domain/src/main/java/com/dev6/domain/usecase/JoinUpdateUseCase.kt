@@ -14,10 +14,10 @@ import javax.inject.Inject
 class JoinUpdateUseCase @Inject constructor(
     private val joinRepository: JoinRepository
 ) : JoinUpdateReposBaseUseCase {
-    override suspend fun invoke(params: NicknameReq)= flow {
+    override suspend fun invoke(pair: Pair<NicknameReq,String>)= flow {
         emit(UiState.Loding)
         runCatching {
-            joinRepository.joinUpdate(params)
+            joinRepository.joinUpdate(pair)
         }.onSuccess { result ->
             emit(UiState.Success(result))
         }.onFailure {

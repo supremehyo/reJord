@@ -11,7 +11,7 @@ import javax.inject.Inject
 
 interface JoinRemoteDataSource {
     suspend fun signUp(joinReqDTO: JoinReqDTO): JoinResDTO
-    suspend fun joinUpdate(nicknameReqDTO: NicknameReqDTO) : NicknameUpdateResDTO
+    suspend fun joinUpdate(nicknameReqDTO: NicknameReqDTO , userUid: String) : NicknameUpdateResDTO
     suspend fun nicknameExistCheck(userId : String) : NicknameExistCheckResDTO
 }
 
@@ -23,8 +23,8 @@ class JoinRemoteDataSourceImpl @Inject constructor(
         return joinService.signUp(joinEntitiy).executeNetworkHandling()
     }
 
-    override suspend fun joinUpdate(nicknameReqDTO: NicknameReqDTO): NicknameUpdateResDTO {
-        return joinService.joinUpdate(nicknameReqDTO).executeNetworkHandling()
+    override suspend fun joinUpdate(nicknameReqDTO: NicknameReqDTO , userUid: String): NicknameUpdateResDTO {
+        return joinService.joinUpdate(nicknameReqDTO , userUid).executeNetworkHandling()
     }
 
     override suspend fun nicknameExistCheck(userId: String): NicknameExistCheckResDTO {
