@@ -4,7 +4,7 @@ import com.dev6.domain.model.join.JoinRes
 import com.dev6.domain.model.join.nickName.NicknameExistCheckRes
 import com.dev6.domain.model.join.nickName.NicknameReq
 import com.dev6.domain.model.join.nickName.NicknameUpdateRes
-import com.dev6.enums.UserType
+import com.dev6.core.enums.UserType
 import com.dev6.model.JoinReqDTO
 import com.dev6.model.JoinResDTO
 import com.dev6.model.nickname.NicknameExistCheckResDTO

@@ -1,6 +1,5 @@
 package com.dev6.model.nickname
-
-import com.dev6.enums.UserType
+import com.dev6.core.enums.UserType
 
 data class NicknameUpdateResDTO(
     val nickname : String,

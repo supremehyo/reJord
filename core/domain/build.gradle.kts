@@ -13,6 +13,7 @@ android {
 
 dependencies {
     implementation(Google.HILT_ANDROID)
+    implementation(project(mapOf("path" to ":core")))
     kapt(Google.HILT_ANDROID_COMPILER)
     implementation("androidx.core:core-ktx:1.7.0")
     testImplementation("junit:junit:4.13.2")
@@ -20,5 +21,5 @@ dependencies {
     androidTestImplementation("androidx.test.espresso:espresso-core:3.5.0")
     androidTestImplementation("androidx.annotation:annotation:1.5.0")
     implementation(project(":common"))
-    implementation(project(":core:data"))
+
 }

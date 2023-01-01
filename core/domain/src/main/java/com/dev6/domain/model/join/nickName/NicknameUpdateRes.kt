@@ -1,6 +1,6 @@
 package com.dev6.domain.model.join.nickName
+import com.dev6.core.enums.UserType
 
-import com.dev6.enums.UserType
 
 data class NicknameUpdateRes(
     val nickname : String,
