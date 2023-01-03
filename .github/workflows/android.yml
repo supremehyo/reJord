@@ -28,6 +28,12 @@ jobs:
      
       - name: Make gradlew executable
         run: chmod +x ./gradlew
+        
+      - name: Create KeyStore File and Properties
+        run: |
+          mkdir ./app/signing
+          echo '${{ secrets.DD }}' | base64 -d > ./app/signing/ku_ring_keystore.jks
+          echo '${{ secrets.KEY_STORE_PROPERTIES }}' > ./app/signing/keystore.properties
          
       - name: Build APK
         run: bash ./gradlew clean assembleDebug --stacktrace
