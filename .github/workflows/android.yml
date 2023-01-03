@@ -36,7 +36,7 @@ jobs:
           echo '${{ secrets.KEY_STORE_PROPERTIES }}' > ./app/signing/keystore.properties
          
       - name: Build APK
-        run: bash ./gradlew clean assembleDebug --stacktrace
+        run: bash ./gradlew clean assembleRelease --stacktrace
      
      
       - run: './gradlew assembleDebug'
