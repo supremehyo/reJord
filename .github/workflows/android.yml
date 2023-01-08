@@ -2,9 +2,10 @@ name: Android CI
 
 on:
   push:
-    branches: [ "main" ]
+    branches: [ "main" , "release" ]
   pull_request:
     branches: [ "release" ,"develop" ]
+
 
 jobs:
   build:
@@ -27,9 +28,15 @@ jobs:
      
       - name: Make gradlew executable
         run: chmod +x ./gradlew
+        
+      - name: Create KeyStore File and Properties
+        run: |
+          mkdir ./app/signing
+          echo '${{ secrets.DD }}' | base64 -d > ./app/signing/rejord.jks
+          echo '${{ secrets.KEY_STORE_PROPERTIES }}' > ./app/signing/keystore.properties
          
       - name: Build APK
-        run: bash ./gradlew clean assembleDebug --stacktrace
+        run: bash ./gradlew clean assembleRelease --stacktrace
      
      
       - run: './gradlew assembleDebug'
