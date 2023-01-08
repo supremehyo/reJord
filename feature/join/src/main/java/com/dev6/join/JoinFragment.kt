@@ -12,6 +12,7 @@ import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
 import com.dev6.common.uistate.UiState
 import com.dev6.core.base.BindingFragment
+import com.dev6.core.util.Validation
 import com.dev6.domain.model.join.JoinReq
 import com.dev6.join.databinding.FragmentJoinBinding
 import dagger.hilt.android.AndroidEntryPoint
@@ -27,6 +28,8 @@ class JoinFragment : BindingFragment<FragmentJoinBinding>(R.layout.fragment_join
     var userId = "test.com"
     var passWord = "12345678"
     var userType = "ADMIN"
+    var validation = Validation()
+
 
     override fun initView() {
         super.initView()
@@ -42,14 +45,17 @@ class JoinFragment : BindingFragment<FragmentJoinBinding>(R.layout.fragment_join
 
     override fun initListener() {
         super.initListener()
-        checkTerms()
         AuthButton()
+
+        binding.backHomeLl.setOnClickListener {
+            findNavController().popBackStack()
+        }
 
         binding.customEditTextEmailSub.addTextChangedListener(object : TextWatcher {
             override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {}
             override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {}
             override fun afterTextChanged(edit: Editable?) {
-                emailValidation()
+                emailValidation(binding.customEditTextEmailSub.text.toString())
                 editTextHandler()
             }
         })
@@ -58,7 +64,7 @@ class JoinFragment : BindingFragment<FragmentJoinBinding>(R.layout.fragment_join
             override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {}
             override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {}
             override fun afterTextChanged(p0: Editable?) {
-                joinPassWordValidation()
+                joinPassWordValidation(binding.customEditTextPasswordSub1.text.toString())
                 joinPassWordConfirmValidation()
                 editTextHandler()
             }
@@ -83,8 +89,8 @@ class JoinFragment : BindingFragment<FragmentJoinBinding>(R.layout.fragment_join
 
     }
 
-    private fun joinPassWordValidation(){
-        if(binding.customEditTextPasswordSub1.text!!.length < 8){
+    private fun joinPassWordValidation(pw : String){
+        if(validation.checkPwPattern(pw)){
             binding.passwordErrorText.visibility =View.VISIBLE
             errors[1] = false
         }else{
@@ -93,8 +99,8 @@ class JoinFragment : BindingFragment<FragmentJoinBinding>(R.layout.fragment_join
         }
     }
 
-    private fun emailValidation(){
-        if(emailPattern.matcher(binding.customEditTextEmailSub.text.toString()).matches()){
+    private fun emailValidation(id : String){
+        if(validation.checkIdPattern(id)){
             userId = binding.customEditTextEmailSub.text.toString()
             binding.emailErrorText.visibility = View.GONE
             errors[0] = true
@@ -113,16 +119,6 @@ class JoinFragment : BindingFragment<FragmentJoinBinding>(R.layout.fragment_join
             binding.passwordErrorConfirmText.visibility = View.GONE
             errors[2] = true
         }
-    }
-
-
-    private fun checkTerms(){
-        //약관 체크 박스
-        /*
-        binding.checkBox1.setOnCheckedChangeListener { compoundButton, isChecked -> terms[0] = isChecked }
-        binding.checkBox2.setOnCheckedChangeListener { compoundButton, isChecked -> terms[1] = isChecked }
-        binding.checkBox3.setOnCheckedChangeListener { compoundButton, isChecked -> terms[2] = isChecked }
-         */
     }
 
     private fun ActiveAuthButton(mutableList: MutableList<Boolean> , mutableList2: MutableList<Boolean>) : Boolean{
