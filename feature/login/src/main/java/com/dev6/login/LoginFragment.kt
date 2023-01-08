@@ -2,29 +2,42 @@ package com.dev6.login
 
 import android.text.Editable
 import android.text.TextWatcher
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.core.content.ContextCompat
+import androidx.core.os.bundleOf
+import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
+import com.dev6.common.uistate.UiState
 import com.dev6.core.base.BindingFragment
 import com.dev6.core.util.Validation
+import com.dev6.domain.model.join.login.LoginReq
+import com.dev6.join.JoinDialogFragment
+import com.dev6.join.JoinViewModel
 import com.dev6.login.databinding.FragmentLoginBinding
+import dagger.hilt.android.AndroidEntryPoint
 
-
+@AndroidEntryPoint
 class LoginFragment : BindingFragment<FragmentLoginBinding>(R.layout.fragment_login) {
-
+    private val loginViewModel: LoginViewModel by activityViewModels()
     var userId = ""
     var passWord = ""
     private var errors = mutableListOf(true,true)
     var validation = Validation()
+
+
     override fun initView() {
         super.initView()
     }
 
     override fun initViewModel() {
         super.initViewModel()
+        repeatOnStartedFragment {
+            loginViewModel.eventFlow.collect { event -> handleEvent(event) }
+        }
     }
 
     override fun initListener() {
@@ -49,7 +62,7 @@ class LoginFragment : BindingFragment<FragmentLoginBinding>(R.layout.fragment_lo
 
         binding.authButton.setOnClickListener {
             if(allDataComplete()){
-                Toast.makeText(requireContext(), "로그인은 개발중임당~~", Toast.LENGTH_SHORT).show()
+                loginViewModel.userLogin(LoginReq(passWord,userId))
             }else{
                 Toast.makeText(requireContext(), "입력하지 않은 값이 있습니다.", Toast.LENGTH_SHORT).show()
             }
@@ -100,5 +113,19 @@ class LoginFragment : BindingFragment<FragmentLoginBinding>(R.layout.fragment_lo
         return ActiveAuthButton(errors) && binding.passwordErrorText.visibility == View.GONE
     }
 
+    private fun handleEvent(event: LoginViewModel.Event) = when(event){
+        is LoginViewModel.Event.UiEvent ->{
+            when(event.uiState){
+                is UiState.Loding -> {
 
+                }
+                is UiState.Success -> {
+                    Toast.makeText(requireContext(), event.toString(), Toast.LENGTH_SHORT).show()
+                }
+                is UiState.Error -> {
+                    Toast.makeText(requireContext(), event.toString(), Toast.LENGTH_SHORT).show()
+                }
+            }
+        }
+    }
 }

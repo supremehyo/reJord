@@ -9,9 +9,7 @@ data class ErrorResponse(
 )
 
 data class Error(
-    val code: Int,
-    val message: String,
-    val detail: String
+    val message: String
 )
 
 
