@@ -1,11 +1,13 @@
 package com.dev6.join
 
+import android.graphics.Color
 import android.text.Editable
 import android.text.TextWatcher
 import android.util.Log
 import android.util.Patterns
 import android.view.View
 import android.widget.Toast
+import androidx.core.content.ContextCompat
 import androidx.core.content.ContextCompat.getColor
 import androidx.core.os.bundleOf
 import androidx.fragment.app.activityViewModels
@@ -22,12 +24,11 @@ import java.util.regex.Pattern
 @AndroidEntryPoint
 class JoinFragment : BindingFragment<FragmentJoinBinding>(R.layout.fragment_join) {
     private val joinViewModel: JoinViewModel by activityViewModels()
-    private var terms = mutableListOf(true,true,true) // 기존엔 모두 false 약관체크 빠지게 되면 다시 false 돌림
-    private var errors = mutableListOf(true,true,true)
-    val emailPattern: Pattern = Patterns.EMAIL_ADDRESS
-    var userId = "test.com"
-    var passWord = "12345678"
+    private var errors = mutableListOf(false,false,false) // 해당 error 처리도 다 viewmodel 로 추후에 뺄 예정
+    var userId = ""
+    var passWord = ""
     var userType = "ADMIN"
+    var nickNameCheck = false
     var validation = Validation()
 
 
@@ -46,6 +47,12 @@ class JoinFragment : BindingFragment<FragmentJoinBinding>(R.layout.fragment_join
     override fun initListener() {
         super.initListener()
         AuthButton()
+
+        binding.textView5.setOnClickListener {
+            if(errors[0]){
+                joinViewModel.userUserIdExistCheck(userId)
+            }
+        }
 
         binding.backHomeLl.setOnClickListener {
             findNavController().popBackStack()
@@ -91,11 +98,17 @@ class JoinFragment : BindingFragment<FragmentJoinBinding>(R.layout.fragment_join
 
     private fun joinPassWordValidation(pw : String){
         if(validation.checkPwPattern(pw)){
+            passWord = binding.customEditTextPasswordSub1.text.toString()
+            // TODO 아래 error text 처리도 모듈화 처리 할 것
             binding.passwordErrorText.visibility =View.VISIBLE
-            errors[1] = false
-        }else{
-            binding.passwordErrorText.visibility =View.GONE
+            binding.passwordErrorText.setTextColor(getColor(requireActivity(), com.dev6.designsystem.R.color.mainColor))
+            binding.passwordErrorText.text = "사용가능한 비밀번호 입니다."
             errors[1] = true
+        }else{
+            binding.passwordErrorText.visibility =View.VISIBLE
+            binding.passwordErrorText.setTextColor(getColor(requireActivity(), com.dev6.designsystem.R.color.typoError))
+            binding.passwordErrorText.text = "영문과 숫자를 포함하여 최소 5글자 이상을 입력해주세요."
+            errors[1] = false
         }
     }
 
@@ -106,6 +119,8 @@ class JoinFragment : BindingFragment<FragmentJoinBinding>(R.layout.fragment_join
             errors[0] = true
         } else {
             binding.emailErrorText.visibility = View.VISIBLE
+            binding.emailErrorText.setTextColor(getColor(requireActivity(), com.dev6.designsystem.R.color.typoError))
+            binding.emailErrorText.text = "영문과 숫자를 포함하여 최소 5글자 이상을 입력해주세요."
             errors[0] = false
         }
     }
@@ -113,35 +128,31 @@ class JoinFragment : BindingFragment<FragmentJoinBinding>(R.layout.fragment_join
     private fun joinPassWordConfirmValidation(){
         if(binding.customEditTextPasswordSub1.text.toString() != binding.customEditTextPasswordSub2.text.toString()){
             binding.passwordErrorConfirmText.visibility = View.VISIBLE
+            binding.passwordErrorConfirmText.setTextColor(getColor(requireActivity(), com.dev6.designsystem.R.color.typoError))
+            binding.passwordErrorConfirmText.text = "비밀번호가 일치하지 않습니다."
             errors[2] = false
         }else if(binding.customEditTextPasswordSub1.text.toString() == binding.customEditTextPasswordSub2.text.toString()){
             passWord = binding.customEditTextPasswordSub1.text.toString()
-            binding.passwordErrorConfirmText.visibility = View.GONE
+            binding.passwordErrorConfirmText.visibility = View.VISIBLE
+            binding.passwordErrorConfirmText.setTextColor(getColor(requireActivity(), com.dev6.designsystem.R.color.mainColor))
+            binding.passwordErrorConfirmText.text = "사용가능한 비밀번호 입니다."
             errors[2] = true
         }
     }
 
-    private fun ActiveAuthButton(mutableList: MutableList<Boolean> , mutableList2: MutableList<Boolean>) : Boolean{
-        return mutableList.all { it } && mutableList2.all { it }
+    private fun ActiveAuthButton(mutableList2: MutableList<Boolean>) : Boolean{
+        return  mutableList2.all { it }
     }
 
     private fun AuthButton(){
         binding.authButton.setOnClickListener {
             //회원가입 요청
-            //joinViewModel.userJoin(JoinReq(password = passWord , userId = userId, userType))
-
-            //팝업 test
-            JoinDialogFragment(){
-                findNavController().navigate(R.id.action_JoinFragment_to_JoinNickNameFragemnt)
-            }.show(parentFragmentManager,"")
+            joinViewModel.userJoin(JoinReq(password = passWord , userId = userId, userType))
         }
     }
 
     private fun allDataComplete() : Boolean{
-        return (ActiveAuthButton(terms,errors)
-                && binding.emailErrorText.visibility == View.GONE
-                && binding.passwordErrorText.visibility == View.GONE
-                && binding.passwordErrorConfirmText.visibility == View.GONE)
+        return (ActiveAuthButton(errors)) && nickNameCheck
     }
 
     private fun editTextHandler() {
@@ -164,18 +175,41 @@ class JoinFragment : BindingFragment<FragmentJoinBinding>(R.layout.fragment_join
         is JoinViewModel.Event.UiEvent -> {
             when (event.uiState) {
                 is UiState.Loding -> {
-                    Log.v("join api 상태", "요청중")
+
                 }
                 is UiState.Success -> {
-                    Log.v("join api 상태", "성공")
-                    val bundle = bundleOf("JoinReq" to JoinReq( password = passWord , userId = userId, userType))
-                    findNavController().navigate(R.id.action_JoinFragment_to_JoinNickNameFragemnt , bundle)
+
+                    JoinDialogFragment(){
+                        val bundle = bundleOf("userUid" to event.uiState.data.uid)
+                        findNavController().navigate(R.id.action_JoinFragment_to_JoinNickNameFragemnt , bundle)
+                    }.show(parentFragmentManager,"")
                 }
                 is UiState.Error -> {
                     Toast.makeText(requireContext(), event.toString(), Toast.LENGTH_SHORT).show()
-                    Log.v("join api 상태", "실패")
+
                 }
             }
         }
+        is JoinViewModel.Event.userUserIdExistUiEvent -> {
+            when (event.uiState) {
+                is UiState.Loding -> {
+
+                }
+                is UiState.Success -> {
+
+                    nickNameCheck = true
+                    binding.emailErrorText.visibility = View.VISIBLE
+                    binding.emailErrorText.setTextColor(getColor(requireActivity(), com.dev6.designsystem.R.color.mainColor))
+                    binding.emailErrorText.text = "사용가능한 아이디입니다."
+                }
+                is UiState.Error -> {
+
+                    binding.emailErrorText.visibility = View.VISIBLE
+                    binding.emailErrorText.setTextColor(getColor(requireActivity(), com.dev6.designsystem.R.color.typoError))
+                    binding.emailErrorText.text = "이미 가입된 아이디입니다."
+                }
+            }
+        }
+        else -> {}
     }
 }
