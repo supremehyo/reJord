@@ -20,7 +20,7 @@ suspend fun <T> Response<T>.executeNetworkHandling(): T {
         val gson = Gson()
         val errorBody = errorBody()!!.string()
         val errorResponse = gson.fromJson(errorBody, ErrorResponse::class.java)
-        DefaultHandleServerStatus(errorResponse.error)
+        DefaultHandleServerStatus(errorResponse.error , code())
     }
 
     return body().executeErrorHandling(handle)

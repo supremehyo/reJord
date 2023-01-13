@@ -1,3 +1,5 @@
+import Versions.KOTLINX_COROUTINES
+
 plugins {
     id("com.android.library")
     id("org.jetbrains.kotlin.android")
@@ -9,6 +11,10 @@ android {
         viewBinding = true
         dataBinding = true
     }
+
+    testOptions {
+        unitTests.isReturnDefaultValues = true
+    }
 }
 
 dependencies {
@@ -16,9 +22,12 @@ dependencies {
     implementation("androidx.navigation:navigation-fragment-ktx:2.5.3")
     implementation("androidx.navigation:navigation-ui-ktx:2.5.3")
     testImplementation("junit:junit:4.13.2")
+    testImplementation("org.mockito:mockito-inline:2.21.0")
+    androidTestImplementation("org.mockito:mockito-android:2.24.5")
     androidTestImplementation("androidx.test.ext:junit:1.1.4")
     androidTestImplementation("androidx.test.espresso:espresso-core:3.5.0")
     androidTestImplementation("androidx.annotation:annotation:1.5.0")
+    testImplementation ("org.jetbrains.kotlinx:kotlinx-coroutines-test:$KOTLINX_COROUTINES")
 
     implementation(project(":core"))
     implementation(project(":common"))

@@ -1,4 +1,4 @@
-package com.dev6.c
+package com.dev6.data
 
 import org.junit.Test
 
