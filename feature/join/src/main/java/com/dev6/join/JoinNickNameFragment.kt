@@ -98,7 +98,7 @@ class JoinNickNameFragment :
     private fun checkNicknameValidation(nickname: String) {
         if (validation.checkNickNamePattern(nickname)) {
             nickNameFormSuccess()
-        } else {
+        } else if(!validation.checkNickNamePattern(nickname) || nickname.isEmpty()) {
             nickNameNotFormError()
         }
     }

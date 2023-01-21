@@ -1,6 +1,7 @@
 package com.dev6.rejord.di
 import com.dev6.di.HttpRequestInterceptor
 import com.dev6.network.JoinAPI
+import com.dev6.network.LoginAPI
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -43,6 +44,12 @@ open class NetworkModule {
     @Singleton
     fun provideJoinService(retrofit: Retrofit): JoinAPI {
         return retrofit.create(JoinAPI::class.java)
+    }
+
+    @Provides
+    @Singleton
+    fun provideLoginService(retrofit: Retrofit): LoginAPI {
+        return retrofit.create(LoginAPI::class.java)
     }
 
 
