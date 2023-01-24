@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/homeFragment"
+        android:icon="@drawable/round_active"
+        android:title="메인"/>
+
+    <item
+        android:id="@+id/MypageFragment"
+        android:icon="@drawable/round_active"
+        android:title="마이페이지"/>
+
+</menu>

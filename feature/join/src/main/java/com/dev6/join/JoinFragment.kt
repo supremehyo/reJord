@@ -1,13 +1,8 @@
 package com.dev6.join
-
-import android.graphics.Color
 import android.text.Editable
 import android.text.TextWatcher
-import android.util.Log
-import android.util.Patterns
 import android.view.View
 import android.widget.Toast
-import androidx.core.content.ContextCompat
 import androidx.core.content.ContextCompat.getColor
 import androidx.core.os.bundleOf
 import androidx.fragment.app.activityViewModels
@@ -18,7 +13,6 @@ import com.dev6.core.util.Validation
 import com.dev6.domain.model.join.JoinReq
 import com.dev6.join.databinding.FragmentJoinBinding
 import dagger.hilt.android.AndroidEntryPoint
-import java.util.regex.Pattern
 
 
 @AndroidEntryPoint

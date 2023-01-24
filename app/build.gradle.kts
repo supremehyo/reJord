@@ -86,6 +86,7 @@ dependencies {
     implementation("androidx.navigation:navigation-dynamic-features-fragment:2.5.3")
     implementation(project(":feature:login"))
     implementation(project(":feature:join"))
+    implementation(project(":feature:home"))
     implementation(project(":core:data"))
     implementation(project(":core:designsystem"))
     implementation(project(":core:domain"))
