@@ -1,24 +1,20 @@
 package com.dev6.rejord
-
-import com.dev6.core.base.BindingActivity
+import android.os.Bundle
+import androidx.appcompat.app.AppCompatActivity
+import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
 import com.dev6.rejord.databinding.ActivityMainBinding
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
-class MainActivity : BindingActivity<ActivityMainBinding>(R.layout.activity_main) {
-    override fun initView() {
-        super.initView()
-    }
+class MainActivity : AppCompatActivity() {
+    private lateinit var binding: ActivityMainBinding
 
-    override fun initViewModel() {
-        super.initViewModel()
-    }
+    override fun onCreate(savedInstanceState: Bundle?) {
+        installSplashScreen()
 
-    override fun initListener() {
-        super.initListener()
-    }
+        super.onCreate(savedInstanceState)
+        binding = ActivityMainBinding.inflate(layoutInflater)
+        setContentView(binding.root)
 
-    override fun afterOnCreate() {
-        super.afterOnCreate()
     }
 }

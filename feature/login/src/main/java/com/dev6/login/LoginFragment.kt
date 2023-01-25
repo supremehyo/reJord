@@ -64,7 +64,7 @@ class LoginFragment : BindingFragment<FragmentLoginBinding>(R.layout.fragment_lo
             if(allDataComplete()){
                 loginViewModel.userLogin(LoginReq(passWord,userId))
             }else{
-                Toast.makeText(requireContext(), "입력하지 않은 값이 있습니다.", Toast.LENGTH_SHORT).show()
+                Toast.makeText(requireContext(), "형식에 맞지 않은 값이 있습니다.", Toast.LENGTH_SHORT).show()
             }
         }
 
@@ -98,6 +98,7 @@ class LoginFragment : BindingFragment<FragmentLoginBinding>(R.layout.fragment_lo
             binding.passwordErrorText.visibility = View.GONE
             errors[1] = true
         } else {
+            binding.passwordErrorText.text = "영문과 숫자를 포함하여 최소 8글자 이상을 입력해주세요."
             binding.passwordErrorText.visibility = View.VISIBLE
             errors[1] = false
         }
@@ -123,6 +124,8 @@ class LoginFragment : BindingFragment<FragmentLoginBinding>(R.layout.fragment_lo
                     Toast.makeText(requireContext(), event.toString(), Toast.LENGTH_SHORT).show()
                 }
                 is UiState.Error -> {
+                    binding.passwordErrorText.text = "아이디 또는 비밀번호가 일치하지 않습니다."
+                    binding.passwordErrorText.visibility = View.VISIBLE
                     Toast.makeText(requireContext(), event.toString(), Toast.LENGTH_SHORT).show()
                 }
             }

@@ -9,6 +9,10 @@
     <string name="find_password"><u>비밀번호찾기</u></string>
     <string name="go_join"><u>회원가입</u></string>
     <string name="password_find_subText">아이디를 입력하세요.\nRE:욜드에서 임시비밀번호를 제공합니다.\n설정에서 꼭 비밀번호를 변경해주세요.</string>
-<!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="join_error1">이미 가입된 아이디입니다.</string>
+    <string name="join_error2">형식에 맞지 않은 아이디입니다.</string>
+    <string name="join_password_error1">영문과 숫자를 포함하여 최소 8글자 이상을 입력해주세요.</string>
+    <!-- login 화면 -->
+    <string name="login_subTitleText">로그인 후 RE:욜드를 즐겨보세요\n최초 1회 로그인후 자동으로 유지됩니다.</string>
+    <string name="login_error1">아이디 또는 비밀번호가 일치하지 않습니다.</string>
 </resources>

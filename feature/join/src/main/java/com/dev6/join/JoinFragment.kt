@@ -101,7 +101,7 @@ class JoinFragment : BindingFragment<FragmentJoinBinding>(R.layout.fragment_join
         }else{
             binding.passwordErrorText.visibility =View.VISIBLE
             binding.passwordErrorText.setTextColor(getColor(requireActivity(), com.dev6.designsystem.R.color.typoError))
-            binding.passwordErrorText.text = "영문과 숫자를 포함하여 최소 5글자 이상을 입력해주세요."
+            binding.passwordErrorText.text = getString(com.dev6.designsystem.R.string.join_password_error1)
             errors[1] = false
         }
     }
@@ -114,7 +114,7 @@ class JoinFragment : BindingFragment<FragmentJoinBinding>(R.layout.fragment_join
         } else {
             binding.emailErrorText.visibility = View.VISIBLE
             binding.emailErrorText.setTextColor(getColor(requireActivity(), com.dev6.designsystem.R.color.typoError))
-            binding.emailErrorText.text = "영문과 숫자를 포함하여 최소 5글자 이상을 입력해주세요."
+            binding.emailErrorText.text = getString(com.dev6.designsystem.R.string.join_error2)
             errors[0] = false
         }
     }
@@ -200,7 +200,7 @@ class JoinFragment : BindingFragment<FragmentJoinBinding>(R.layout.fragment_join
 
                     binding.emailErrorText.visibility = View.VISIBLE
                     binding.emailErrorText.setTextColor(getColor(requireActivity(), com.dev6.designsystem.R.color.typoError))
-                    binding.emailErrorText.text = "이미 가입된 아이디입니다."
+                    binding.emailErrorText.text = getString(com.dev6.designsystem.R.string.join_error1)
                 }
             }
         }
