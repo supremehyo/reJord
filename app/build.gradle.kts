@@ -92,6 +92,7 @@ dependencies {
     implementation(project(":core"))
     implementation(project(":common"))
 
-
+    //스플래시 화면
+    implementation ("androidx.core:core-splashscreen:1.0.0-rc01")
 
 }

@@ -106,7 +106,7 @@
             android:layout_width="wrap_content"
             android:layout_height="17dp"
             android:layout_marginHorizontal="@dimen/layout_side_margin"
-            android:text="영문과 숫자를 포함하여 최소 5글자 이상을 입력해주세요."
+            android:text="형식에 맞지 않은 아이디입니다."
             android:textColor="#FF0000"
             android:visibility="gone"
             app:layout_constraintEnd_toEndOf="parent"
