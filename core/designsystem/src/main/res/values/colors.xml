@@ -11,4 +11,7 @@
     <color name="optionTextColor">#323232</color>
     <color name="mainColor">#97C075</color>
     <color name="typoError">#C81800</color>
+
+    <color name="bg3">#D1D1D1</color>
+    <color name="home_banner">#EFF2F5</color>
 </resources>
