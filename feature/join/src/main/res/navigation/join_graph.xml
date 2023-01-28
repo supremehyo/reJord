@@ -18,6 +18,11 @@
         android:id="@+id/JoinNickNameFragemnt"
         android:name="com.dev6.join.JoinNickNameFragment"
         tools:layout="@layout/fragment_join_nick_name">
+        <action
+            android:id="@+id/action_JoinNickNameFragemnt_to_home_graph"
+            app:destination="@id/home_graph" />
     </fragment>
+
+    <include app:graph="@navigation/home_graph" />
 
 </navigation>

@@ -1,5 +1,6 @@
 package com.dev6.login
 
+import android.content.Intent
 import android.text.Editable
 import android.text.TextWatcher
 import android.util.Log
@@ -15,6 +16,7 @@ import com.dev6.common.uistate.UiState
 import com.dev6.core.base.BindingFragment
 import com.dev6.core.util.Validation
 import com.dev6.domain.model.join.login.LoginReq
+import com.dev6.home.HomeActivity
 import com.dev6.join.JoinDialogFragment
 import com.dev6.join.JoinViewModel
 import com.dev6.login.databinding.FragmentLoginBinding
@@ -61,11 +63,16 @@ class LoginFragment : BindingFragment<FragmentLoginBinding>(R.layout.fragment_lo
         })
 
         binding.authButton.setOnClickListener {
+            findNavController().navigate(R.id.action_LoginFragment_to_home_graph)
+
+            /*
             if(allDataComplete()){
                 loginViewModel.userLogin(LoginReq(passWord,userId))
             }else{
                 Toast.makeText(requireContext(), "형식에 맞지 않은 값이 있습니다.", Toast.LENGTH_SHORT).show()
             }
+
+             */
         }
 
     }
@@ -122,8 +129,10 @@ class LoginFragment : BindingFragment<FragmentLoginBinding>(R.layout.fragment_lo
                 }
                 is UiState.Success -> {
                     Toast.makeText(requireContext(), event.toString(), Toast.LENGTH_SHORT).show()
+                    findNavController().navigate(R.id.action_LoginFragment_to_home_graph)
                 }
                 is UiState.Error -> {
+                    Toast.makeText(requireContext(), event.toString(), Toast.LENGTH_SHORT).show()
                     binding.passwordErrorText.text = "아이디 또는 비밀번호가 일치하지 않습니다."
                     binding.passwordErrorText.visibility = View.VISIBLE
                     Toast.makeText(requireContext(), event.toString(), Toast.LENGTH_SHORT).show()

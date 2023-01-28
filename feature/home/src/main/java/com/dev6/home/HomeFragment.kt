@@ -1,17 +1,20 @@
 package com.dev6.home
-import androidx.fragment.app.activityViewModels
+import androidx.fragment.app.Fragment
 import com.dev6.core.base.BindingFragment
 import com.dev6.home.databinding.FragmentHomeBinding
+import com.dev6.home.fragment.MainHomeFragment
+import com.dev6.home.fragment.MyPageFragment
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
 class HomeFragment : BindingFragment<FragmentHomeBinding>(R.layout.fragment_home) {
-    private val homeViewModel : HomeViewModel by activityViewModels()
-    val viewPagerAdapter = HomeContentPagerAdapter(requireActivity())
+
+    val mainHomeFragment: MainHomeFragment by lazy { MainHomeFragment() }
+    val myPageFragment: MyPageFragment by lazy { MyPageFragment() }
+    lateinit var selected: Fragment
 
     override fun initView() {
         super.initView()
-        binding.pagerContent.adapter = viewPagerAdapter
     }
 
     override fun initViewModel() {
@@ -24,5 +27,26 @@ class HomeFragment : BindingFragment<FragmentHomeBinding>(R.layout.fragment_home
 
     override fun afterViewCreated() {
         super.afterViewCreated()
+        replaceFragment(mainHomeFragment)
+        binding.bottomNavigation.setOnItemSelectedListener{
+            when (it.itemId) {
+                R.id.mainHomeFragment -> {
+                   selected = mainHomeFragment
+                    replaceFragment(selected)
+                }
+                R.id.MypageFragment -> {
+                   selected = myPageFragment
+                    replaceFragment(selected)
+                }
+            }
+            true
+        }
+
+    }
+    private fun replaceFragment(fragment: Fragment) {
+        childFragmentManager.beginTransaction().apply {
+            replace(R.id.fragmentContainer, fragment)
+            commit()
+        }
     }
 }

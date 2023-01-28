@@ -2,14 +2,14 @@
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    app:startDestination="@id/HomeFragment"
+    app:startDestination="@id/homeFragment"
     android:id="@+id/home_graph">
 
     <fragment
-        android:id="@id/HomeFragment"
+        android:id="@+id/homeFragment"
         android:name="com.dev6.home.HomeFragment"
         tools:layout="@layout/fragment_home">
-
     </fragment>
+
 
 </navigation>

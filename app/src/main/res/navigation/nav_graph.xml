@@ -7,7 +7,7 @@
 
     <fragment
         android:id="@+id/Mainfragment"
-        tools:layout="@layout/fragment_main"
+        tools:layout="@layout/fragment_home_main"
         android:name="com.dev6.rejord.MainFragment">
         <action
             android:id="@+id/action_random_fragment_to_settings_nav_graph"

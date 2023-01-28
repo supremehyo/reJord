@@ -1,6 +1,7 @@
 package com.dev6.join
 import android.text.Editable
 import android.text.TextWatcher
+import android.util.Log
 import android.view.View
 import android.widget.Toast
 import androidx.core.content.ContextCompat.getColor
@@ -197,7 +198,7 @@ class JoinFragment : BindingFragment<FragmentJoinBinding>(R.layout.fragment_join
                     binding.emailErrorText.text = "사용가능한 아이디입니다."
                 }
                 is UiState.Error -> {
-
+                    Log.v("sfsdf" , event.uiState.error.toString())
                     binding.emailErrorText.visibility = View.VISIBLE
                     binding.emailErrorText.setTextColor(getColor(requireActivity(), com.dev6.designsystem.R.color.typoError))
                     binding.emailErrorText.text = getString(com.dev6.designsystem.R.string.join_error1)

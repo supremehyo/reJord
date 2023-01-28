@@ -84,7 +84,7 @@ class JoinNickNameFragment :
                 is UiState.Success -> {
                     Log.v("join 회원정보 수정", "성공 홈으로 이동")
                     //홈으로 이동
-                    //findNavController().navigate()
+                    findNavController().navigate(R.id.action_JoinNickNameFragemnt_to_home_graph)
                 }
                 is UiState.Error -> {
                     nickNameAlreadyError()
