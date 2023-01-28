@@ -28,13 +28,13 @@
         app:layout_constraintStart_toStartOf="parent"
         app:menu="@menu/home_nav_menu" >
 
-        <com.google.android.material.floatingactionbutton.FloatingActionButton
-            android:id="@+id/main_fab"
+        <ImageView
+            android:id="@+id/writeButtonIv"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:backgroundTint="@color/mainColor"
+            android:backgroundTint="@color/white"
             android:elevation="0dp"
-            android:src="@drawable/back_arrow"
+            android:src="@drawable/write_icon"
             android:layout_gravity="center"
             android:translationZ="10dp"
             app:borderWidth="0dp"
