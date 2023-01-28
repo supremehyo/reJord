@@ -1,7 +1,7 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
     <!-- Base application theme. -->
     <style name="Theme.rejord.designsystem" parent="Theme.MaterialComponents.Light.NoActionBar">
-        <item name="colorAccent">@color/mainColor</item>
+        <item name="colorAccent">@color/white</item>
         <item name="colorPrimary">@color/mainColor</item>
     </style>
 

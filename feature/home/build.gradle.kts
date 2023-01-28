@@ -55,6 +55,7 @@ dependencies {
     androidTestImplementation("androidx.annotation:annotation:1.5.0")
 
     implementation(project(":core"))
+    implementation(project(":core:data"))
     implementation(project(":common"))
     implementation(project(":core:designsystem"))
     implementation(project(":core:domain"))
