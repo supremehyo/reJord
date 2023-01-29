@@ -9,14 +9,11 @@ import com.dev6.domain.model.join.JoinRes
 import com.dev6.domain.model.join.nickName.NicknameExistCheckRes
 import com.dev6.domain.model.join.nickName.NicknameReq
 import com.dev6.domain.model.join.nickName.NicknameUpdateRes
-import com.dev6.domain.usecase.JoinReposBaseUseCase
-import com.dev6.domain.usecase.JoinUpdateUseCase
-import com.dev6.domain.usecase.JoinUseCase
-import com.dev6.domain.usecase.NicknameExistCheckUseCase
+import com.dev6.domain.usecase.join.JoinUpdateUseCase
+import com.dev6.domain.usecase.join.JoinUseCase
+import com.dev6.domain.usecase.join.NicknameExistCheckUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.InternalCoroutinesApi
 import kotlinx.coroutines.flow.*
-import kotlinx.coroutines.launch
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 

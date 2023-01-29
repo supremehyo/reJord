@@ -4,6 +4,6 @@ data class PageableDTO(
     val pageNumber: Int,
     val pageSize: Int,
     val paged: Boolean,
-    val sortDTO: SortDTO,
+    val sort: SortDTO,
     val unpaged: Boolean
 )

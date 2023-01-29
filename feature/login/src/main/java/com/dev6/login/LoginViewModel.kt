@@ -6,7 +6,7 @@ import com.dev6.core.util.MutableEventFlow
 import com.dev6.core.util.asEventFlow
 import com.dev6.domain.model.join.login.LoginReq
 import com.dev6.domain.model.join.login.LoginRes
-import com.dev6.domain.usecase.LoginUseCase
+import com.dev6.domain.usecase.login.LoginUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.launch

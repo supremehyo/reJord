@@ -2,6 +2,7 @@ package com.dev6.rejord.di
 import com.dev6.di.HttpRequestInterceptor
 import com.dev6.network.JoinAPI
 import com.dev6.network.LoginAPI
+import com.dev6.network.PostAPI
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -52,5 +53,10 @@ open class NetworkModule {
         return retrofit.create(LoginAPI::class.java)
     }
 
+    @Provides
+    @Singleton
+    fun providePostService(retrofit: Retrofit): PostAPI {
+        return retrofit.create(PostAPI::class.java)
+    }
 
 }

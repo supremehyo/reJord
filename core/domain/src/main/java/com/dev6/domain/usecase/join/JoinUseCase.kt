@@ -1,24 +1,24 @@
-package com.dev6.domain.usecase
+package com.dev6.domain.usecase.join
 import android.util.Log
 import com.dev6.common.uistate.UiState
-import com.dev6.domain.model.join.nickName.NicknameReq
-import com.dev6.domain.model.join.nickName.NicknameUpdateRes
+import com.dev6.domain.model.join.JoinReq
 import com.dev6.domain.repository.JoinRepository
-import kotlinx.coroutines.flow.Flow
+import com.dev6.domain.usecase.JoinReposBaseUseCase
 import kotlinx.coroutines.flow.flow
 import javax.inject.Inject
 
 
-class NicknameExistCheckUseCase @Inject constructor(
+class JoinUseCase @Inject constructor(
     private val joinRepository: JoinRepository
-) : NicknameExistCheckBaseUseCase{
-    override suspend fun invoke(params: String)= flow {
+): JoinReposBaseUseCase {
+    override suspend fun invoke(joinReq: JoinReq) = flow {
         emit(UiState.Loding)
         runCatching {
-            joinRepository.nicknameExistCheck(params)
+            joinRepository.signUp(joinReq)
         }.onSuccess { result ->
             emit(UiState.Success(result))
         }.onFailure {
+            Log.v("asdfsdf" , it.message.toString())
             emit(UiState.Error(it))
         }
     }

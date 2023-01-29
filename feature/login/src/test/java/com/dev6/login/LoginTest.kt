@@ -1,7 +1,6 @@
 package com.dev6.login
-import com.dev6.common.uistate.UiState
 import com.dev6.domain.model.join.login.LoginReq
-import com.dev6.domain.usecase.LoginUseCase
+import com.dev6.domain.usecase.login.LoginUseCase
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.test.*
 import org.junit.After

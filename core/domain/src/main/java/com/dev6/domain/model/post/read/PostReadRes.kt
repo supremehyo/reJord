@@ -9,9 +9,9 @@ data class PostReadRes(
     val last: Boolean,
     val number: Int,
     val numberOfElements: Int,
-    val pageableDTO: Pageable,
+    val pageable: Pageable,
     val size: Int,
-    val sortDTO: Sort,
+    val sort: Sort,
     val totalElements: Int,
     val totalPages: Int
 )

@@ -1,4 +1,4 @@
-package com.dev6.home
+package com.dev6.home.adapter
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentActivity
 import androidx.viewpager2.adapter.FragmentStateAdapter
