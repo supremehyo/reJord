@@ -6,7 +6,7 @@
 
     <item
         android:id="@+id/mainHomeFragment"
-        android:icon="@drawable/round_active"
+        android:icon="@drawable/main_icon"
         android:title="메인"/>
 
     <item
@@ -15,7 +15,7 @@
 
     <item
         android:id="@+id/MypageFragment"
-        android:icon="@drawable/round_active"
+        android:icon="@drawable/mypage_icon"
         android:title="마이페이지"/>
 
 </menu>
