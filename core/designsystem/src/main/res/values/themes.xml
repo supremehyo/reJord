@@ -15,5 +15,10 @@
         <item name="android:windowLightNavigationBar" tools:targetApi="o_mr1">true</item>
         <item name="android:navigationBarColor">@color/white</item>
     </style>
+
+    <style name="CustomRadioButton" parent="Theme.AppCompat.Light">
+        <item name="colorAccent">@color/mainColor</item>
+        <item name="colorControlNormal">@color/white</item>
+    </style>
 </resources>
 

@@ -12,6 +12,9 @@
     <color name="mainColor">#97C075</color>
     <color name="typoError">#C81800</color>
     <color name="bg1">#B9B9B9</color>
+    <color name="arrowColor">#5C5C5C</color>
+    <color name="g2">#373535</color>
+    <color name="typo4">#8B8B8B</color>
 
     <color name="bg3">#D1D1D1</color>
     <color name="home_banner">#EFF2F5</color>

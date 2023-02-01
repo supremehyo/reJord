@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:background="@drawable/bottom_sheet_radius"
+    android:layout_width="match_parent"
+    android:layout_height="229dp"
+    android:padding="24dp">
+
+
+    <RelativeLayout
+        android:id="@+id/relativeLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/roboto_bold"
+            android:text="카테고리를 선택해주세요."
+            android:includeFontPadding="false"
+            android:textColor="@color/g2"
+            android:textSize="20sp"></TextView>
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:backgroundTint="@color/arrowColor"
+            android:src="@drawable/bottom_sheet_down_arrow"></ImageView>
+    </RelativeLayout>
+
+    <View
+        android:id="@+id/view"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_marginTop="17dp"
+        android:background="@color/bg3"
+        app:layout_constraintTop_toBottomOf="@+id/relativeLayout"
+        tools:layout_editor_absoluteX="24dp" />
+
+    <RadioGroup
+        android:id="@+id/writeBottomSheetRadioGroup"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/view">
+
+        <androidx.appcompat.widget.AppCompatRadioButton
+            android:id="@+id/shareRadio"
+            android:text="공유하기"
+            android:textSize="18sp"
+            android:buttonTint="@color/bg3"
+            android:textColor="@color/g2"
+            android:checked="true"
+            android:theme="@style/CustomRadioButton"
+            android:layout_width="wrap_content"
+            android:layout_height="46dp">
+        </androidx.appcompat.widget.AppCompatRadioButton>
+
+        <RadioButton
+            android:id="@+id/challRadio"
+            android:text="챌린지 후기"
+            android:textSize="18sp"
+            android:buttonTint="@color/bg3"
+            android:textColor="@color/g2"
+            android:theme="@style/CustomRadioButton"
+            android:layout_width="wrap_content"
+            android:layout_height="46dp">
+        </RadioButton>
+        <RadioButton
+            android:id="@+id/etcRadio"
+            android:text="기타"
+            android:textSize="18sp"
+            android:textColor="@color/g2"
+            android:buttonTint="@color/bg3"
+            android:theme="@style/CustomRadioButton"
+            android:layout_width="wrap_content"
+            android:layout_height="46dp">
+        </RadioButton>
+    </RadioGroup>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

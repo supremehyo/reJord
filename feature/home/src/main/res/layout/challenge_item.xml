@@ -31,7 +31,7 @@
             android:layout_marginStart="7dp"
             android:fontFamily="@font/roboto_bold"
             android:text="나무늘보투썸플레이스"
-            android:textColor="#373535"
+            android:textColor="@color/g2"
             android:textSize="12sp"
             app:layout_constraintStart_toEndOf="@+id/imageView"
             app:layout_constraintTop_toTopOf="@+id/imageView" />
