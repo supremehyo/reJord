@@ -1,6 +1,8 @@
 package com.dev6.rejord
+import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
 import com.dev6.core.base.BindingFragment
+import com.dev6.home.viewmodel.BoardViewModel
 import com.dev6.rejord.databinding.FragmentMainBinding
 
 class MainFragment : BindingFragment<FragmentMainBinding>(R.layout.fragment_main) {
@@ -21,6 +23,11 @@ class MainFragment : BindingFragment<FragmentMainBinding>(R.layout.fragment_main
         binding.gologin.setOnClickListener {
             findNavController().navigate(R.id.action_Mainfragment_to_login_graph4)
         }
+
+        binding.goMain.setOnClickListener {
+            findNavController().navigate(R.id.action_Mainfragment_to_home_graph)
+        }
+
     }
 
     override fun afterViewCreated() {

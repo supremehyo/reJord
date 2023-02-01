@@ -23,6 +23,9 @@ class HomeFragment : BindingFragment<FragmentHomeBinding>(R.layout.fragment_home
 
     override fun initListener() {
         super.initListener()
+        binding.writeButtonIv.setOnClickListener {
+
+        }
     }
 
     override fun afterViewCreated() {

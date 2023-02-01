@@ -3,6 +3,7 @@ import android.util.Log
 import androidx.fragment.app.activityViewModels
 import com.dev6.common.uistate.UiState
 import com.dev6.core.base.BindingFragment
+import com.dev6.domain.model.post.read.PostReadReq
 import com.dev6.home.R
 import com.dev6.home.databinding.FragmentChallengeBinding
 import com.dev6.home.viewmodel.MainViewModel
@@ -11,10 +12,12 @@ class ChallengeFragment : BindingFragment<FragmentChallengeBinding>(R.layout.fra
     val mainViewModel : MainViewModel by activityViewModels()
     override fun initView() {
         super.initView()
+
     }
 
     override fun initViewModel() {
         super.initViewModel()
+
     }
 
     override fun initListener() {
@@ -23,16 +26,18 @@ class ChallengeFragment : BindingFragment<FragmentChallengeBinding>(R.layout.fra
 
     override fun afterViewCreated() {
         super.afterViewCreated()
+        /*
         repeatOnStartedFragment {
             mainViewModel.eventFlow.collect{ event->
                 eventHandler(event)
             }
         }
+
+         */
     }
 
     private fun eventHandler(event : MainViewModel.HomeEvent){
         when(event){
-            //게시글 데이터
             is MainViewModel.HomeEvent.GetChallengeUiEvent ->{
                 when(event.uiState){
                     is UiState.Loding ->{

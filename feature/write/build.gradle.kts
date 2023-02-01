@@ -9,7 +9,7 @@ plugins {
 }
 
 android {
-    namespace = "com.dev6.home"
+    namespace = "com.dev6.write"
     compileSdk = 32
 
     defaultConfig {
@@ -72,7 +72,6 @@ dependencies {
     implementation(Kotlin.COROUTINES_CORE)
     implementation(Kotlin.COROUTINES_TEST)
     implementation(AndroidX.APP_COMPAT)
-    implementation ("io.github.glailton.expandabletextview:expandabletextview:1.0.3")
 
     implementation(Google.HILT_ANDROID)
     kapt(Google.HILT_ANDROID_COMPILER)

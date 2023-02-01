@@ -63,16 +63,11 @@ class LoginFragment : BindingFragment<FragmentLoginBinding>(R.layout.fragment_lo
         })
 
         binding.authButton.setOnClickListener {
-            findNavController().navigate(R.id.action_LoginFragment_to_home_graph)
-
-            /*
             if(allDataComplete()){
                 loginViewModel.userLogin(LoginReq(passWord,userId))
             }else{
                 Toast.makeText(requireContext(), "형식에 맞지 않은 값이 있습니다.", Toast.LENGTH_SHORT).show()
             }
-
-             */
         }
 
     }

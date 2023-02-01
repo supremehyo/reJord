@@ -5,6 +5,7 @@
     android:id="@+id/nav_graph"
     app:startDestination="@id/Mainfragment">
 
+
     <fragment
         android:id="@+id/Mainfragment"
         tools:layout="@layout/fragment_home_main"
@@ -15,8 +16,12 @@
         <action
             android:id="@+id/action_Mainfragment_to_login_graph4"
             app:destination="@id/login_graph" />
+        <action
+            android:id="@+id/action_Mainfragment_to_home_graph"
+            app:destination="@id/home_graph" />
     </fragment>
 
     <include app:graph="@navigation/join_graph" />
     <include app:graph="@navigation/login_graph" />
+    <include app:graph="@navigation/home_graph" />
 </navigation>

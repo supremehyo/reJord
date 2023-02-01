@@ -3,6 +3,8 @@
 <androidx.constraintlayout.widget.ConstraintLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/postItemRootCl"
+    android:animateLayoutChanges="true"
     android:layout_width="match_parent"
     android:layout_height="209dp">
 
@@ -26,6 +28,7 @@
             app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
+            android:id="@+id/postItemUserNickName"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="7dp"
@@ -37,6 +40,7 @@
             app:layout_constraintTop_toTopOf="@+id/imageView" />
 
         <TextView
+            android:id="@+id/postItemCreateTime"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="7dp"
@@ -51,23 +55,23 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/constraintLayout3"
         android:layout_width="match_parent"
-        android:layout_height="112dp"
+        android:layout_height="wrap_content"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/constraintLayout2">
 
-        <TextView
+        <io.github.glailton.expandabletextview.ExpandableTextView
             android:id="@+id/item_mainContent"
             android:layout_width="0dp"
-            android:layout_height="0dp"
+            android:layout_height="wrap_content"
             android:layout_marginHorizontal="22dp"
             android:layout_marginTop="14dp"
-            android:text="본문-가나다라마바사아자차카타파하가나다라마바사아자차카타파하가나다라마바사아자차카타파하가나다라마바사아자차카타파하가나다라마바사아자차카타파하가나다라마바사아자차카타파하 "
+            android:text="본문-가나다라마바사아자차카타파하가나다라마바사아자차카타파하가나다라마바사아자차카타파하가나다라가나다라마바사아자차카타파하가나다라마바사아자차카타파하가나다라마바사아자차카타파하가나다라마바사아자차카타파하가나다라마바사아자차카타파하가나다라마바사아자차카타파하가나다라마바사아자차카타파하가나다라마바사아자차카타파하가나다라마바사아자차카타파하가나다라마바사아자차카타파하가나다라마바사아자차카타파하가나다라마바사아자차카타파하마바사아자차카타파하가나다라마바사아자차카타파하가나다라마바사아자차카타파하 "
             android:textSize="12sp"
             app:layout_constraintBottom_toTopOf="@+id/item_mainContentMore"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"></TextView>
+            app:layout_constraintTop_toTopOf="parent"></io.github.glailton.expandabletextview.ExpandableTextView>
 
         <TextView
             android:id="@+id/item_mainContentMore"
