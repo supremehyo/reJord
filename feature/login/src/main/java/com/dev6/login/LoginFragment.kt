@@ -1,24 +1,15 @@
 package com.dev6.login
 
-import android.content.Intent
 import android.text.Editable
 import android.text.TextWatcher
-import android.util.Log
-import android.view.LayoutInflater
 import android.view.View
-import android.view.ViewGroup
 import android.widget.Toast
-import androidx.core.content.ContextCompat
-import androidx.core.os.bundleOf
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
 import com.dev6.common.uistate.UiState
-import com.dev6.core.base.BindingFragment
+import com.dev6.core.BindingFragment
 import com.dev6.core.util.Validation
 import com.dev6.domain.model.join.login.LoginReq
-import com.dev6.home.HomeActivity
-import com.dev6.join.JoinDialogFragment
-import com.dev6.join.JoinViewModel
 import com.dev6.login.databinding.FragmentLoginBinding
 import dagger.hilt.android.AndroidEntryPoint
 

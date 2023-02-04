@@ -1,6 +1,6 @@
 package com.dev6.rejord
 import androidx.navigation.fragment.findNavController
-import com.dev6.core.base.BindingFragment
+import com.dev6.core.BindingFragment
 import com.dev6.rejord.databinding.FragmentMainBinding
 
 class MainFragment : BindingFragment<FragmentMainBinding>(R.layout.fragment_main) {

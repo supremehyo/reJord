@@ -11,7 +11,6 @@ class CustomScrollView @JvmOverloads constructor(
     defStyleAttr: Int = 0
 ): NestedScrollView(context, attrs, defStyleAttr) {
 
-    /* 스크롤 가능한지 */
     var scrollable = true
 
     override fun onTouchEvent(ev: MotionEvent): Boolean {

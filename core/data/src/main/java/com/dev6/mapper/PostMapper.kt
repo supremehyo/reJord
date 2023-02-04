@@ -3,11 +3,14 @@ import com.dev6.domain.model.common.Pageable
 import com.dev6.domain.model.common.Sort
 import com.dev6.domain.model.post.read.Content
 import com.dev6.domain.model.post.read.PostReadRes
+import com.dev6.domain.model.post.write.PostWriteReq
+import com.dev6.domain.model.post.write.PostWriteRes
 import com.dev6.model.common.PageableDTO
 import com.dev6.model.common.SortDTO
 import com.dev6.model.post.read.ContentDTO
 import com.dev6.model.post.read.PostReadResDTO
-
+import com.dev6.model.post.write.PostWriteReqDTO
+import com.dev6.model.post.write.PostWriteResDTO
 
 
 internal fun PostReadResDTO.toDomain() = PostReadRes(
@@ -83,6 +86,19 @@ internal fun Content.toData() = ContentDTO(
     contents = contents,
     createdDate = createdDate,
     nickname = nickname,
+    postId = postId,
+    postType = postType,
+    uid = uid
+)
+
+internal fun PostWriteReq.toData() = PostWriteReqDTO(
+    contents = contents,
+    postId = postId,
+    postType = postType
+)
+
+internal fun PostWriteResDTO.toDomain() = PostWriteRes(
+    contents = contents,
     postId = postId,
     postType = postType,
     uid = uid

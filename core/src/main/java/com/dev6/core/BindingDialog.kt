@@ -11,12 +11,10 @@ import androidx.databinding.ViewDataBinding
 import androidx.fragment.app.DialogFragment
 import com.dev6.core.R
 
-//사용 보류 : style 을 domain 에서 관리할 수 없음
 abstract class BindingDialog<T: ViewDataBinding>(
     @LayoutRes private val layoutId: Int) : DialogFragment() {
     protected lateinit var binding: T
 
-    // 버튼이 한개인지 두개인지
     enum class ButtonType{
         ONE, TWO
     }

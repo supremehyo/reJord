@@ -9,6 +9,8 @@ import com.dev6.domain.model.join.nickName.NicknameReq
 import com.dev6.domain.model.join.nickName.NicknameUpdateRes
 import com.dev6.domain.model.post.read.PostReadReq
 import com.dev6.domain.model.post.read.PostReadRes
+import com.dev6.domain.model.post.write.PostWriteReq
+import com.dev6.domain.model.post.write.PostWriteRes
 import kotlinx.coroutines.flow.Flow
 
 
@@ -17,3 +19,4 @@ typealias JoinReposBaseUseCase = BaseUseCase<JoinReq, Flow<UiState<JoinRes>>>
 typealias NicknameExistCheckBaseUseCase = BaseUseCase<String, Flow<UiState<NicknameExistCheckRes>>>
 typealias JoinUpdateReposBaseUseCase = BaseUseCase<Pair<NicknameReq,String>, Flow<UiState<NicknameUpdateRes>>>
 typealias PostGetListReposBaseUseCase = BaseUseCase<PostReadReq, Flow<UiState<PostReadRes>>>
+typealias PostWriteBaseUseCase = BaseUseCase<PostWriteReq, Flow<UiState<PostWriteRes>>>

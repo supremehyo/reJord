@@ -3,6 +3,8 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.dev6.common.uistate.UiState
+import com.dev6.core.enums.ScrollType
+import com.dev6.core.enums.WriteType
 import com.dev6.core.util.MutableEventFlow
 import com.dev6.core.util.asEventFlow
 import com.dev6.domain.model.post.read.PostReadReq
@@ -20,7 +22,11 @@ class BoardViewModel @Inject constructor(
 
     private val _BoardeventFlow = MutableEventFlow<BoardEvent>(10)
     val BoardeventFlow = _BoardeventFlow.asEventFlow()
+
     var upScrollFlag: MutableLiveData<Boolean> = MutableLiveData()
+    var boardTabTypeFlag: MutableLiveData<WriteType> = MutableLiveData()
+    var scrollFlag: MutableLiveData<ScrollType> = MutableLiveData()
+
 
     private fun Boardevent(event: BoardEvent) {
         viewModelScope.launch {
@@ -34,6 +40,14 @@ class BoardViewModel @Inject constructor(
 
     fun upScrollDone(){
         upScrollFlag.value = false
+    }
+
+    fun updateScrollState(state : ScrollType){
+        scrollFlag.value = state
+    }
+
+    fun checkBoardTabType(type : WriteType){
+        boardTabTypeFlag.value = type
     }
 
 

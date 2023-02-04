@@ -23,13 +23,16 @@ class WriteBottomSheetFragment : BottomSheetDialogFragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
         view.findViewById<RadioGroup>(R.id.writeBottomSheetRadioGroup).setOnCheckedChangeListener {
                 _, checkedId->
+
             when(checkedId){
                 R.id.shareRadio ->{ writeFragment.updateCateGoryValue(WriteType.SHARE) }
                 R.id.challRadio ->{writeFragment.updateCateGoryValue(WriteType.CHALLENGE)}
                 R.id.etcRadio ->{writeFragment.updateCateGoryValue(WriteType.ETC)}
             }
+            dismiss()
         }
     }
 }

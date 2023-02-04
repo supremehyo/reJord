@@ -9,8 +9,8 @@
 
     <LinearLayout
         android:id="@+id/linearLayout"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_width="wrap_content"
+        android:layout_height="55dp"
         android:gravity="center"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -20,31 +20,51 @@
             android:id="@+id/boardChipGroup"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.02"
             app:singleLine="true"
             app:singleSelection="true">
 
             <com.google.android.material.chip.Chip
-                android:id="@+id/allBoard"
-                android:layout_width="wrap_content"
+                android:id="@+id/allChip"
+                style="@style/Colors_Widget.MaterialComponents.Chip.Choice2"
+                android:layout_width="100dp"
                 android:layout_height="wrap_content"
-                android:text="전체보기" />
+                android:paddingHorizontal="31dp"
+                android:paddingVertical="8dp"
+                android:text="전체보기"
+                android:fontFamily="@font/roboto_bold"
+                android:textAlignment="center"
+                app:chipMinTouchTargetSize="0dp" />
 
             <com.google.android.material.chip.Chip
-                android:id="@+id/sharedBoard"
-                android:layout_width="wrap_content"
+                android:id="@+id/sharedChip"
+                style="@style/Colors_Widget.MaterialComponents.Chip.Choice2"
+                android:layout_width="100dp"
                 android:layout_height="wrap_content"
-                android:text="공유하기" />
+                android:paddingHorizontal="31dp"
+                android:paddingVertical="8dp"
+                android:text="공유하기"
+                android:fontFamily="@font/roboto_bold"
+                android:textAlignment="center"
+                app:chipMinTouchTargetSize="0dp" />
 
             <com.google.android.material.chip.Chip
-                android:id="@+id/etcBoard"
-                android:layout_width="wrap_content"
+                android:id="@+id/etcChip"
+                style="@style/Colors_Widget.MaterialComponents.Chip.Choice2"
+                android:layout_width="100dp"
                 android:layout_height="wrap_content"
-                android:text="기타" />
+                android:paddingHorizontal="31dp"
+                android:paddingVertical="8dp"
+                android:text="기타"
+                android:fontFamily="@font/roboto_bold"
+                android:textAlignment="center"
+                app:chipMinTouchTargetSize="0dp" />
         </com.google.android.material.chip.ChipGroup>
     </LinearLayout>
-
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/boardRecyclerView"
@@ -52,8 +72,7 @@
         android:layout_height="0dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/linearLayout"
-        app:layout_constraintVertical_bias="0.0"
-            ></androidx.recyclerview.widget.RecyclerView>
+        app:layout_constraintVertical_bias="0.0"></androidx.recyclerview.widget.RecyclerView>
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

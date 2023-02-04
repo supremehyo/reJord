@@ -17,4 +17,8 @@ class HomeContentPagerAdapter(fragment: Fragment):
     override fun createFragment(position: Int): Fragment {
         return fragmentList[position]
     }
+
+    override fun getItemId(position: Int): Long {
+        return super.getItemId(position)
+    }
 }
