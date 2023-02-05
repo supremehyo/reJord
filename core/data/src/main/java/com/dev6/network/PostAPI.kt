@@ -1,4 +1,5 @@
 package com.dev6.network
+import com.dev6.model.challenge.ChallengeResDTO
 import com.dev6.model.login.LoginReqDTO
 import com.dev6.model.login.LoginResDTO
 import com.dev6.model.post.read.PostReadResDTO
@@ -15,6 +16,15 @@ interface PostAPI {
         @Query("requestTime") requestTime:String,
         @Query("size") size:Int,
     ): Response<PostReadResDTO>
+
+
+    @Headers("Content-Type: application/json")
+    @GET("/v1/challengeReviewInfos")
+    suspend fun getChallengeList(
+        @Query("page") page:Int,
+        @Query("requestTime") requestTime:String,
+        @Query("size") size:Int,
+    ): Response<ChallengeResDTO>
 
     @Headers("Content-Type: application/json")
     @POST("/v1/posts")

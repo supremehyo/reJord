@@ -1,10 +1,16 @@
 package com.dev6.mapper
+import com.dev6.domain.model.challenge.ChallengePage
+import com.dev6.domain.model.challenge.ChallengeRes
+import com.dev6.domain.model.challenge.ChallengeReviewResult
 import com.dev6.domain.model.common.Pageable
 import com.dev6.domain.model.common.Sort
 import com.dev6.domain.model.post.read.Content
 import com.dev6.domain.model.post.read.PostReadRes
 import com.dev6.domain.model.post.write.PostWriteReq
 import com.dev6.domain.model.post.write.PostWriteRes
+import com.dev6.model.challenge.ChallengePageDTO
+import com.dev6.model.challenge.ChallengeResDTO
+import com.dev6.model.challenge.ChallengeReviewResultDTO
 import com.dev6.model.common.PageableDTO
 import com.dev6.model.common.SortDTO
 import com.dev6.model.post.read.ContentDTO
@@ -103,3 +109,32 @@ internal fun PostWriteResDTO.toDomain() = PostWriteRes(
     postType = postType,
     uid = uid
 )
+
+internal fun ChallengeReviewResultDTO.toDomain() = ChallengeReviewResult(
+    challengeReviewId = challengeReviewId,
+    challengeReviewType = challengeReviewType,
+    contents = contents,
+    createdDate = createdDate,
+    nickname = nickname,
+    uid = uid
+)
+
+internal fun ChallengePageDTO.toDomain() = ChallengePage(
+    page = page,
+    size = size
+)
+
+internal fun ChallengeResDTO.toDomain() = ChallengeRes(
+    content = this?.content?.map { it.toDomain() } ?: listOf(),
+    empty = empty,
+    first = first,
+    last = last,
+    number = number,
+    numberOfElements = numberOfElements,
+    pageable = pageable.toDomain(),
+    size =size,
+    sort = sort.toDomain(),
+    totalElements = totalElements,
+    totalPages = totalPages
+)
+

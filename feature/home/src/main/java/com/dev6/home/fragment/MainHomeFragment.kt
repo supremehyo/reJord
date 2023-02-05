@@ -1,4 +1,5 @@
 package com.dev6.home.fragment
+import android.util.Log
 import android.view.animation.AnimationUtils
 import androidx.fragment.app.activityViewModels
 import com.dev6.core.BindingFragment
@@ -47,6 +48,7 @@ class MainHomeFragment : BindingFragment<FragmentHomeMainBinding>(R.layout.fragm
         boardViewModel.scrollFlag.observe(viewLifecycleOwner){
             when(it){
                 ScrollType.TOP ->{
+                    Log.v("sdfsdfs" , "탑탑")
                     binding.upFab.alpha = 1.0f
                 }
                 ScrollType.SCROLLUP ->{

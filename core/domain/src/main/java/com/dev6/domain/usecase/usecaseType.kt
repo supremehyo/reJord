@@ -1,5 +1,7 @@
 package com.dev6.domain.usecase
 import com.dev6.common.uistate.UiState
+import com.dev6.domain.model.challenge.ChallengeReadReq
+import com.dev6.domain.model.challenge.ChallengeRes
 import com.dev6.domain.model.join.JoinReq
 import com.dev6.domain.model.join.JoinRes
 import com.dev6.domain.model.join.login.LoginReq
@@ -19,4 +21,6 @@ typealias JoinReposBaseUseCase = BaseUseCase<JoinReq, Flow<UiState<JoinRes>>>
 typealias NicknameExistCheckBaseUseCase = BaseUseCase<String, Flow<UiState<NicknameExistCheckRes>>>
 typealias JoinUpdateReposBaseUseCase = BaseUseCase<Pair<NicknameReq,String>, Flow<UiState<NicknameUpdateRes>>>
 typealias PostGetListReposBaseUseCase = BaseUseCase<PostReadReq, Flow<UiState<PostReadRes>>>
+typealias ChallengeGetListReposBaseUseCase = BaseUseCase<ChallengeReadReq, Flow<UiState<ChallengeRes>>>
 typealias PostWriteBaseUseCase = BaseUseCase<PostWriteReq, Flow<UiState<PostWriteRes>>>
+

@@ -38,7 +38,7 @@ class BoardFragment : BindingFragment<FragmentBoardBinding>(R.layout.fragment_bo
 
 
         //디폴트로 선택된 값
-        binding.allChip.isSelected = true
+        //binding.allChip.isSelected = true
 
         //CollapsingToolbarLayout 랑 같이 리사이클러뷰 쓰니까 스크롤이 안되는 문제가 있어서 이걸로 해결
         boardRc.addOnItemTouchListener(object : OnItemTouchListener {

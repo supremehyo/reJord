@@ -1,4 +1,5 @@
 package com.dev6.repositoryImple
+import com.dev6.domain.model.challenge.ChallengeRes
 import com.dev6.domain.model.post.read.PostReadRes
 import com.dev6.domain.model.post.write.PostWriteReq
 import com.dev6.domain.model.post.write.PostWriteRes
@@ -16,5 +17,8 @@ class PostRepositoryImple @Inject constructor(
 
     override suspend fun postWrite(dto: PostWriteReq): PostWriteRes
     = postRemoteDataSource.postWrite(dto.toData()).toDomain()
+
+    override suspend fun getChallengeList(page: Int, requestTime: String, size: Int): ChallengeRes
+    = postRemoteDataSource.getChallengeList(page, requestTime, size).toDomain()
 
 }

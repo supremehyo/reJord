@@ -4,34 +4,40 @@ import androidx.lifecycle.viewModelScope
 import com.dev6.common.uistate.UiState
 import com.dev6.core.util.MutableEventFlow
 import com.dev6.core.util.asEventFlow
+import com.dev6.domain.model.challenge.ChallengeReadReq
+import com.dev6.domain.model.challenge.ChallengeRes
 import com.dev6.domain.model.post.read.PostReadReq
 import com.dev6.domain.model.post.read.PostReadRes
+import com.dev6.domain.usecase.post.ChallengeListUseCase
 import com.dev6.domain.usecase.post.PostGetListUserCase
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
 class ChallengeViewModel @Inject constructor(
-    private val postGetListUserCase: PostGetListUserCase
+    private val challengeListUseCase: ChallengeListUseCase
 ) : ViewModel() {
 
     private val _ChallengeEventFlow = MutableEventFlow<ChallengeEvent>(10)
     val ChallengeEventFlow = _ChallengeEventFlow.asEventFlow()
 
-    private fun Challengeevent(event: ChallengeEvent) {
+    private fun ChallengeEvent(event: ChallengeEvent) {
         viewModelScope.launch {
             _ChallengeEventFlow.emit(event)
         }
     }
 
-    fun getChallengeList(postReadReq: PostReadReq) {
+    fun getChallengeList(challengeReadReq: ChallengeReadReq) {
         viewModelScope.launch {
-
+            challengeListUseCase(challengeReadReq).catch {}.collect{ uiState ->
+                ChallengeEvent(ChallengeEvent.GetChallengeUiEvent(uiState))
+            }
         }
     }
 
     sealed class ChallengeEvent {
-        data class GetChallengeUiEvent(val uiState: UiState<PostReadRes>) : ChallengeEvent()
+        data class GetChallengeUiEvent(val uiState: UiState<ChallengeRes>) : ChallengeEvent()
     }
 }

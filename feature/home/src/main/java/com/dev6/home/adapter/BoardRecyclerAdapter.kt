@@ -24,7 +24,8 @@ class BoardRecyclerAdapter(
     inner class PostViewHolder(private val binding: PostItemBinding) :
         RecyclerView.ViewHolder(binding.root) {
         fun bind(item: Content) {
-            Log.v("dsfsdfsf" , item.contents)
+
+
 
             //시간 차 구하기
             var timeDiff = formatTimeString(
@@ -38,7 +39,7 @@ class BoardRecyclerAdapter(
             binding.apply {
                 postItemUserNickName.text = item.nickname
                 postItemCreateTime.text =
-                    "${item.createdDate[0]}.${item.createdDate[1]}.${item.createdDate[2]}"+"|"+timeDiff
+                    "${item.createdDate[0]}.${item.createdDate[1]}.${item.createdDate[2]}"+" | "+timeDiff
 
                 itemMainContent
                     .setAnimationDuration(500)

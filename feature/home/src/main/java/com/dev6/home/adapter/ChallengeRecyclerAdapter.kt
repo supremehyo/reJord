@@ -1,27 +1,40 @@
 package com.dev6.home.adapter
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
+import com.dev6.core.util.formatTimeString
+import com.dev6.domain.model.challenge.ChallengeReviewResult
 import com.dev6.home.databinding.ChallengeItemBinding
 import com.dev6.model.challenge.ChallengeResDTO
 
 
 class ChallengeRecyclerAdapter(
     private val itemClick: (String) -> Unit,
-) : ListAdapter<ChallengeResDTO, ChallengeRecyclerAdapter.ChallengeViewHolder>(
+) : ListAdapter<ChallengeReviewResult, ChallengeRecyclerAdapter.ChallengeViewHolder>(
     diffUtil
 ) {
     private val VIEW_TYPE_ITEM = 0
     private val VIEW_TYPE_LOADING = 1
 
-
-    //뷰홀더: 내가 넣고자하는 data를 실제 레이아웃의 데이터로 연결시키는 기능
     inner class ChallengeViewHolder(private val binding: ChallengeItemBinding) :
         RecyclerView.ViewHolder(binding.root) {
-        fun bind(item: ChallengeResDTO) {
-            //binding.item = item
+        fun bind(item: ChallengeReviewResult) {
+            Log.v("챌챌" , item.contents)
+            //시간 차 구하기
+            var timeDiff = formatTimeString(
+                item.createdDate[0],
+                item.createdDate[1],
+                item.createdDate[2],
+                item.createdDate[3],
+                item.createdDate[4]
+            )
+
+            binding.itemMainContent.text = item.contents
+            binding.challengeDate.text =
+                "${item.createdDate[0]}.${item.createdDate[1]}.${item.createdDate[2]}"+" | "+timeDiff
             //binding.executePendingBindings()
         }
     }
@@ -43,12 +56,12 @@ class ChallengeRecyclerAdapter(
     }
 
     companion object {
-        val diffUtil = object : DiffUtil.ItemCallback<ChallengeResDTO>() {
-            override fun areContentsTheSame(oldItem: ChallengeResDTO, newItem: ChallengeResDTO) =
+        val diffUtil = object : DiffUtil.ItemCallback<ChallengeReviewResult>() {
+            override fun areContentsTheSame(oldItem: ChallengeReviewResult, newItem: ChallengeReviewResult) =
                 oldItem == newItem
 
-            override fun areItemsTheSame(oldItem: ChallengeResDTO, newItem: ChallengeResDTO) =
-                oldItem.number == newItem.number
+            override fun areItemsTheSame(oldItem: ChallengeReviewResult, newItem: ChallengeReviewResult) =
+                oldItem.challengeReviewId == newItem.challengeReviewId
         }
     }
 

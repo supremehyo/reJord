@@ -1,4 +1,6 @@
 package com.dev6.remote
+import com.dev6.model.challenge.ChallengeResDTO
+import com.dev6.model.challenge.ChallengeReviewResultDTO
 import com.dev6.model.executeNetworkHandling
 import com.dev6.model.post.read.PostReadResDTO
 import com.dev6.model.post.write.PostWriteReqDTO
@@ -16,6 +18,12 @@ interface PostRemoteDataSource {
     suspend fun postWrite(
         dto : PostWriteReqDTO
     ) : PostWriteResDTO
+
+    suspend fun getChallengeList(
+        page : Int,
+        requestTime : String,
+        size : Int
+    ) : ChallengeResDTO
 }
 
 class PostRemoteDataSourceImpl @Inject constructor(
@@ -27,5 +35,13 @@ class PostRemoteDataSourceImpl @Inject constructor(
 
     override suspend fun postWrite(dto: PostWriteReqDTO) : PostWriteResDTO {
         return postService.postWrite(dto).executeNetworkHandling()
+    }
+
+    override suspend fun getChallengeList(
+        page: Int,
+        requestTime: String,
+        size: Int
+    ): ChallengeResDTO {
+        return postService.getChallengeList(page, requestTime, size).executeNetworkHandling()
     }
 }
