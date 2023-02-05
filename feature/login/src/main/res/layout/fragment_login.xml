@@ -8,6 +8,34 @@
         android:layout_height="match_parent">
 
 
+        <LinearLayout
+            android:id="@+id/backHomeLl"
+            android:layout_width="72dp"
+            android:layout_height="35dp"
+            android:layout_marginTop="12dp"
+            android:layout_marginHorizontal="@dimen/layout_side_margin"
+            android:gravity="center"
+            android:orientation="horizontal"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <ImageView
+                android:layout_width="8dp"
+                android:layout_height="16dp"
+                android:layout_marginRight="8dp"
+                android:backgroundTint="@color/arrowColor"
+                android:src="@drawable/back_arrow"></ImageView>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="홈으로"
+                android:textColor="@color/arrowColor"
+                android:textSize="16sp"></TextView>
+        </LinearLayout>
+
+
+
         <TextView
             android:id="@+id/textView"
             android:layout_width="wrap_content"
