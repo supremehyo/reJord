@@ -76,4 +76,8 @@ class MainHomeFragment : BindingFragment<FragmentHomeMainBinding>(R.layout.fragm
         super.afterViewCreated()
     }
 
+    private fun initBanner(){
+       // binding.data
+    }
+
 }

@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <declare-styleable name="ChallengeBanner">
+        <attr name="textColorInActivedz" format="reference|color" />
+        <attr name="textColorActivedz" format="reference|color" />
+        <attr name="titlez" format="reference|string" />
+        <attr name="contenzt" format="reference|string"/>
+        <attr name="imageURz" format="reference|string"></attr>
+        <attr name="backgroundColorz" format="reference|color"></attr>
+    </declare-styleable>
+</resources>

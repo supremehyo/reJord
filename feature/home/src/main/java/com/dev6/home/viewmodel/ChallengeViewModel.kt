@@ -1,7 +1,9 @@
 package com.dev6.home.viewmodel
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.dev6.common.uistate.UiState
+import com.dev6.core.enums.ScrollType
 import com.dev6.core.util.MutableEventFlow
 import com.dev6.core.util.asEventFlow
 import com.dev6.domain.model.challenge.ChallengeReadReq
@@ -22,11 +24,25 @@ class ChallengeViewModel @Inject constructor(
 
     private val _ChallengeEventFlow = MutableEventFlow<ChallengeEvent>(10)
     val ChallengeEventFlow = _ChallengeEventFlow.asEventFlow()
+    var scrollFlag: MutableLiveData<ScrollType> = MutableLiveData()
+    var upScrollFlag: MutableLiveData<Boolean> = MutableLiveData()
 
     private fun ChallengeEvent(event: ChallengeEvent) {
         viewModelScope.launch {
             _ChallengeEventFlow.emit(event)
         }
+    }
+
+    fun upScroll(){
+        upScrollFlag.value = true
+    }
+
+    fun upScrollDone(){
+        upScrollFlag.value = false
+    }
+
+    fun updateScrollState(state : ScrollType){
+        scrollFlag.value = state
     }
 
     fun getChallengeList(challengeReadReq: ChallengeReadReq) {
