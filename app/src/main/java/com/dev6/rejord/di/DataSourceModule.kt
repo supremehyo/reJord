@@ -1,4 +1,5 @@
 package com.dev6.rejord.di
+import com.dev6.network.LoginAPI
 import com.dev6.remote.*
 import dagger.Binds
 import dagger.Module

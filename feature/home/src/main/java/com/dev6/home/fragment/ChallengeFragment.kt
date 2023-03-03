@@ -2,8 +2,10 @@ package com.dev6.home.fragment
 import android.os.Parcelable
 import android.util.Log
 import android.view.MotionEvent
+import android.widget.Toast
 import androidx.annotation.NonNull
 import androidx.fragment.app.activityViewModels
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.dev6.common.uistate.UiState
@@ -15,6 +17,7 @@ import com.dev6.home.R
 import com.dev6.home.adapter.ChallengeRecyclerAdapter
 import com.dev6.home.databinding.FragmentChallengeBinding
 import com.dev6.home.viewmodel.ChallengeViewModel
+import java.time.LocalDateTime
 
 
 class ChallengeFragment : BindingFragment<FragmentChallengeBinding>(R.layout.fragment_challenge) {
@@ -22,15 +25,15 @@ class ChallengeFragment : BindingFragment<FragmentChallengeBinding>(R.layout.fra
     lateinit var challengeRc : RecyclerView
     lateinit var challengeRecyclerAdapter: ChallengeRecyclerAdapter
     private  var mutableList: MutableList<ChallengeReviewResult> = arrayListOf()
-    var count = 0
+    var count = 0 // 초기화되면 안되는 값인듯 한데 체크해보고 viewmodel로 옮기던지 해야할듯
     var index = 0
     private var recyclerViewState: Parcelable? = null
 
     override fun initView() {
         super.initView()
-
+        challengeViewModel.clearChallCount()
         challengeRc = binding.challengeRc
-
+        count = challengeViewModel.challCount
 
     }
 
@@ -38,7 +41,7 @@ class ChallengeFragment : BindingFragment<FragmentChallengeBinding>(R.layout.fra
         super.initViewModel()
         challengeViewModel.getChallengeList(ChallengeReadReq(
             0,
-            "2023-01-28T23:16:59",
+            LocalDateTime.now().toString(),
             5
         ))
     }
@@ -78,7 +81,7 @@ class ChallengeFragment : BindingFragment<FragmentChallengeBinding>(R.layout.fra
         }
     }
 
-    fun scrollCheck(rc: RecyclerView): RecyclerView.OnScrollListener {
+    private fun scrollCheck(rc: RecyclerView): RecyclerView.OnScrollListener {
         val onScrollListener = object : RecyclerView.OnScrollListener() {
             override fun onScrolled(@NonNull recyclerView: RecyclerView, dx: Int, dy: Int) {
                 super.onScrolled(recyclerView, dx, dy)
@@ -114,13 +117,16 @@ class ChallengeFragment : BindingFragment<FragmentChallengeBinding>(R.layout.fra
                         challengeRecyclerAdapter = ChallengeRecyclerAdapter(mutableList, {
 
                         },{
-                            index = it
-                            count += 1
-                            challengeViewModel.getChallengeList(ChallengeReadReq(
-                                count,
-                                "2023-01-28T23:16:59",
-                                5
-                            ))
+                            //총 갯수가 현재 페이지 * 5 보다 많으면 더 불러올 수 있으니 count 를 늘리고 불러온다.
+                            if(event.uiState.data.totalElements > challengeViewModel.challCount * 5){
+                                index = it
+                                challengeViewModel.plusChallCount()
+                                challengeViewModel.getChallengeList(ChallengeReadReq(
+                                    challengeViewModel.challCount,
+                                    LocalDateTime.now().toString(),
+                                    5
+                                ))
+                            }
                         })
                         recyclerViewState = challengeRc.layoutManager?.onSaveInstanceState()
                         challengeRc.apply {
@@ -131,7 +137,11 @@ class ChallengeFragment : BindingFragment<FragmentChallengeBinding>(R.layout.fra
                         challengeRc.layoutManager?.onRestoreInstanceState(recyclerViewState)
                     }
                     is UiState.Error ->{
-                        Log.v("챌린지 테스트  에러" , event.uiState.error.toString())
+                        Log.v("챌린지 테스트  에러" , event.uiState.error!!.message.toString())
+                        if(event.uiState.error!!.message.toString() == "인증실패"){
+                            Toast.makeText(requireContext(), "자동 로그인 만료", Toast.LENGTH_SHORT).show()
+                            findNavController().popBackStack()
+                        }
                     }
                 }
             }

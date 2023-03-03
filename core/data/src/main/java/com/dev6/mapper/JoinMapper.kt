@@ -14,7 +14,7 @@ import com.dev6.model.nickname.NicknameUpdateResDTO
 internal fun JoinReq.toMapper() = JoinReqDTO(
     password = password ?: "",
     userId = userId ?:"",
-    userType = userType?:""
+    roles = roles ?: listOf("ROLE_USER")
 )
 
 internal fun JoinResDTO.toDomain() = JoinRes(
@@ -22,7 +22,7 @@ internal fun JoinResDTO.toDomain() = JoinRes(
     errors = this.errors ?: emptyList(),
     uid = this.uid,
     userId = this.userId,
-    userType = this.userType
+    roles = this.roles
 )
 
 internal fun NicknameReq.toMapper() = NicknameReqDTO(
@@ -33,7 +33,7 @@ internal fun NicknameUpdateResDTO.toDomain() = NicknameUpdateRes(
     nickname = this.nickname,
     uid = this.uid,
     userId = this.userId,
-    userType = this.userType
+    roles = this.roles
 )
 
 internal fun NicknameExistCheckResDTO.toMapper() = NicknameExistCheckRes(

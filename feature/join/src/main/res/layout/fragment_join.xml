@@ -344,7 +344,7 @@
             android:layout_width="wrap_content"
             android:layout_height="17dp"
             android:layout_marginHorizontal="@dimen/layout_side_margin"
-            android:text="영문과 숫자를 포함하여 최소 8글자 이상을 입력해주세요."
+            android:text="대문자와 숫자를 포함하여 최소 8글자 이상을 입력해주세요."
             android:textColor="#FF0000"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0"

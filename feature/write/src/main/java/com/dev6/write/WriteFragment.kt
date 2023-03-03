@@ -18,6 +18,7 @@ import androidx.fragment.app.activityViewModels
 import com.dev6.core.BaseBottomSheetDialogFragment
 import com.dev6.core.enums.WriteType
 import com.dev6.core.util.extension.repeatOnStarted
+import com.dev6.domain.model.post.write.ChallengeWriteReq
 import com.dev6.domain.model.post.write.PostWriteReq
 import com.dev6.write.databinding.FragmentWriteBinding
 import com.dev6.write.fragment.WriteBottomSheetFragment
@@ -32,11 +33,11 @@ class WriteFragment : BaseBottomSheetDialogFragment<FragmentWriteBinding>(R.layo
     val writeViewModel : WriteViewModel by activityViewModels()
     lateinit var bottomSheet : BottomSheetDialogFragment
 
+    var challengeReviewType : String? = ""
     var writeType : String? = ""
     var contens = ""
 
     override fun initView() {
-        bottomSheet =  WriteBottomSheetFragment()
         writeType = arguments?.getString("writeType")
 
         if(this.tag == "CHALLENGE")
@@ -46,8 +47,16 @@ class WriteFragment : BaseBottomSheetDialogFragment<FragmentWriteBinding>(R.layo
             writeType = it.toString()
             when(it){
                 WriteType.CHALLENGE ->{
+                    writeType = "CHALLENGE"
                     binding.challCateCl.visibility = View.VISIBLE
-                }else ->{
+                    binding.challengeChipGroup.check(R.id.feelChip)
+                }
+                WriteType.SHARE ->{
+                    writeType = "SHARE"
+                    binding.challCateCl.visibility = View.GONE
+                }
+                WriteType.ETC->{
+                    writeType = "ETC"
                     binding.challCateCl.visibility = View.GONE
                 }
             }
@@ -57,18 +66,29 @@ class WriteFragment : BaseBottomSheetDialogFragment<FragmentWriteBinding>(R.layo
 
     override fun initListener() {
         binding.writeCate.setOnClickListener {
+            bottomSheet =  WriteBottomSheetFragment()
             bottomSheet.show(parentFragmentManager , bottomSheet.tag)
         }
         binding.writeComplete.setOnClickListener {
-            repeatOnStarted {
-                writeViewModel.postWrite(PostWriteReq(
-                    contents = contens,
-                    postType = writeType ?: "CHALLENGE",
-                    postId = ""
-                ))
+            if(writeType == "CHALLENGE"){
+                repeatOnStarted {
+                    writeViewModel.challengeWrite(ChallengeWriteReq(
+                        challengeReviewType = challengeReviewType ?: "FEELING",
+                        contents = contens
+                    ))
+                }
+            }else{
+                repeatOnStarted {
+                    writeViewModel.postWrite(PostWriteReq(
+                        contents = contens,
+                        postType = writeType ?: "SHARE",
+                        postId = ""
+                    ))
+                }
             }
         }
         binding.closeIv.setOnClickListener {
+            writeViewModel.initWriteData()
             this.dismiss()
         }
         binding.writeContentEt.addTextChangedListener(object :TextWatcher{
@@ -85,11 +105,20 @@ class WriteFragment : BaseBottomSheetDialogFragment<FragmentWriteBinding>(R.layo
                 }
             }
         })
-        //챌린지 후기 일때 고르는 세부 카테고리 칩
-        binding.boardChipGroup.setOnCheckedStateChangeListener { _, checkedIds ->
-            Log.v("sdfsdfs" , checkedIds.toString())
-            view?.findViewById<Chip>(checkedIds[0])?.setOnClickListener {
 
+
+        binding.challengeChipGroup.setOnCheckedChangeListener { group, checkedId ->
+            when (checkedId) {
+                R.id.feelChip -> {
+                    challengeReviewType = "FEELING"
+                    Log.v("testst" , challengeReviewType!!)
+                }
+                R.id.DiffChip -> {
+                    challengeReviewType = "DIFF"
+                }
+                R.id.tipChip -> {
+                    challengeReviewType = "TIP"
+                }
             }
         }
     }

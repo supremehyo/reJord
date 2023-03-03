@@ -38,7 +38,7 @@ class JoinNickNameFragment :
         super.initListener()
 
         binding.nickNameSkipLl.setOnClickListener {
-            //홈으로
+            findNavController().navigate(R.id.action_JoinNickNameFragemnt_to_home_graph)
         }
 
         binding.nameTextSub.addTextChangedListener(object : TextWatcher {
@@ -73,7 +73,7 @@ class JoinNickNameFragment :
                 }
                 is UiState.Error -> {
                     nickNameAlreadyError()
-                    Log.v("join 회원정보 수정", "실패")
+                    Log.v("join 회원정보 수정", event.uiState.error.toString())
                 }
             }
         }

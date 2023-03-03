@@ -8,8 +8,11 @@ import com.dev6.core.enums.WriteType
 import com.dev6.core.util.MutableEventFlow
 import com.dev6.core.util.asEventFlow
 import com.dev6.domain.model.join.login.LoginRes
+import com.dev6.domain.model.post.write.ChallengeWriteReq
+import com.dev6.domain.model.post.write.ChallengeWriteRes
 import com.dev6.domain.model.post.write.PostWriteReq
 import com.dev6.domain.model.post.write.PostWriteRes
+import com.dev6.domain.usecase.write.ChallengeWriteUseCase
 import com.dev6.domain.usecase.write.WriteUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.catch
@@ -19,7 +22,8 @@ import javax.inject.Inject
 
 @HiltViewModel
 class WriteViewModel @Inject constructor(
-    private val writeUseCase: WriteUseCase
+    private val writeUseCase: WriteUseCase,
+    private val challengeWriteUseCase: ChallengeWriteUseCase
 ) : ViewModel(){
     private val _categoryLiveData = MutableLiveData<WriteType>()
     val categoryLiveData : LiveData<WriteType>
@@ -36,9 +40,15 @@ class WriteViewModel @Inject constructor(
             _eventFlow.emit(event)
         }
     }
+
     fun updateCateGoryValue(type : WriteType){
         _categoryLiveData.value = type
     }
+
+    fun getCateGoryValue() : WriteType?{
+        return _categoryLiveData.value
+    }
+
     fun postWrite(dto : PostWriteReq){
         viewModelScope.launch {
             writeUseCase(dto).catch {}.collect{ uiState ->
@@ -47,7 +57,20 @@ class WriteViewModel @Inject constructor(
         }
     }
 
+    fun initWriteData(){
+        _categoryLiveData.value = WriteType.SHARE
+    }
+
+    fun challengeWrite(dto : ChallengeWriteReq){
+        viewModelScope.launch {
+            challengeWriteUseCase(dto).catch { }.collect{ uiState->
+                event(Event.postChallegeEvent(uiState))
+            }
+        }
+    }
+
     sealed class Event {
         data class postWriteEvent(val uiState: UiState<PostWriteRes>) : Event()
+        data class postChallegeEvent(val uiState: UiState<ChallengeWriteRes>) : Event()
     }
 }

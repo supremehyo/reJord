@@ -29,7 +29,32 @@ class ChallengeRecyclerAdapter(
                     item.createdDate[3],
                     item.createdDate[4]
                 )
-                binding.itemMainContent.text = item.contents
+
+                binding.itemMainContent.apply {
+                    text = item.contents
+                }
+                binding.itemMainContent
+                    .setAnimationDuration(500)
+                    .setReadMoreText("")
+                    .setReadLessText("")
+                    .setCollapsedLines(3)
+                    .setEllipsizedTextColor(com.dev6.designsystem.R.color.TitleColor)
+                    .setIsExpanded(false)
+                    .setIsUnderlined(true)
+
+                binding.itemMainContent.isClickable = false
+
+                binding.mainContentMore.setOnClickListener {
+                    binding.itemMainContent.toggle()
+                    if(binding.mainContentMore.text == "접기"){
+                        binding.mainContentMore.text = "더보기"
+                    }else{
+                        binding.mainContentMore.text = "접기"
+                    }
+                }
+
+                binding.challengeNickname.text = item.nickname
+
                 binding.challengeDate.text =
                     "${item.createdDate[0]}.${item.createdDate[1]}.${item.createdDate[2]}"+" | "+timeDiff
             }

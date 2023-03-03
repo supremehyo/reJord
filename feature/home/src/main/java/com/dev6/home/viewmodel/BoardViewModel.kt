@@ -26,12 +26,20 @@ class BoardViewModel @Inject constructor(
     var upScrollFlag: MutableLiveData<Boolean> = MutableLiveData()
     var boardTabTypeFlag: MutableLiveData<WriteType> = MutableLiveData()
     var scrollFlag: MutableLiveData<ScrollType> = MutableLiveData()
-
+    var boardCount = 0
 
     private fun Boardevent(event: BoardEvent) {
         viewModelScope.launch {
             _BoardeventFlow.emit(event)
         }
+    }
+
+    fun clearBoardCount(){
+        boardCount = 0
+    }
+
+    fun plusBoardCount(){
+        boardCount+=1
     }
 
     fun upScroll(){

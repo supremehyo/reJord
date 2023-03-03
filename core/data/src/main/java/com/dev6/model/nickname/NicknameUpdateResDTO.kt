@@ -5,5 +5,5 @@ data class NicknameUpdateResDTO(
     val nickname : String,
     val uid : String,
     val userId : String,
-    val userType : UserType
+    val roles : List<String>
 )

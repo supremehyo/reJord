@@ -1,4 +1,5 @@
 package com.dev6.model
+import android.util.Log
 import com.dev6.network.DefaultHandleServerStatus
 import com.google.gson.Gson
 import com.jydev.rest_api_util.extension.executeErrorHandling
@@ -20,7 +21,13 @@ suspend fun <T> Response<T>.executeNetworkHandling(): T {
         val gson = Gson()
         val errorBody = errorBody()!!.string()
         val errorResponse = gson.fromJson(errorBody, ErrorResponse::class.java)
-        DefaultHandleServerStatus(errorResponse.error , code())
+        Log.v("코드" , code().toString())
+        if(code() == 403){
+            DefaultHandleServerStatus(Error("인증실패") , code())
+        }else{
+            DefaultHandleServerStatus(errorResponse.error , code())
+        }
+
     }
 
     return body().executeErrorHandling(handle)

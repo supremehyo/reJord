@@ -17,6 +17,7 @@ import com.dev6.home.adapter.BoardRecyclerAdapter
 import com.dev6.home.databinding.FragmentBoardBinding
 import com.dev6.home.viewmodel.BoardViewModel
 import com.google.android.material.chip.Chip
+import java.time.LocalDateTime
 
 
 class BoardFragment : BindingFragment<FragmentBoardBinding>(R.layout.fragment_board) {
@@ -31,7 +32,7 @@ class BoardFragment : BindingFragment<FragmentBoardBinding>(R.layout.fragment_bo
 
     override fun initView() {
         super.initView()
-
+        boardViewModel.clearBoardCount()
         boardRc = binding.boardRecyclerView
 
 
@@ -71,8 +72,7 @@ class BoardFragment : BindingFragment<FragmentBoardBinding>(R.layout.fragment_bo
     override fun initViewModel() {
         super.initViewModel()
         boardViewModel.getPostList(
-            // LocalDateTime.now().toString()
-            PostReadReq(0, "2023-01-28T23:16:59", 5)
+            PostReadReq(0, LocalDateTime.now().toString(), 5)
         )
     }
 
@@ -137,13 +137,14 @@ class BoardFragment : BindingFragment<FragmentBoardBinding>(R.layout.fragment_bo
 
 
                         }, {
-                            index = it
-                            count += 1
-                            Log.v("zzzz", index.toString()+" "+count.toString())
-                            boardViewModel.getPostList(
-                                // LocalDateTime.now().toString()
-                                PostReadReq(count, "2023-01-28T23:16:59", 5)
-                            )
+                            if(event.uiState.data.totalElements > boardViewModel.boardCount * 5){
+                                index = it
+                                boardViewModel.plusBoardCount()
+                                boardViewModel.getPostList(
+                                    PostReadReq(boardViewModel.boardCount,
+                                        LocalDateTime.now().toString(), 5)
+                                )
+                            }
                         })
                         recyclerViewState = boardRc.layoutManager?.onSaveInstanceState()
                         boardRc.apply {

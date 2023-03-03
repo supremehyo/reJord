@@ -6,6 +6,8 @@ import com.dev6.domain.model.common.Pageable
 import com.dev6.domain.model.common.Sort
 import com.dev6.domain.model.post.read.Content
 import com.dev6.domain.model.post.read.PostReadRes
+import com.dev6.domain.model.post.write.ChallengeWriteReq
+import com.dev6.domain.model.post.write.ChallengeWriteRes
 import com.dev6.domain.model.post.write.PostWriteReq
 import com.dev6.domain.model.post.write.PostWriteRes
 import com.dev6.model.challenge.ChallengePageDTO
@@ -15,6 +17,8 @@ import com.dev6.model.common.PageableDTO
 import com.dev6.model.common.SortDTO
 import com.dev6.model.post.read.ContentDTO
 import com.dev6.model.post.read.PostReadResDTO
+import com.dev6.model.post.write.ChallengeWriteReqDTO
+import com.dev6.model.post.write.ChallengeWriteResDTO
 import com.dev6.model.post.write.PostWriteReqDTO
 import com.dev6.model.post.write.PostWriteResDTO
 
@@ -110,6 +114,19 @@ internal fun PostWriteResDTO.toDomain() = PostWriteRes(
     uid = uid
 )
 
+internal fun ChallengeWriteReq.toData() = ChallengeWriteReqDTO(
+    challengeReviewType = challengeReviewType,
+    contents = contents
+)
+
+internal fun ChallengeWriteResDTO.toDomain() = ChallengeWriteRes(
+    challengeReviewId = challengeReviewId,
+    challengeReviewType = challengeReviewType,
+    contents = contents,
+    uid = uid
+)
+
+
 internal fun ChallengeReviewResultDTO.toDomain() = ChallengeReviewResult(
     challengeReviewId = challengeReviewId,
     challengeReviewType = challengeReviewType,
@@ -137,4 +154,6 @@ internal fun ChallengeResDTO.toDomain() = ChallengeRes(
     totalElements = totalElements,
     totalPages = totalPages
 )
+
+
 

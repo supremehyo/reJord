@@ -34,6 +34,10 @@ class LoginViewModel @Inject constructor(
         }
     }
 
+    fun postTokenRefresh(){
+
+    }
+
     sealed class Event {
         data class UiEvent(val uiState: UiState<LoginRes>) : Event()
     }

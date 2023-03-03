@@ -66,15 +66,15 @@
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="22dp"
             android:layout_marginTop="14dp"
-            android:text="본문-가나다라마바사아자차카타파하가나다라마바사아자차카타파하가나다라마바사아자차카타파하가나다라가나다라마바사아자차카타파하가나다라마바사아자차카타파하가나다라마바사아자차카타파하가나다라마바사아자차카타파하가나다라마바사아자차카타파하가나다라마바사아자차카타파하가나다라마바사아자차카타파하가나다라마바사아자차카타파하가나다라마바사아자차카타파하가나다라마바사아자차카타파하가나다라마바사아자차카타파하가나다라마바사아자차카타파하마바사아자차카타파하가나다라마바사아자차카타파하가나다라마바사아자차카타파하 "
+            android:text="본문-가나다라마바사아자카바하가나다라마바사아자차카타파하가나다라마바사아자차카타파하가나다라마바사아자차카타파하마바사아자차카타파하가나다라마바사아자차카타파하가나다라마바사아자차카타파하 "
             android:textSize="12sp"
-            app:layout_constraintBottom_toTopOf="@+id/item_mainContentMore"
+            app:layout_constraintBottom_toTopOf="@+id/mainContentMore"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"></io.github.glailton.expandabletextview.ExpandableTextView>
 
         <TextView
-            android:id="@+id/item_mainContentMore"
+            android:id="@+id/mainContentMore"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="22dp"

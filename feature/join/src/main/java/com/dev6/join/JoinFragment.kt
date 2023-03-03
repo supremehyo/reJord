@@ -142,7 +142,12 @@ class JoinFragment : BindingFragment<FragmentJoinBinding>(R.layout.fragment_join
     private fun AuthButton(){
         binding.authButton.setOnClickListener {
             //회원가입 요청
-            joinViewModel.userJoin(JoinReq(password = passWord , userId = userId, userType))
+            joinViewModel.userJoin(JoinReq(
+                    password = passWord,
+                    userId = userId,
+                    roles = listOf("ROLE_USER")
+                )
+            )
         }
     }
 

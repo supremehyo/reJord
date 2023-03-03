@@ -41,15 +41,24 @@ class BoardRecyclerAdapter(
 
                     itemMainContent
                         .setAnimationDuration(500)
-                        .setReadMoreText("\n\n...더보기")
-                        .setReadLessText("\n\n...접기")
+                        .setReadMoreText("")
+                        .setReadLessText("")
                         .setCollapsedLines(3)
-                        .setIsExpanded(true)
+                        .setEllipsizedTextColor(com.dev6.designsystem.R.color.TitleColor)
+                        .setIsExpanded(false)
                         .setIsUnderlined(true)
                     itemMainContent.text = item.contents
-                    itemMainContentMore.setOnClickListener {
+                    itemMainContent.isClickable = false
 
+                    mainContentMore.setOnClickListener {
+                        itemMainContent.toggle()
+                        if(mainContentMore.text == "접기"){
+                            mainContentMore.text = "더보기"
+                        }else{
+                            mainContentMore.text = "접기"
+                        }
                     }
+
                     postItemRootCl.setOnClickListener {
                         itemClick(item)
                     } }

@@ -5,5 +5,5 @@ data class JoinResDTO(
     val nickname: String,
     val uid: String,
     val userId: String,
-    val userType: String
+    val roles : List<String>
 )

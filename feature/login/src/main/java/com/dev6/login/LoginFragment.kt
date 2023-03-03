@@ -8,6 +8,7 @@ import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
 import com.dev6.common.uistate.UiState
 import com.dev6.core.BindingFragment
+import com.dev6.core.util.DevicePrefs
 import com.dev6.core.util.Validation
 import com.dev6.domain.model.join.login.LoginReq
 import com.dev6.login.databinding.FragmentLoginBinding
@@ -114,6 +115,8 @@ class LoginFragment : BindingFragment<FragmentLoginBinding>(R.layout.fragment_lo
 
                 }
                 is UiState.Success -> {
+                    var tokens = event.uiState.data.tokens
+                    DevicePrefs.getInstance(requireContext()).saveToken(tokens.accessToken,tokens.refreshToken)
                     Toast.makeText(requireContext(), event.toString(), Toast.LENGTH_SHORT).show()
                     findNavController().navigate(R.id.action_LoginFragment_to_home_graph)
                 }

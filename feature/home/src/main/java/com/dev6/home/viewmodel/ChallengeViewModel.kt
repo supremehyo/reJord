@@ -27,10 +27,20 @@ class ChallengeViewModel @Inject constructor(
     var scrollFlag: MutableLiveData<ScrollType> = MutableLiveData()
     var upScrollFlag: MutableLiveData<Boolean> = MutableLiveData()
 
+    var challCount = 0
+
     private fun ChallengeEvent(event: ChallengeEvent) {
         viewModelScope.launch {
             _ChallengeEventFlow.emit(event)
         }
+    }
+
+    fun clearChallCount(){
+        challCount = 0
+    }
+
+    fun plusChallCount(){
+        challCount+=1
     }
 
     fun upScroll(){

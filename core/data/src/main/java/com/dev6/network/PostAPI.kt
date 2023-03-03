@@ -3,6 +3,8 @@ import com.dev6.model.challenge.ChallengeResDTO
 import com.dev6.model.login.LoginReqDTO
 import com.dev6.model.login.LoginResDTO
 import com.dev6.model.post.read.PostReadResDTO
+import com.dev6.model.post.write.ChallengeWriteReqDTO
+import com.dev6.model.post.write.ChallengeWriteResDTO
 import com.dev6.model.post.write.PostWriteReqDTO
 import com.dev6.model.post.write.PostWriteResDTO
 import retrofit2.Response
@@ -29,5 +31,10 @@ interface PostAPI {
     @Headers("Content-Type: application/json")
     @POST("/v1/posts")
     suspend fun postWrite(@Body postWriteReqDTO: PostWriteReqDTO): Response<PostWriteResDTO>
+
+    @Headers("Content-Type: application/json")
+    @POST("/v1/challengeReviews")
+    suspend fun challengeWrite(@Body challengeWriteReqDTO: ChallengeWriteReqDTO): Response<ChallengeWriteResDTO>
+
 
 }

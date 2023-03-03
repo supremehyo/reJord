@@ -5,6 +5,7 @@ import androidx.fragment.app.activityViewModels
 import com.dev6.core.BindingFragment
 import com.dev6.core.enums.ScrollType
 import com.dev6.core.enums.WriteType
+import com.dev6.domain.model.post.read.PostReadReq
 import com.dev6.home.adapter.HomeContentPagerAdapter
 import com.dev6.home.R
 import com.dev6.home.databinding.FragmentHomeMainBinding
@@ -13,6 +14,7 @@ import com.google.android.material.tabs.TabLayout
 import com.google.android.material.tabs.TabLayout.OnTabSelectedListener
 import com.google.android.material.tabs.TabLayoutMediator
 import dagger.hilt.android.AndroidEntryPoint
+import java.time.LocalDateTime
 
 @AndroidEntryPoint
 class MainHomeFragment : BindingFragment<FragmentHomeMainBinding>(R.layout.fragment_home_main) {
@@ -21,7 +23,9 @@ class MainHomeFragment : BindingFragment<FragmentHomeMainBinding>(R.layout.fragm
         super.initView()
         binding.pagerContent.adapter = HomeContentPagerAdapter(this@MainHomeFragment)
         binding.pagerContent.isSaveEnabled = false
-        binding.pagerContent
+
+
+
         binding.tableLayout.addOnTabSelectedListener(object :OnTabSelectedListener{
             override fun onTabSelected(tab: TabLayout.Tab?) {
                 when(tab?.position) {
@@ -48,7 +52,7 @@ class MainHomeFragment : BindingFragment<FragmentHomeMainBinding>(R.layout.fragm
         boardViewModel.scrollFlag.observe(viewLifecycleOwner){
             when(it){
                 ScrollType.TOP ->{
-                    Log.v("sdfsdfs" , "탑탑")
+
                     binding.upFab.alpha = 1.0f
                 }
                 ScrollType.SCROLLUP ->{

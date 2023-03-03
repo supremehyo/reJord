@@ -14,7 +14,7 @@ interface JoinAPI {
     suspend fun signUp(@Body joinReqDTO: JoinReqDTO): Response<JoinResDTO>
 
     @Headers("Content-Type: application/json")
-    @PATCH("/v1/users/{uid}")
+    @PATCH("/v1/users/{uid}/nickname")
     suspend fun joinUpdate(@Body nicknameReqDTO: NicknameReqDTO , @Path("uid") uid : String): Response<NicknameUpdateResDTO>
 
     @Headers("Content-Type: application/json")
