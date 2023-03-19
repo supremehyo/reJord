@@ -1,7 +1,9 @@
 package com.dev6.rejord.di
+import com.dev6.domain.repository.BannerRepository
 import com.dev6.domain.repository.JoinRepository
 import com.dev6.domain.repository.LoginRepository
 import com.dev6.domain.repository.PostRepository
+import com.dev6.repositoryImple.BannerRepositoryImple
 import com.dev6.repositoryImple.JoinRepositoryImple
 import com.dev6.repositoryImple.LoginRepositoryImple
 import com.dev6.repositoryImple.PostRepositoryImple
@@ -26,5 +28,9 @@ abstract class RepositoryModule {
     @Binds
     @ViewModelScoped
     abstract fun bindsPostRepository(repository: PostRepositoryImple): PostRepository
+
+    @Binds
+    @ViewModelScoped
+    abstract fun bindsBannerRepository(repository: BannerRepositoryImple): BannerRepository
 
 }

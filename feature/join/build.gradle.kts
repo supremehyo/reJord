@@ -21,7 +21,6 @@ dependencies {
     androidTestImplementation("androidx.test.ext:junit:1.1.4")
     androidTestImplementation("androidx.test.espresso:espresso-core:3.5.0")
     androidTestImplementation("androidx.annotation:annotation:1.5.0")
-
     implementation(project(":core"))
     implementation(project(":common"))
     implementation(project(":core:designsystem"))

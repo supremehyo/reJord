@@ -1,11 +1,13 @@
 package com.dev6.home.adapter
 
+import android.text.TextUtils
+import android.util.DisplayMetrics
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.view.marginLeft
 import androidx.recyclerview.widget.DiffUtil
-import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.dev6.core.util.formatTimeString
 import com.dev6.domain.model.post.read.Content
@@ -33,29 +35,26 @@ class BoardRecyclerAdapter(
                     item.createdDate[3],
                     item.createdDate[4]
                 )
+                var count = 4 //countNewLines(itemMainContent.text.toString())
+                Log.v("카운트트" , count.toString())
+                if(count > 3) binding.mainContentMore.visibility = View.VISIBLE
 
                 binding.apply {
                     postItemUserNickName.text = item.nickname
                     postItemCreateTime.text =
                         "${item.createdDate[0]}.${item.createdDate[1]}.${item.createdDate[2]}" + "|" + timeDiff
-
-                    itemMainContent
-                        .setAnimationDuration(500)
-                        .setReadMoreText("")
-                        .setReadLessText("")
-                        .setCollapsedLines(3)
-                        .setEllipsizedTextColor(com.dev6.designsystem.R.color.TitleColor)
-                        .setIsExpanded(false)
-                        .setIsUnderlined(true)
-                    itemMainContent.text = item.contents
-                    itemMainContent.isClickable = false
+                    itemMainContent.text = "본문-가나다라마바사아자카바하가\n나다라마바사아자차카타파하가나다\n라마바사아자차카타파하가나다라\n마바사아자차카타파하마바사아자차카타파\n하가나다라마바사아자차카타파하가나다\n라마바사아자차카타파하 " //item.contents
 
                     mainContentMore.setOnClickListener {
-                        itemMainContent.toggle()
                         if(mainContentMore.text == "접기"){
                             mainContentMore.text = "더보기"
+                            itemMainContent.setEllipsize(TextUtils.TruncateAt.END)
+                            itemMainContent.maxLines = 3
                         }else{
                             mainContentMore.text = "접기"
+                            itemMainContent.ellipsize = null
+                            itemMainContent.maxLines = 100
+
                         }
                     }
 
@@ -139,5 +138,9 @@ class BoardRecyclerAdapter(
 
     override fun getItemCount(): Int {
         return items.size +1
+    }
+
+    fun countNewLines(text: String): Int {
+        return Regex("\n").findAll(text).count()
     }
 }

@@ -1,3 +1,4 @@
 <resources>
     <dimen name="layout_side_margin">16dp</dimen>
+    <dimen name="margin_22">22dp</dimen>
 </resources>

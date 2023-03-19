@@ -126,7 +126,8 @@ class JoinFragment : BindingFragment<FragmentJoinBinding>(R.layout.fragment_join
             binding.passwordErrorConfirmText.setTextColor(getColor(requireActivity(), com.dev6.designsystem.R.color.typoError))
             binding.passwordErrorConfirmText.text = "비밀번호가 일치하지 않습니다."
             errors[2] = false
-        }else if(binding.customEditTextPasswordSub1.text.toString() == binding.customEditTextPasswordSub2.text.toString()){
+        }else if((binding.customEditTextPasswordSub1.text.toString() == binding.customEditTextPasswordSub2.text.toString())
+            && binding.customEditTextPasswordSub1.text!!.isNotEmpty()){
             passWord = binding.customEditTextPasswordSub1.text.toString()
             binding.passwordErrorConfirmText.visibility = View.VISIBLE
             binding.passwordErrorConfirmText.setTextColor(getColor(requireActivity(), com.dev6.designsystem.R.color.mainColor))
@@ -178,15 +179,17 @@ class JoinFragment : BindingFragment<FragmentJoinBinding>(R.layout.fragment_join
 
                 }
                 is UiState.Success -> {
-
+                    val bundle = bundleOf("userUid" to event.uiState.data.uid)
+                    findNavController().navigate(R.id.action_JoinFragment_to_JoinNickNameFragemnt , bundle)
+                    /*
                     JoinDialogFragment(){
-                        val bundle = bundleOf("userUid" to event.uiState.data.uid)
-                        findNavController().navigate(R.id.action_JoinFragment_to_JoinNickNameFragemnt , bundle)
+
                     }.show(parentFragmentManager,"")
+
+                     */
                 }
                 is UiState.Error -> {
                     Toast.makeText(requireContext(), event.toString(), Toast.LENGTH_SHORT).show()
-
                 }
             }
         }

@@ -93,7 +93,7 @@
         <LinearLayout
             android:id="@+id/linearLayout"
             android:layout_width="0dp"
-            android:layout_height="34dp"
+            android:layout_height="36dp"
             android:paddingBottom="4dp"
             android:orientation="horizontal"
             app:layout_constraintEnd_toEndOf="parent"
@@ -104,7 +104,7 @@
         <TextView
             android:id="@+id/emailErrorText"
             android:layout_width="wrap_content"
-            android:layout_height="17dp"
+            android:layout_height="19dp"
             android:layout_marginHorizontal="@dimen/layout_side_margin"
             android:text="형식에 맞지 않은 아이디입니다."
             android:textColor="#FF0000"
@@ -331,7 +331,7 @@
         <LinearLayout
             android:id="@+id/linearLayout2"
             android:layout_width="411dp"
-            android:layout_height="34dp"
+            android:layout_height="36dp"
             android:orientation="horizontal"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -342,7 +342,7 @@
             android:id="@+id/passwordErrorText"
             android:visibility="gone"
             android:layout_width="wrap_content"
-            android:layout_height="17dp"
+            android:layout_height="19dp"
             android:layout_marginHorizontal="@dimen/layout_side_margin"
             android:text="대문자와 숫자를 포함하여 최소 8글자 이상을 입력해주세요."
             android:textColor="#FF0000"
@@ -416,7 +416,7 @@
         <TextView
             android:id="@+id/passwordErrorConfirmText"
             android:layout_width="wrap_content"
-            android:layout_height="17dp"
+            android:layout_height="19dp"
             android:visibility="gone"
             android:layout_marginHorizontal="@dimen/layout_side_margin"
             android:text="비밀번호가 일치하지 않습니다."
@@ -429,7 +429,7 @@
         <LinearLayout
             android:id="@+id/linearLayout3"
             android:layout_width="411dp"
-            android:layout_height="34dp"
+            android:layout_height="36dp"
             android:orientation="horizontal"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/passwordErrorConfirmText"

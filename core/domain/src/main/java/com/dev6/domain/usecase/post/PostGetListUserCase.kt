@@ -1,4 +1,5 @@
 package com.dev6.domain.usecase.post
+import android.util.Log
 import com.dev6.common.uistate.UiState
 import com.dev6.domain.model.post.read.PostReadReq
 import com.dev6.domain.model.post.read.PostReadRes

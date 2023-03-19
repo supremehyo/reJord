@@ -58,7 +58,7 @@ class LoginFragment : BindingFragment<FragmentLoginBinding>(R.layout.fragment_lo
             if(allDataComplete()){
                 loginViewModel.userLogin(LoginReq(passWord,userId))
             }else{
-                Toast.makeText(requireContext(), "형식에 맞지 않은 값이 있습니다.", Toast.LENGTH_SHORT).show()
+                Toast.makeText(requireContext(), "잘못된 로그인 정보입니다.", Toast.LENGTH_SHORT).show()
             }
         }
 

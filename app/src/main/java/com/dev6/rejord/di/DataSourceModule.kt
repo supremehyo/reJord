@@ -21,4 +21,9 @@ abstract class DataSourceModule {
     @Singleton
     @Binds
     abstract fun bindsPostRemoteSource(source: PostRemoteDataSourceImpl): PostRemoteDataSource
+
+    @Singleton
+    @Binds
+    abstract fun bindsBannerRemoteSource(source: BannerRemoteDataSourceImpl): BannerRemoteDataSource
+
 }

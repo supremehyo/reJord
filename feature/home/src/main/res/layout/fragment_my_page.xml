@@ -39,17 +39,27 @@
                     <androidx.constraintlayout.widget.ConstraintLayout
                         android:id="@+id/constraintLayout"
                         android:layout_width="match_parent"
-                        android:layout_height="307dp"
+                        android:layout_height="272dp"
                         android:adjustViewBounds="true"
                         android:background="@color/white"
-                        app:layout_collapseMode="parallax"
                         android:paddingStart="23dp"
                         android:paddingTop="30dp"
+                        android:paddingRight="20dp"
+                        app:layout_collapseMode="parallax"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toBottomOf="@+id/view"
                         app:layout_constraintVertical_bias="0.0">
+
+                        <ImageView
+                            android:id="@+id/myPageIv"
+                            android:layout_width="70dp"
+                            android:layout_height="70dp"
+                            android:src="@drawable/mypage_image"
+                            app:layout_constraintBottom_toBottomOf="@+id/myPageSubText"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintTop_toTopOf="@+id/myPageNickName" />
 
                         <TextView
                             android:id="@+id/myPageNickName"
@@ -67,46 +77,114 @@
                             android:id="@+id/myPageSubText"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
+                            android:layout_marginTop="3dp"
+                            android:fontFamily="@font/notosanskr_light"
+                            android:includeFontPadding="false"
+                            android:text="리욜드와 함께 지구를 지킨지\n50일 되었어요:)"
                             android:textColor="@color/mypageSubTextColor"
                             android:textSize="16sp"
-                            android:fontFamily="@font/notosanskr_light"
                             android:textStyle="bold"
-                            android:includeFontPadding="false"
-                            android:layout_marginTop="3dp"
-                            android:text="리욜드와 함께 지구를 지킨지\n50일 되었어요:)"
                             app:layout_constraintStart_toStartOf="@+id/myPageNickName"
                             app:layout_constraintTop_toBottomOf="@+id/myPageNickName" />
 
                         <TextView
-                            android:id="@+id/textView2"
+                            android:id="@+id/myInfoEdit"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
+                            android:layout_marginTop="3dp"
                             android:fontFamily="@font/notosanskr_bold"
+                            android:includeFontPadding="false"
                             android:text="정보수정"
                             android:textColor="@color/typo4"
                             android:textSize="14sp"
                             app:layout_constraintStart_toStartOf="@+id/myPageSubText"
                             app:layout_constraintTop_toBottomOf="@+id/myPageSubText" />
 
-                        <androidx.constraintlayout.widget.ConstraintLayout
-                            android:layout_width="match_parent"
+                        <TextView
+                            android:id="@+id/textView3"
+                            android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            app:layout_constraintTop_toBottomOf="@+id/textView2"
-                            tools:layout_editor_absoluteX="23dp">
+                            android:layout_marginTop="38dp"
+                            android:fontFamily="@font/notosanskr_bold"
+                            android:includeFontPadding="false"
+                            android:paddingVertical="10dp"
+                            android:text="획득한 배지"
+                            android:textColor="@color/black"
+                            android:textSize="18sp"
+                            app:layout_constraintVertical_bias="1"
+                            app:layout_constraintBottom_toTopOf="@+id/textView4"
+                            app:layout_constraintStart_toStartOf="@+id/myInfoEdit"
+                            app:layout_constraintTop_toBottomOf="@+id/myInfoEdit" />
+
+                        <LinearLayout
+                            android:id="@+id/linearLayout2"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal"
+                            app:layout_constraintBottom_toBottomOf="@+id/textView3"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintTop_toTopOf="@+id/textView3">
 
                             <TextView
+                                android:id="@+id/baggeCount"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:fontFamily="@font/notosanskr_bold"
                                 android:includeFontPadding="false"
-                                android:text="내가 줄인 발자국"
+                                android:paddingVertical="10dp"
+                                android:text="20개"
                                 android:textColor="@color/black"
-                                android:textSize="18sp"
-                                app:layout_constraintBottom_toBottomOf="parent"
-                                app:layout_constraintStart_toStartOf="parent"
-                                app:layout_constraintTop_toTopOf="parent"></TextView>
+                                android:textSize="18sp" />
 
-                        </androidx.constraintlayout.widget.ConstraintLayout>
+                            <ImageView
+                                android:id="@+id/baggeCountIv"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="center"
+                                android:rotationY="180"
+                                android:src="@drawable/back_arrow" />
+                        </LinearLayout>
+
+                        <TextView
+                            android:id="@+id/textView4"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:fontFamily="@font/notosanskr_bold"
+                            android:includeFontPadding="false"
+                            android:paddingVertical="10dp"
+                            android:text="내가 줄인 발자국"
+                            android:textColor="@color/black"
+                            android:textSize="18sp"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintStart_toStartOf="@+id/textView3" />
+
+                        <LinearLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal"
+                            app:layout_constraintBottom_toBottomOf="@+id/textView4"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintTop_toTopOf="@+id/textView4">
+
+                            <TextView
+                                android:id="@+id/footPrintCount"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:fontFamily="@font/notosanskr_bold"
+                                android:includeFontPadding="false"
+                                android:paddingVertical="10dp"
+                                android:text="20개"
+                                android:textColor="@color/black"
+                                android:textSize="18sp" />
+
+                            <ImageView
+                                android:id="@+id/footPrintIv"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="center"
+                                android:rotationY="180"
+                                android:src="@drawable/back_arrow" />
+                        </LinearLayout>
 
                     </androidx.constraintlayout.widget.ConstraintLayout>
                 </com.google.android.material.appbar.CollapsingToolbarLayout>
@@ -124,7 +202,8 @@
                         app:layout_constraintTop_toTopOf="parent"
                         app:tabGravity="fill"
                         app:tabIndicatorColor="@color/mainColor"
-                        app:tabIndicatorFullWidth="true"
+                        app:tabIndicatorFullWidth="false"
+                        app:tabIndicator="@drawable/tab_selector"
                         app:tabIndicatorGravity="bottom"
                         app:tabIndicatorHeight="2.5dp"
                         app:tabMode="fixed"
@@ -135,6 +214,7 @@
                             android:layout_width="170dp"
                             android:layout_height="wrap_content"
                             android:layout_gravity="center"
+                            android:layout_marginHorizontal="10dp"
                             android:text="챌린지 후기"
                             android:textSize="16sp" />
 
@@ -162,6 +242,7 @@
 
         <com.google.android.material.floatingactionbutton.FloatingActionButton
             android:id="@+id/upFab"
+            android:visibility="gone"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="end|bottom"

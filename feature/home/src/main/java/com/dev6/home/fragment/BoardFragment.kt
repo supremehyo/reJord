@@ -4,12 +4,14 @@ import android.util.Log
 import android.view.MotionEvent
 import androidx.annotation.NonNull
 import androidx.fragment.app.activityViewModels
+import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.RecyclerView.OnItemTouchListener
 import com.dev6.common.uistate.UiState
 import com.dev6.core.BindingFragment
 import com.dev6.core.enums.ScrollType
+import com.dev6.core.util.extension.repeatOnStarted
 import com.dev6.domain.model.post.read.Content
 import com.dev6.domain.model.post.read.PostReadReq
 import com.dev6.home.R
@@ -17,6 +19,8 @@ import com.dev6.home.adapter.BoardRecyclerAdapter
 import com.dev6.home.databinding.FragmentBoardBinding
 import com.dev6.home.viewmodel.BoardViewModel
 import com.google.android.material.chip.Chip
+import kotlinx.coroutines.Job
+import kotlinx.coroutines.launch
 import java.time.LocalDateTime
 
 
@@ -28,13 +32,12 @@ class BoardFragment : BindingFragment<FragmentBoardBinding>(R.layout.fragment_bo
     var count = 0
     var index = 0
     private var recyclerViewState: Parcelable? = null
-
+    lateinit var job : Job
 
     override fun initView() {
         super.initView()
         boardViewModel.clearBoardCount()
         boardRc = binding.boardRecyclerView
-
 
 
         //CollapsingToolbarLayout 랑 같이 리사이클러뷰 쓰니까 스크롤이 안되는 문제가 있어서 이걸로 해결
@@ -82,7 +85,7 @@ class BoardFragment : BindingFragment<FragmentBoardBinding>(R.layout.fragment_bo
 
     override fun afterViewCreated() {
         super.afterViewCreated()
-        repeatOnStartedFragment {
+        job = lifecycleScope.launch {
             boardViewModel.BoardeventFlow.collect { event ->
                 eventHandler(event)
             }
@@ -155,7 +158,7 @@ class BoardFragment : BindingFragment<FragmentBoardBinding>(R.layout.fragment_bo
                         boardRc.layoutManager?.onRestoreInstanceState(recyclerViewState)
                     }
                     is UiState.Error -> {
-
+                        Log.e("sdfsdf" , event.uiState.error.toString())
                     }
                 }
             }
@@ -163,5 +166,10 @@ class BoardFragment : BindingFragment<FragmentBoardBinding>(R.layout.fragment_bo
 
             }
         }
+    }
+
+    override fun onPause() {
+        super.onPause()
+       // job.cancel()
     }
 }

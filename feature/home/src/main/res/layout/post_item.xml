@@ -6,7 +6,7 @@
     android:id="@+id/postItemRootCl"
     android:animateLayoutChanges="true"
     android:layout_width="match_parent"
-    android:layout_height="209dp">
+    android:layout_height="wrap_content">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/constraintLayout2"
@@ -60,18 +60,21 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/constraintLayout2">
 
-        <io.github.glailton.expandabletextview.ExpandableTextView
+        <TextView
             android:id="@+id/item_mainContent"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="22dp"
             android:layout_marginTop="14dp"
-            android:text="본문-가나다라마바사아자카바하가나다라마바사아자차카타파하가나다라마바사아자차카타파하가나다라마바사아자차카타파하마바사아자차카타파하가나다라마바사아자차카타파하가나다라마바사아자차카타파하 "
+            android:text=""
             android:textSize="12sp"
+            android:ellipsize="end"
+            android:maxLines="3"
             app:layout_constraintBottom_toTopOf="@+id/mainContentMore"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"></io.github.glailton.expandabletextview.ExpandableTextView>
+            app:layout_constraintTop_toTopOf="parent">
+        </TextView>
 
         <TextView
             android:id="@+id/mainContentMore"
@@ -81,9 +84,10 @@
             android:layout_marginTop="10dp"
             android:layout_marginBottom="14dp"
             android:fontFamily="@font/roboto_bold"
-            android:text="...더보기"
+            android:text="더보기"
             android:textColor="#8B8B8B"
             android:textSize="12sp"
+            android:visibility="gone"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0"
@@ -98,6 +102,7 @@
         android:layout_marginStart="28dp"
         android:text="카테고리 | 기타"
         android:textSize="12sp"
+        android:layout_marginVertical="10dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0"

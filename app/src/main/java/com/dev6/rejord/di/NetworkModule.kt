@@ -1,6 +1,7 @@
 package com.dev6.rejord.di
 import android.util.Log
 import com.dev6.model.login.TokensDTO
+import com.dev6.network.BannerAPI
 import com.dev6.network.JoinAPI
 import com.dev6.network.LoginAPI
 import com.dev6.network.PostAPI
@@ -100,12 +101,8 @@ open class NetworkModule {
             val originalRequest = chain.request()
             val authenticationRequest = request(originalRequest)
             val initialResponse = chain.proceed(authenticationRequest)
-
-            Log.v("ㅠㅠ리프" , prefs.getRefreshToken())
-            Log.v("ㅠㅠ엑세스" , prefs.getToken())
             count+=1
             if(initialResponse.code == 403 && !(prefs.getRefreshToken() == "" && count < 2)){
-
                var job = CoroutineScope(Dispatchers.IO).async {
                     try{
                         Log.v("리프레시토큰" , prefs.getRefreshToken())
@@ -116,10 +113,12 @@ open class NetworkModule {
                         prefs.saveToken("","")
                     }
                 }
+                initialResponse.close()
+                val newAuthenticationRequest = request(originalRequest)
+                return chain.proceed(newAuthenticationRequest)
+            }else{
+                return initialResponse
             }
-            initialResponse.close()
-            val newAuthenticationRequest = request(originalRequest)
-            return chain.proceed(newAuthenticationRequest)
         }
         private fun request(originalRequest: Request): Request {
             return originalRequest.newBuilder()
@@ -145,5 +144,11 @@ open class NetworkModule {
     fun providePostService(retrofit: Retrofit): PostAPI {
         return retrofit.create(PostAPI::class.java)
     }
+    @Provides
+    @Singleton
+    fun provideBannerService(retrofit: Retrofit): BannerAPI {
+        return retrofit.create(BannerAPI::class.java)
+    }
+
 
 }

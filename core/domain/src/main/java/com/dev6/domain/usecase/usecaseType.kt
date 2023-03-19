@@ -1,5 +1,6 @@
 package com.dev6.domain.usecase
 import com.dev6.common.uistate.UiState
+import com.dev6.domain.model.challenge.ChallengeInfoRes
 import com.dev6.domain.model.challenge.ChallengeReadReq
 import com.dev6.domain.model.challenge.ChallengeRes
 import com.dev6.domain.model.join.JoinReq
