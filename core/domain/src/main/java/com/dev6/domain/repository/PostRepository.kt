@@ -11,4 +11,6 @@ interface PostRepository {
     suspend fun postWrite(dto : PostWriteReq) : PostWriteRes
     suspend fun getChallengeList(page: Int, requestTime: String, size: Int) : ChallengeRes
     suspend fun postChallengeWrite(dto : ChallengeWriteReq) : ChallengeWriteRes
+    suspend fun getChallengeListWithUid(page: Int, size: Int) : ChallengeRes
+    suspend fun  getPostListWithUid(page: Int, size: Int) : PostReadRes
 }

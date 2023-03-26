@@ -36,5 +36,17 @@ interface PostAPI {
     @POST("/v1/challengeReviews")
     suspend fun challengeWrite(@Body challengeWriteReqDTO: ChallengeWriteReqDTO): Response<ChallengeWriteResDTO>
 
+    @Headers("Content-Type: application/json")
+    @GET("/v1/challengeReviewInfos/withUid")
+    suspend fun getChallengeListWithUid(
+        @Query("page") page:Int,
+        @Query("size") size:Int
+    ): Response<ChallengeResDTO>
 
+    @Headers("Content-Type: application/json")
+    @GET("/v1/postInfos/withUid")
+    suspend fun getPostListWithUid(
+        @Query("page") page:Int,
+        @Query("size") size:Int
+    ): Response<PostReadResDTO>
 }

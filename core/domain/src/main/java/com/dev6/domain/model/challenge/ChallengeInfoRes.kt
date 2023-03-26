@@ -1,8 +1,7 @@
 package com.dev6.domain.model.challenge
 
 data class ChallengeInfoRes(
-    val badgeId : String,
-    val badgeName : String,
+    val badgeCode : String,
     val challengeId : String,
     val contents : String,
     val footprintAmount : String,

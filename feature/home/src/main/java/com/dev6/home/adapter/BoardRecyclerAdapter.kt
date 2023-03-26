@@ -35,15 +35,14 @@ class BoardRecyclerAdapter(
                     item.createdDate[3],
                     item.createdDate[4]
                 )
-                var count = 4 //countNewLines(itemMainContent.text.toString())
-                Log.v("카운트트" , count.toString())
+                var count = countNewLines(binding.itemMainContent.text.toString())
                 if(count > 3) binding.mainContentMore.visibility = View.VISIBLE
 
                 binding.apply {
                     postItemUserNickName.text = item.nickname
                     postItemCreateTime.text =
                         "${item.createdDate[0]}.${item.createdDate[1]}.${item.createdDate[2]}" + "|" + timeDiff
-                    itemMainContent.text = "본문-가나다라마바사아자카바하가\n나다라마바사아자차카타파하가나다\n라마바사아자차카타파하가나다라\n마바사아자차카타파하마바사아자차카타파\n하가나다라마바사아자차카타파하가나다\n라마바사아자차카타파하 " //item.contents
+                    itemMainContent.text = item.contents
 
                     mainContentMore.setOnClickListener {
                         if(mainContentMore.text == "접기"){

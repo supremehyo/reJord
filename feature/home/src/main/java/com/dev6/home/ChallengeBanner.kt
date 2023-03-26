@@ -37,7 +37,7 @@ class ChallengeBanner(
    @SuppressLint("ResourceType")
    fun setBannerLayout(challengeInfoRes: ChallengeInfoRes)  {
       try {
-         binding.topText.text = challengeInfoRes.badgeId
+         binding.topText.text = challengeInfoRes.challengeId
          binding.bannerTitle.text = challengeInfoRes.title
          binding.bannerBackground.backgroundTintList =
             ColorStateList.valueOf(ContextCompat.getColor(context, Color.parseColor("#000000")))

@@ -1,4 +1,5 @@
 package com.dev6.repositoryImple
+
 import com.dev6.domain.model.challenge.ChallengeRes
 import com.dev6.domain.model.post.read.PostReadRes
 import com.dev6.domain.model.post.write.ChallengeWriteReq
@@ -14,16 +15,22 @@ import javax.inject.Inject
 class PostRepositoryImple @Inject constructor(
     private val postRemoteDataSource: PostRemoteDataSource
 ) : PostRepository {
-    override suspend fun getPostList(page: Int, requestTime: String, size: Int): PostReadRes
-    = postRemoteDataSource.getPostList(page, requestTime, size).toDomain()
+    override suspend fun getPostList(page: Int, requestTime: String, size: Int): PostReadRes =
+        postRemoteDataSource.getPostList(page, requestTime, size).toDomain()
 
-    override suspend fun postWrite(dto: PostWriteReq): PostWriteRes
-    = postRemoteDataSource.postWrite(dto.toData()).toDomain()
+    override suspend fun postWrite(dto: PostWriteReq): PostWriteRes =
+        postRemoteDataSource.postWrite(dto.toData()).toDomain()
 
-    override suspend fun getChallengeList(page: Int, requestTime: String, size: Int): ChallengeRes
-    = postRemoteDataSource.getChallengeList(page, requestTime, size).toDomain()
+    override suspend fun getChallengeList(page: Int, requestTime: String, size: Int): ChallengeRes =
+        postRemoteDataSource.getChallengeList(page, requestTime, size).toDomain()
 
-    override suspend fun postChallengeWrite(dto: ChallengeWriteReq): ChallengeWriteRes
-    = postRemoteDataSource.postChallenge(dto.toData()).toDomain()
+    override suspend fun postChallengeWrite(dto: ChallengeWriteReq): ChallengeWriteRes =
+        postRemoteDataSource.postChallenge(dto.toData()).toDomain()
+
+    override suspend fun getChallengeListWithUid(page: Int, size: Int): ChallengeRes =
+        postRemoteDataSource.getChallengeListWithUid(page, size).toDomain()
+
+    override suspend fun getPostListWithUid(page: Int, size: Int): PostReadRes =
+        postRemoteDataSource.getPostListWithUid(page, size).toDomain()
 
 }

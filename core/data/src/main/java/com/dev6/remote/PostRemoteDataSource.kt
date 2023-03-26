@@ -32,6 +32,15 @@ interface PostRemoteDataSource {
     suspend fun postChallenge(
         dto : ChallengeWriteReqDTO
     ) : ChallengeWriteResDTO
+
+    suspend fun getChallengeListWithUid(
+        page: Int,
+        size: Int
+    ) : ChallengeResDTO
+    suspend fun  getPostListWithUid(
+        page: Int,
+        size: Int
+    ) : PostReadResDTO
 }
 
 class PostRemoteDataSourceImpl @Inject constructor(
@@ -55,5 +64,13 @@ class PostRemoteDataSourceImpl @Inject constructor(
 
     override suspend fun postChallenge(dto: ChallengeWriteReqDTO): ChallengeWriteResDTO {
         return postService.challengeWrite(dto).executeNetworkHandling()
+    }
+
+    override suspend fun getChallengeListWithUid(page: Int, size: Int) : ChallengeResDTO {
+        return postService.getChallengeListWithUid(page, size).executeNetworkHandling()
+    }
+
+    override suspend fun getPostListWithUid(page: Int, size: Int): PostReadResDTO {
+        return postService.getPostListWithUid(page, size).executeNetworkHandling()
     }
 }

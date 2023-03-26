@@ -23,6 +23,7 @@ class MainViewModel @Inject constructor(
     private val _BoardeventFlow = MutableEventFlow<HomeEvent>(10)
     val BoardeventFlow = _BoardeventFlow.asEventFlow()
 
+    /*
     private fun Boardevent(event: HomeEvent) {
         viewModelScope.launch {
             _BoardeventFlow.emit(event)
@@ -38,6 +39,8 @@ class MainViewModel @Inject constructor(
             }
         }
     }
+
+     */
 
 
     sealed class HomeEvent {

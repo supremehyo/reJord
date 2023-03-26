@@ -24,8 +24,8 @@ import java.time.LocalDateTime
 
 @AndroidEntryPoint
 class MainHomeFragment : BindingFragment<FragmentHomeMainBinding>(R.layout.fragment_home_main) {
-    val boardViewModel : BoardViewModel by activityViewModels()
-    val challengeViewModel : ChallengeViewModel by activityViewModels()
+    private val boardViewModel : BoardViewModel by activityViewModels()
+    private val challengeViewModel : ChallengeViewModel by activityViewModels()
     lateinit var job : Job
     override fun initView() {
         super.initView()
@@ -97,7 +97,8 @@ class MainHomeFragment : BindingFragment<FragmentHomeMainBinding>(R.layout.fragm
                 when(event.uiState){
                     is UiState.Success ->{
                       initBanner(event.uiState.data)
-                        job.cancel()
+                        job.cancel() //이렇게 캔슬해주고 하니까
+                        //해결됐었는데 이것도 좋은 해결책은 아닌듯함
                     }
                     is UiState.Loding ->{
 

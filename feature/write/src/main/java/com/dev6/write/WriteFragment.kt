@@ -77,6 +77,7 @@ class WriteFragment : BaseBottomSheetDialogFragment<FragmentWriteBinding>(R.layo
                         contents = contens
                     ))
                 }
+                this.dismiss()
             }else{
                 repeatOnStarted {
                     writeViewModel.postWrite(PostWriteReq(
@@ -85,6 +86,7 @@ class WriteFragment : BaseBottomSheetDialogFragment<FragmentWriteBinding>(R.layo
                         postId = ""
                     ))
                 }
+                this.dismiss()
             }
         }
         binding.closeIv.setOnClickListener {

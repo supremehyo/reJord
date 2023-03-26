@@ -25,7 +25,7 @@ class ChallengeFragment : BindingFragment<FragmentChallengeBinding>(R.layout.fra
     lateinit var challengeRc : RecyclerView
     lateinit var challengeRecyclerAdapter: ChallengeRecyclerAdapter
     private  var mutableList: MutableList<ChallengeReviewResult> = arrayListOf()
-    var count = 0 // 초기화되면 안되는 값인듯 한데 체크해보고 viewmodel로 옮기던지 해야할듯
+    var count = 0
     var index = 0
     private var recyclerViewState: Parcelable? = null
 
