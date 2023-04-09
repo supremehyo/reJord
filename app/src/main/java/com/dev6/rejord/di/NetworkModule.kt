@@ -1,10 +1,7 @@
 package com.dev6.rejord.di
 import android.util.Log
 import com.dev6.model.login.TokensDTO
-import com.dev6.network.BannerAPI
-import com.dev6.network.JoinAPI
-import com.dev6.network.LoginAPI
-import com.dev6.network.PostAPI
+import com.dev6.network.*
 import com.dev6.rejord.Application.Companion.prefs
 import com.google.gson.Gson
 import com.jydev.rest_api_util.extension.executeErrorHandling
@@ -148,6 +145,12 @@ open class NetworkModule {
     @Singleton
     fun provideBannerService(retrofit: Retrofit): BannerAPI {
         return retrofit.create(BannerAPI::class.java)
+    }
+
+    @Provides
+    @Singleton
+    fun myPageService(retrofit: Retrofit) : MyPageAPI{
+        return retrofit.create(MyPageAPI::class.java)
     }
 
 

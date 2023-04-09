@@ -27,6 +27,7 @@ dependencies {
     implementation(project(":core:domain"))
     implementation(project(":core:data"))
     implementation(project(":feature:home"))
+    implementation(project(":feature:login"))
     implementation("androidx.legacy:legacy-support-v4:1.0.0")
     implementation(AndroidX.CORE_KTX)
     implementation(AndroidX.APP_COMPAT)

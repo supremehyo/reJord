@@ -29,6 +29,10 @@ class WriteViewModel @Inject constructor(
     val categoryLiveData : LiveData<WriteType>
         get() = _categoryLiveData
 
+    private val _challengeId = MutableLiveData<String>()
+    val challengeId : LiveData<String>
+        get() = _challengeId
+
     private val _eventFlow = MutableEventFlow<Event>()
     val eventFlow = _eventFlow.asEventFlow()
 
@@ -39,6 +43,12 @@ class WriteViewModel @Inject constructor(
         viewModelScope.launch {
             _eventFlow.emit(event)
         }
+    }
+
+
+
+    fun changeChallengeIdData(id : String){
+        _challengeId.value = id
     }
 
     fun updateCateGoryValue(type : WriteType){

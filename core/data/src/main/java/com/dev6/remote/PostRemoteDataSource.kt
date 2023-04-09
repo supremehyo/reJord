@@ -15,6 +15,7 @@ import javax.inject.Inject
 interface PostRemoteDataSource {
     suspend fun getPostList(
         page : Int,
+        postType : String,
         requestTime : String,
         size : Int
     ) : PostReadResDTO
@@ -46,8 +47,8 @@ interface PostRemoteDataSource {
 class PostRemoteDataSourceImpl @Inject constructor(
     private val postService : PostAPI
 ) : PostRemoteDataSource {
-    override suspend fun getPostList(page: Int, requestTime: String, size: Int): PostReadResDTO {
-        return postService.getPostList(page, requestTime, size).executeNetworkHandling()
+    override suspend fun getPostList(page: Int, postType : String, requestTime: String, size: Int): PostReadResDTO {
+        return postService.getPostList(page, postType , requestTime, size).executeNetworkHandling()
     }
 
     override suspend fun postWrite(dto: PostWriteReqDTO) : PostWriteResDTO {

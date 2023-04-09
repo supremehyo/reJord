@@ -36,6 +36,7 @@ class WriteFragment : BaseBottomSheetDialogFragment<FragmentWriteBinding>(R.layo
     var challengeReviewType : String? = ""
     var writeType : String? = ""
     var contens = ""
+    var challengeId = ""
 
     override fun initView() {
         writeType = arguments?.getString("writeType")
@@ -61,6 +62,10 @@ class WriteFragment : BaseBottomSheetDialogFragment<FragmentWriteBinding>(R.layo
                 }
             }
         }
+
+        writeViewModel.challengeId.observe(viewLifecycleOwner){
+            challengeId = it
+        }
     }
 
 
@@ -73,10 +78,12 @@ class WriteFragment : BaseBottomSheetDialogFragment<FragmentWriteBinding>(R.layo
             if(writeType == "CHALLENGE"){
                 repeatOnStarted {
                     writeViewModel.challengeWrite(ChallengeWriteReq(
+                        challengeId,
                         challengeReviewType = challengeReviewType ?: "FEELING",
                         contents = contens
                     ))
                 }
+                binding.writeContentEt.text.clear()
                 this.dismiss()
             }else{
                 repeatOnStarted {
@@ -86,6 +93,7 @@ class WriteFragment : BaseBottomSheetDialogFragment<FragmentWriteBinding>(R.layo
                         postId = ""
                     ))
                 }
+                binding.writeContentEt.text.clear()
                 this.dismiss()
             }
         }
@@ -166,5 +174,6 @@ class WriteFragment : BaseBottomSheetDialogFragment<FragmentWriteBinding>(R.layo
         (context as Activity?)!!.windowManager.getDefaultDisplay().getMetrics(displayMetrics)
         return displayMetrics.heightPixels
     }
+
 
 }

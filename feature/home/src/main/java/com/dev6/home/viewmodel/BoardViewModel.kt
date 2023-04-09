@@ -4,6 +4,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.dev6.common.uistate.UiState
+import com.dev6.core.enums.PostType
 import com.dev6.core.enums.ScrollType
 import com.dev6.core.enums.WriteType
 import com.dev6.core.util.MutableEventFlow
@@ -31,6 +32,7 @@ class BoardViewModel @Inject constructor(
     var upScrollFlag: MutableLiveData<Boolean> = MutableLiveData()
     var boardTabTypeFlag: MutableLiveData<WriteType> = MutableLiveData()
     var scrollFlag: MutableLiveData<ScrollType> = MutableLiveData()
+    var postType : MutableLiveData<String> = MutableLiveData()
     var boardCount = 0
 
     private fun Boardevent(event: BoardEvent) {
@@ -41,6 +43,10 @@ class BoardViewModel @Inject constructor(
                 Log.e("sdfsdf" , e.message.toString())
             }
         }
+    }
+
+    fun changePostType(postType : String){
+        this.postType.value = postType
     }
 
     fun clearBoardCount(){
@@ -68,7 +74,7 @@ class BoardViewModel @Inject constructor(
     }
 
 
-    fun getPostList(postReadReq: PostReadReq) {
+    suspend fun getPostList(postReadReq: PostReadReq) {
         viewModelScope.launch {
             postGetListUserCase(postReadReq).catch {}.collect { uiState ->
                 Boardevent(BoardEvent.GetPostUiEvent(uiState))
@@ -76,7 +82,7 @@ class BoardViewModel @Inject constructor(
         }
     }
 
-    fun getBannerData(){
+    suspend fun getBannerData(){
         viewModelScope.launch {
             bannerGetUseCase.getBannerInfo().collect{ uiState ->
                 Boardevent(BoardEvent.BannerEvent(uiState))

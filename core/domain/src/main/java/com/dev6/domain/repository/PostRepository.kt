@@ -7,7 +7,7 @@ import com.dev6.domain.model.post.write.PostWriteReq
 import com.dev6.domain.model.post.write.PostWriteRes
 
 interface PostRepository {
-    suspend fun getPostList(page: Int, requestTime: String, size: Int) : PostReadRes
+    suspend fun getPostList(page: Int, postType : String, requestTime: String, size: Int) : PostReadRes
     suspend fun postWrite(dto : PostWriteReq) : PostWriteRes
     suspend fun getChallengeList(page: Int, requestTime: String, size: Int) : ChallengeRes
     suspend fun postChallengeWrite(dto : ChallengeWriteReq) : ChallengeWriteRes

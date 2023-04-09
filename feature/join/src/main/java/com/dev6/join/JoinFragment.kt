@@ -13,6 +13,7 @@ import com.dev6.core.BindingFragment
 import com.dev6.core.util.Validation
 import com.dev6.domain.model.join.JoinReq
 import com.dev6.join.databinding.FragmentJoinBinding
+import com.dev6.login.LoginViewModel
 import dagger.hilt.android.AndroidEntryPoint
 
 
@@ -58,7 +59,7 @@ class JoinFragment : BindingFragment<FragmentJoinBinding>(R.layout.fragment_join
             override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {}
             override fun afterTextChanged(edit: Editable?) {
                 emailValidation(binding.customEditTextEmailSub.text.toString())
-                editTextHandler()
+               // editTextHandler()
             }
         })
 
@@ -68,7 +69,7 @@ class JoinFragment : BindingFragment<FragmentJoinBinding>(R.layout.fragment_join
             override fun afterTextChanged(p0: Editable?) {
                 joinPassWordValidation(binding.customEditTextPasswordSub1.text.toString())
                 joinPassWordConfirmValidation()
-                editTextHandler()
+                //editTextHandler()
             }
         })
 
@@ -77,7 +78,7 @@ class JoinFragment : BindingFragment<FragmentJoinBinding>(R.layout.fragment_join
             override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {}
             override fun afterTextChanged(p0: Editable?) {
                 joinPassWordConfirmValidation()
-                editTextHandler()
+               // editTextHandler()
             }
         })
     }
@@ -143,17 +144,22 @@ class JoinFragment : BindingFragment<FragmentJoinBinding>(R.layout.fragment_join
     private fun AuthButton(){
         binding.authButton.setOnClickListener {
             //회원가입 요청
-            joinViewModel.userJoin(JoinReq(
+            if(nickNameCheck && allDataComplete()){
+
+                joinViewModel.userJoin(JoinReq(
                     password = passWord,
                     userId = userId,
                     roles = listOf("ROLE_USER")
-                )
-            )
+                ))
+            }else if(!nickNameCheck){
+                binding.emailErrorText.setTextColor(getColor(requireActivity(), com.dev6.designsystem.R.color.typoError))
+                binding.emailErrorText.text = "중복확인 해주세요."
+            }
         }
     }
 
     private fun allDataComplete() : Boolean{
-        return (ActiveAuthButton(errors)) && nickNameCheck
+        return (ActiveAuthButton(errors))
     }
 
     private fun editTextHandler() {
@@ -179,14 +185,11 @@ class JoinFragment : BindingFragment<FragmentJoinBinding>(R.layout.fragment_join
 
                 }
                 is UiState.Success -> {
-                    val bundle = bundleOf("userUid" to event.uiState.data.uid)
+                    val bundle = bundleOf(
+                        "userUid" to event.uiState.data.uid ,
+                        "password" to passWord,
+                        "userId" to userId)
                     findNavController().navigate(R.id.action_JoinFragment_to_JoinNickNameFragemnt , bundle)
-                    /*
-                    JoinDialogFragment(){
-
-                    }.show(parentFragmentManager,"")
-
-                     */
                 }
                 is UiState.Error -> {
                     Toast.makeText(requireContext(), event.toString(), Toast.LENGTH_SHORT).show()
@@ -199,7 +202,6 @@ class JoinFragment : BindingFragment<FragmentJoinBinding>(R.layout.fragment_join
 
                 }
                 is UiState.Success -> {
-
                     nickNameCheck = true
                     binding.emailErrorText.visibility = View.VISIBLE
                     binding.emailErrorText.setTextColor(getColor(requireActivity(), com.dev6.designsystem.R.color.mainColor))

@@ -10,6 +10,7 @@ import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.RecyclerView.OnItemTouchListener
 import com.dev6.common.uistate.UiState
 import com.dev6.core.BindingFragment
+import com.dev6.core.enums.PostType
 import com.dev6.core.enums.ScrollType
 import com.dev6.core.util.extension.repeatOnStarted
 import com.dev6.domain.model.post.read.Content
@@ -18,7 +19,7 @@ import com.dev6.home.R
 import com.dev6.home.adapter.BoardRecyclerAdapter
 import com.dev6.home.databinding.FragmentBoardBinding
 import com.dev6.home.viewmodel.BoardViewModel
-import com.google.android.material.chip.Chip
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
 import java.time.LocalDateTime
@@ -28,9 +29,10 @@ class BoardFragment : BindingFragment<FragmentBoardBinding>(R.layout.fragment_bo
     val boardViewModel: BoardViewModel by activityViewModels()
     lateinit var boardRc: RecyclerView
     lateinit var boardRecyclerAdapter: BoardRecyclerAdapter
-    private  var mutableList: MutableList<Content> = arrayListOf()
+    private  var mutableList : MutableList<Content> = arrayListOf()
     var count = 0
     var index = 0
+    var postType = ""
     private var recyclerViewState: Parcelable? = null
     lateinit var job : Job
 
@@ -59,24 +61,38 @@ class BoardFragment : BindingFragment<FragmentBoardBinding>(R.layout.fragment_bo
         binding.boardChipGroup.setOnCheckedChangeListener { group, checkedId ->
             when (checkedId) {
                 R.id.allChip -> {
-
+                    boardViewModel.changePostType("")
                 }
                 R.id.sharedChip -> {
-
+                    boardViewModel.changePostType(PostType.SHARE.toString())
                 }
                 R.id.etcChip -> {
-
+                    boardViewModel.changePostType(PostType.OTHERS.toString())
                 }
             }
-
         }
     }
 
     override fun initViewModel() {
         super.initViewModel()
-        boardViewModel.getPostList(
-            PostReadReq(0, LocalDateTime.now().toString(), 5)
-        )
+        repeatOnStarted {
+            boardViewModel.getPostList(
+                PostReadReq(0, postType , LocalDateTime.now().toString(), 5)
+            )
+        }
+
+        boardViewModel.postType.observe(viewLifecycleOwner){
+            postType = it
+            index = 0
+            mutableList.clear()
+            boardViewModel.clearBoardCount()
+            repeatOnStarted {
+                boardViewModel.getPostList(
+                    PostReadReq(0, postType,
+                        LocalDateTime.now().toString(), 5)
+                )
+            }
+        }
     }
 
     override fun initListener() {
@@ -85,7 +101,7 @@ class BoardFragment : BindingFragment<FragmentBoardBinding>(R.layout.fragment_bo
 
     override fun afterViewCreated() {
         super.afterViewCreated()
-        job = lifecycleScope.launch {
+        repeatOnStarted {
             boardViewModel.BoardeventFlow.collect { event ->
                 eventHandler(event)
             }
@@ -130,9 +146,7 @@ class BoardFragment : BindingFragment<FragmentBoardBinding>(R.layout.fragment_bo
             //게시글 데이터
             is BoardViewModel.BoardEvent.GetPostUiEvent -> {
                 when (event.uiState) {
-                    is UiState.Loding -> {
-
-                    }
+                    is UiState.Loding -> {}
                     is UiState.Success -> {
                         Log.v("testtt", event.uiState.data.content.toString())
                         mutableList.addAll(index,event.uiState.data.content)
@@ -143,10 +157,12 @@ class BoardFragment : BindingFragment<FragmentBoardBinding>(R.layout.fragment_bo
                             if(event.uiState.data.totalElements > boardViewModel.boardCount * 5){
                                 index = it
                                 boardViewModel.plusBoardCount()
-                                boardViewModel.getPostList(
-                                    PostReadReq(boardViewModel.boardCount,
-                                        LocalDateTime.now().toString(), 5)
-                                )
+                                lifecycleScope.launch(Dispatchers.IO) {
+                                    boardViewModel.getPostList(
+                                        PostReadReq(boardViewModel.boardCount, postType,
+                                            LocalDateTime.now().toString(), 5)
+                                    )
+                                }
                             }
                         })
                         recyclerViewState = boardRc.layoutManager?.onSaveInstanceState()
@@ -167,6 +183,8 @@ class BoardFragment : BindingFragment<FragmentBoardBinding>(R.layout.fragment_bo
             }
         }
     }
+
+
 
     override fun onPause() {
         super.onPause()

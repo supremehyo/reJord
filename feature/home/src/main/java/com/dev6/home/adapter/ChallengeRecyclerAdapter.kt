@@ -9,8 +9,10 @@ import com.dev6.core.util.formatTimeString
 import com.dev6.domain.model.challenge.ChallengeReviewResult
 import com.dev6.home.databinding.ChallengeItemBinding
 import com.dev6.home.databinding.MoreItemBinding
+import com.dev6.home.databinding.MychallegneItemBinding
 
 class ChallengeRecyclerAdapter(
+    private val type : String,
     private val items : List<ChallengeReviewResult?>,
     private val itemClick: (ChallengeReviewResult) -> Unit,
     private val getMore: (Int) -> Unit
@@ -29,6 +31,9 @@ class ChallengeRecyclerAdapter(
                     item.createdDate[3],
                     item.createdDate[4]
                 )
+
+                binding.itemTypeTv.text = "챌린지 후기 | ${item.challengeReviewType}"
+
                 var count = countNewLines(binding.itemMainContent.text.toString())
                 Log.v("카운트트" , count.toString())
                 if(count > 3) binding.mainContentMore.visibility = View.VISIBLE
@@ -39,7 +44,7 @@ class ChallengeRecyclerAdapter(
 
                 binding.mainContentMore.setOnClickListener {
                     if(binding.mainContentMore.text == "접기"){
-                        binding.mainContentMore.text = "더보기"
+                        binding.mainContentMore.text = "..더보기"
                         binding.itemMainContent.setEllipsize(TextUtils.TruncateAt.END)
                         binding.itemMainContent.maxLines = 3
                     }else{
@@ -63,7 +68,6 @@ class ChallengeRecyclerAdapter(
         var holder: RecyclerView.ViewHolder
         when (viewType) {
             0 -> {
-                Log.v("afewfwef22", "포스트")
                 holder = ChallengeViewHolder(
                     binding = ChallengeItemBinding.inflate(
                         LayoutInflater.from(parent.context), parent, false
@@ -78,8 +82,8 @@ class ChallengeRecyclerAdapter(
                 )
             }
             else -> {
-                holder = ChallengeViewHolder(
-                    binding = ChallengeItemBinding.inflate(
+                holder = MyChallengeViewHolder(
+                    binding = MychallegneItemBinding.inflate(
                         LayoutInflater.from(parent.context), parent, false
                     )
                 )
@@ -92,18 +96,31 @@ class ChallengeRecyclerAdapter(
         if(holder.itemViewType == 1){
             var moreViewHolder : ChallengeRecyclerAdapter.MoreViewHolder = holder as MoreViewHolder
             moreViewHolder.bind(position)
-        }else{
+        }else if(holder.itemViewType == 0){
             var challengeViewHolder : ChallengeRecyclerAdapter.ChallengeViewHolder = holder as ChallengeViewHolder
             challengeViewHolder.bind(items[position] ?: null)
+        }else{
+            //내 챌린지
+            val mychallengeViewHolder : ChallengeRecyclerAdapter.MyChallengeViewHolder = holder as MyChallengeViewHolder
+            mychallengeViewHolder.bind(items[position] ?: null)
         }
     }
 
     override fun getItemViewType(position: Int): Int {
-        if(position == items.size){
-            return 1
-        }
-        else{
-            return 0
+        if(type == "DEFAULT"){
+            if(position == items.size){
+                return 1
+            }
+            else{
+                return 0
+            }
+        }else {
+            if(position == items.size){
+                return 1
+            }
+            else{
+                return 2
+            }
         }
     }
 
@@ -113,6 +130,15 @@ class ChallengeRecyclerAdapter(
             binding.moreClick.setOnClickListener {
                 getMore(position)
             }
+        }
+    }
+
+    inner class MyChallengeViewHolder(private val binding: MychallegneItemBinding):
+        RecyclerView.ViewHolder(binding.root) {
+        fun bind(item: ChallengeReviewResult?) {
+            //binding.moreClick.setOnClickListener {
+            //    getMore(position)
+            //}
         }
     }
 

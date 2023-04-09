@@ -42,7 +42,8 @@ class LoginFragment : BindingFragment<FragmentLoginBinding>(R.layout.fragment_lo
             override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {}
             override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {}
             override fun afterTextChanged(edit: Editable?) {
-                emailValidation(binding.customEditTextIdSub.text.toString())
+             //   emailValidation(binding.customEditTextIdSub.text.toString())
+                userId = edit.toString()
             }
         })
 
@@ -50,16 +51,22 @@ class LoginFragment : BindingFragment<FragmentLoginBinding>(R.layout.fragment_lo
             override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {}
             override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {}
             override fun afterTextChanged(p0: Editable?) {
-                passWordValidation(binding.customEditTextPasswordSub1.text.toString())
+                passWord = p0.toString()
+               // passWordValidation(binding.customEditTextPasswordSub1.text.toString())
             }
         })
 
         binding.authButton.setOnClickListener {
-            if(allDataComplete()){
-                loginViewModel.userLogin(LoginReq(passWord,userId))
-            }else{
-                Toast.makeText(requireContext(), "잘못된 로그인 정보입니다.", Toast.LENGTH_SHORT).show()
-            }
+                if(binding.customEditTextIdSub.text.toString().isEmpty()){
+                    binding.passwordErrorText.text = "아이디를 입력하세요."
+                    binding.passwordErrorText.visibility = View.VISIBLE
+                }else if(binding.customEditTextPasswordSub1.text.toString().isEmpty()){
+                    binding.passwordErrorText.text = "비밀번호를 입력하세요."
+                    binding.passwordErrorText.visibility = View.VISIBLE
+                }
+                else{
+                    loginViewModel.userLogin(LoginReq(passWord,userId))
+                }
         }
 
     }

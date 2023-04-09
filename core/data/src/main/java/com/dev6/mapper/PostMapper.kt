@@ -115,6 +115,7 @@ internal fun PostWriteResDTO.toDomain() = PostWriteRes(
 )
 
 internal fun ChallengeWriteReq.toData() = ChallengeWriteReqDTO(
+    challengeId = challengeId,
     challengeReviewType = challengeReviewType,
     contents = contents
 )
@@ -133,6 +134,7 @@ internal fun ChallengeReviewResultDTO.toDomain() = ChallengeReviewResult(
     contents = contents,
     createdDate = createdDate,
     nickname = nickname,
+    title = title,
     uid = uid
 )
 

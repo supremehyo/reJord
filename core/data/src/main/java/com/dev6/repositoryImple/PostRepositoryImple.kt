@@ -15,8 +15,8 @@ import javax.inject.Inject
 class PostRepositoryImple @Inject constructor(
     private val postRemoteDataSource: PostRemoteDataSource
 ) : PostRepository {
-    override suspend fun getPostList(page: Int, requestTime: String, size: Int): PostReadRes =
-        postRemoteDataSource.getPostList(page, requestTime, size).toDomain()
+    override suspend fun getPostList(page: Int, postType : String, requestTime: String, size: Int): PostReadRes =
+        postRemoteDataSource.getPostList(page, postType , requestTime, size).toDomain()
 
     override suspend fun postWrite(dto: PostWriteReq): PostWriteRes =
         postRemoteDataSource.postWrite(dto.toData()).toDomain()

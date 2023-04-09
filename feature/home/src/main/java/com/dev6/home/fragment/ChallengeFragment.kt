@@ -11,6 +11,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.dev6.common.uistate.UiState
 import com.dev6.core.BindingFragment
 import com.dev6.core.enums.ScrollType
+import com.dev6.core.util.extension.repeatOnStarted
 import com.dev6.domain.model.challenge.ChallengeReadReq
 import com.dev6.domain.model.challenge.ChallengeReviewResult
 import com.dev6.home.R
@@ -39,21 +40,22 @@ class ChallengeFragment : BindingFragment<FragmentChallengeBinding>(R.layout.fra
 
     override fun initViewModel() {
         super.initViewModel()
-        challengeViewModel.getChallengeList(ChallengeReadReq(
-            0,
-            LocalDateTime.now().toString(),
-            5
-        ))
+        repeatOnStarted {
+            challengeViewModel.getChallengeList(ChallengeReadReq(
+                0,
+                LocalDateTime.now().toString(),
+                5
+            ))
+        }
+
     }
 
     override fun initListener() {
         super.initListener()
 
-        //CollapsingToolbarLayout 랑 같이 리사이클러뷰 쓰니까 스크롤이 안되는 문제가 있어서 이걸로 해결
         challengeRc.addOnItemTouchListener(object : RecyclerView.OnItemTouchListener {
             override fun onInterceptTouchEvent(rv: RecyclerView, e: MotionEvent): Boolean {
-                val action = e.action
-                when (action) {
+                when (e.action) {
                     MotionEvent.ACTION_MOVE -> rv.parent.requestDisallowInterceptTouchEvent(true)
                 }
                 return false
@@ -114,18 +116,21 @@ class ChallengeFragment : BindingFragment<FragmentChallengeBinding>(R.layout.fra
                     is UiState.Success ->{
                         Log.v("챌린지 테스트" , event.uiState.data.toString())
                         mutableList.addAll(index,event.uiState.data.content)
-                        challengeRecyclerAdapter = ChallengeRecyclerAdapter(mutableList, {
+                        challengeRecyclerAdapter = ChallengeRecyclerAdapter("DEFAULT",mutableList, {
 
                         },{
                             //총 갯수가 현재 페이지 * 5 보다 많으면 더 불러올 수 있으니 count 를 늘리고 불러온다.
                             if(event.uiState.data.totalElements > challengeViewModel.challCount * 5){
                                 index = it
                                 challengeViewModel.plusChallCount()
-                                challengeViewModel.getChallengeList(ChallengeReadReq(
-                                    challengeViewModel.challCount,
-                                    LocalDateTime.now().toString(),
-                                    5
-                                ))
+                                repeatOnStarted {
+                                    challengeViewModel.getChallengeList(ChallengeReadReq(
+                                        challengeViewModel.challCount,
+                                        LocalDateTime.now().toString(),
+                                        5
+                                    ))
+                                }
+
                             }
                         })
                         recyclerViewState = challengeRc.layoutManager?.onSaveInstanceState()
@@ -146,6 +151,11 @@ class ChallengeFragment : BindingFragment<FragmentChallengeBinding>(R.layout.fra
                 }
             }
         }
+    }
+
+    override fun onResume() {
+        super.onResume()
+        Log.v("resum","asdfsd")
     }
 
 }

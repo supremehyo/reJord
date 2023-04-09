@@ -26,4 +26,7 @@ abstract class DataSourceModule {
     @Binds
     abstract fun bindsBannerRemoteSource(source: BannerRemoteDataSourceImpl): BannerRemoteDataSource
 
+    @Singleton
+    @Binds
+    abstract fun myPageRemoteSource(source : MyPageRemoteDataSourceImpl) :MyPageRemoteDataSource
 }

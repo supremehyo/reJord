@@ -10,13 +10,20 @@
         android:name="com.dev6.home.HomeFragment"
         tools:layout="@layout/fragment_home">
         <action
-            android:id="@+id/action_homeFragment_to_write_graph"
-            app:destination="@id/write_graph" />
+            android:id="@+id/action_homeFragment_to_myPageBadgeFragment"
+            app:popUpTo="@id/myPageFragment"
+            app:destination="@id/myPageBadgeFragment" />
     </fragment>
 
+    <fragment
+        android:id="@+id/myPageFragment"
+        android:name="com.dev6.home.fragment.MyPageFragment"
+        tools:layout="@layout/fragment_my_page"/>
 
-    <include app:graph = "@navigation/write_graph"/>
-
-
+    <fragment
+        android:id="@+id/myPageBadgeFragment"
+        android:name="com.dev6.home.fragment.MyBadgeFragment"
+        tools:layout="@layout/fragment_my_badge">
+    </fragment>
 
 </navigation>

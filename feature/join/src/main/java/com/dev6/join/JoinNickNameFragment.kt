@@ -8,21 +8,33 @@ import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.dev6.common.uistate.UiState
 import com.dev6.core.BindingFragment
+import com.dev6.core.util.DevicePrefs
 import com.dev6.core.util.Validation
+import com.dev6.domain.model.join.login.LoginReq
+import com.dev6.domain.model.join.login.LoginRes
 import com.dev6.domain.model.join.nickName.NicknameReq
 import com.dev6.join.databinding.FragmentJoinNickNameBinding
+import com.dev6.login.LoginViewModel
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
 class JoinNickNameFragment :
     BindingFragment<FragmentJoinNickNameBinding>(R.layout.fragment_join_nick_name) {
     private val joinViewModel: JoinViewModel by viewModels()
+    private val loginViewModel : LoginViewModel by viewModels()
     var validation = Validation()
     var nickname = ""
     var userUid = ""
+
+    var password = ""
+    var userId = ""
+
     override fun initView() {
         super.initView()
+
         userUid = arguments?.getString("userUid").toString()
+        password = arguments?.getString("password").toString()
+        userId = arguments?.getString("userId").toString()
     }
 
     override fun initViewModel() {
@@ -31,6 +43,10 @@ class JoinNickNameFragment :
             joinViewModel.eventFlow.collect {
                 handleEvent(it)
             }
+        }
+
+        repeatOnStartedFragment {
+            loginViewModel.eventFlow.collect { event -> handleLoginEvent(event) }
         }
     }
 
@@ -68,8 +84,7 @@ class JoinNickNameFragment :
                 }
                 is UiState.Success -> {
                     Log.v("join 회원정보 수정", "성공 홈으로 이동")
-                    //홈으로 이동
-                    findNavController().navigate(R.id.action_JoinNickNameFragemnt_to_home_graph)
+                    loginViewModel.userLogin(LoginReq(password, userId))
                 }
                 is UiState.Error -> {
                     nickNameAlreadyError()
@@ -79,6 +94,25 @@ class JoinNickNameFragment :
         }
         else -> {}
     }
+
+    private fun handleLoginEvent(loginEvent: LoginViewModel.Event) = when (loginEvent) {
+        is LoginViewModel.Event.UiEvent -> {
+            when (loginEvent.uiState) {
+                is UiState.Loding -> {}
+                is UiState.Success -> {
+                    Log.v("Login 성공", "성공 홈으로 이동")
+                    var tokens = (loginEvent.uiState as UiState.Success<LoginRes>).data.tokens
+                    DevicePrefs.getInstance(requireContext()).saveToken(tokens.accessToken,tokens.refreshToken)
+                    findNavController().navigate(R.id.action_JoinNickNameFragemnt_to_home_graph)
+                }
+                is UiState.Error -> {
+                    Log.v("LoginError", loginEvent.toString())
+                }
+            }
+        }
+        else -> {}
+    }
+
 
     private fun checkNicknameValidation(nickname: String) {
         if (validation.checkNickNamePattern(nickname)) {

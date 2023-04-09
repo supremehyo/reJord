@@ -15,6 +15,7 @@ interface PostAPI {
     @GET("/v1/postInfos")
     suspend fun getPostList(
         @Query("page") page:Int,
+        @Query("postType") postType : String,
         @Query("requestTime") requestTime:String,
         @Query("size") size:Int,
     ): Response<PostReadResDTO>

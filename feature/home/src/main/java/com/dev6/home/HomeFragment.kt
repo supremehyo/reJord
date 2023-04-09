@@ -34,6 +34,7 @@ class HomeFragment : BindingFragment<FragmentHomeBinding>(R.layout.fragment_home
         boardViewModel.boardTabTypeFlag.observe(viewLifecycleOwner){
                 writeType = it
         }
+
     }
 
     override fun initListener() {

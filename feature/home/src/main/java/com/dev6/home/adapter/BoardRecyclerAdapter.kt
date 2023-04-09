@@ -39,6 +39,7 @@ class BoardRecyclerAdapter(
                 if(count > 3) binding.mainContentMore.visibility = View.VISIBLE
 
                 binding.apply {
+                    itemTypeTv.text = "카테고리 | ${item.postType}"
                     postItemUserNickName.text = item.nickname
                     postItemCreateTime.text =
                         "${item.createdDate[0]}.${item.createdDate[1]}.${item.createdDate[2]}" + "|" + timeDiff
@@ -46,7 +47,7 @@ class BoardRecyclerAdapter(
 
                     mainContentMore.setOnClickListener {
                         if(mainContentMore.text == "접기"){
-                            mainContentMore.text = "더보기"
+                            mainContentMore.text = "..더보기"
                             itemMainContent.setEllipsize(TextUtils.TruncateAt.END)
                             itemMainContent.maxLines = 3
                         }else{

@@ -82,15 +82,15 @@
             android:layout_marginTop="10dp"
             android:layout_marginBottom="14dp"
             android:fontFamily="@font/roboto_bold"
-            android:text="더보기"
+            android:text="..더보기"
             android:visibility="gone"
-            android:textColor="#8B8B8B"
+            android:textColor="@color/mainColor"
             android:textSize="12sp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/item_mainContent"></TextView>
+            app:layout_constraintTop_toBottomOf="@+id/item_mainContent" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <TextView
