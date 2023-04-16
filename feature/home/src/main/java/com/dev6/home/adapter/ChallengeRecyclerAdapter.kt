@@ -34,9 +34,12 @@ class ChallengeRecyclerAdapter(
 
                 binding.itemTypeTv.text = "챌린지 후기 | ${item.challengeReviewType}"
 
-                var count = countNewLines(binding.itemMainContent.text.toString())
-                Log.v("카운트트" , count.toString())
-                if(count > 3) binding.mainContentMore.visibility = View.VISIBLE
+               // var count = countNewLines(binding.itemMainContent.text.toString())
+                binding.itemMainContent.post {
+                    if(binding.itemMainContent.layout.lineCount == 3) binding.mainContentMore.visibility = View.VISIBLE
+                }
+               // Log.v("카운트트" , count.toString())
+              //  if(count > 3) binding.mainContentMore.visibility = View.VISIBLE
                 binding.itemMainContent.apply {
                     text =  item.contents
                 }
@@ -136,9 +139,23 @@ class ChallengeRecyclerAdapter(
     inner class MyChallengeViewHolder(private val binding: MychallegneItemBinding):
         RecyclerView.ViewHolder(binding.root) {
         fun bind(item: ChallengeReviewResult?) {
-            //binding.moreClick.setOnClickListener {
-            //    getMore(position)
-            //}
+            binding.mychallengeTitleTv.text = "[챌린지 미션] ${item!!.title}"
+            binding.mainContentMore.setOnClickListener {
+                if(binding.mainContentMore.text == "접기"){
+                    binding.mainContentMore.text = "..더보기"
+                    binding.itemMainContent.setEllipsize(TextUtils.TruncateAt.END)
+                    binding.itemMainContent.maxLines = 3
+                }else{
+                    binding.mainContentMore.text = "접기"
+                    binding.itemMainContent.ellipsize = null
+                    binding.itemMainContent.maxLines = 100
+                }
+            }
+            binding.itemMainContent.apply {
+                text =  item.contents
+            }
+            binding.itemMainContent.isClickable = false
+            binding.itemTypeTv.text = "챌린지 후기 | ${item.challengeReviewType}"
         }
     }
 

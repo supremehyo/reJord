@@ -1,15 +1,18 @@
 package com.dev6.home.fragment
 import android.util.Log
+import android.view.View
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
 import com.dev6.common.uistate.UiState
 import com.dev6.core.BindingFragment
 import com.dev6.core.util.extension.repeatOnStarted
 import com.dev6.domain.model.mypage.MyData
+import com.dev6.home.AppBarStateChangeListener
 import com.dev6.home.R
 import com.dev6.home.adapter.MyPageContentPagerAdapter
 import com.dev6.home.databinding.FragmentMyPageBinding
 import com.dev6.home.viewmodel.MyPageViewModel
+import com.google.android.material.appbar.AppBarLayout
 import com.google.android.material.tabs.TabLayoutMediator
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -32,7 +35,7 @@ class MyPageFragment() : BindingFragment<FragmentMyPageBinding>(R.layout.fragmen
         super.initListener()
         myInfoEdit()
         myBadgeData()
-
+        myFootPrintData()
         binding.mypageContent.adapter = MyPageContentPagerAdapter(this)
         binding.mypageContent.isSaveEnabled = false
         TabLayoutMediator(binding.tableLayout, binding.mypageContent){ tab, position ->
@@ -42,6 +45,17 @@ class MyPageFragment() : BindingFragment<FragmentMyPageBinding>(R.layout.fragmen
                 tab.text = "게시판"
             }
         }.attach()
+
+        binding.appbarLayout.addOnOffsetChangedListener(object : AppBarStateChangeListener() {
+            override fun onStateChanged(appBarLayout: AppBarLayout?, state: State?) {
+                if(state == State.COLLAPSED){
+                    binding.sdfsdf.visibility = View.VISIBLE
+                    Log.v("sfsdaf" ,"Asdfsfdf")
+                }else{
+                    binding.sdfsdf.visibility = View.INVISIBLE
+                }
+            }
+        })
     }
 
     override fun afterViewCreated() {
@@ -86,7 +100,12 @@ class MyPageFragment() : BindingFragment<FragmentMyPageBinding>(R.layout.fragmen
     }
     private fun myBadgeData(){
         binding.badgeCount.setOnClickListener {
-            findNavController().navigate(R.id.action_homeFragment_to_myPageBadgeFragment)
+            findNavController().navigate(R.id.action_global_myPageBadgeFragment)
+        }
+    }
+    private fun myFootPrintData(){
+        binding.footPrintCount.setOnClickListener {
+            findNavController().navigate(R.id.action_global_footPrintFragment)
         }
     }
 }

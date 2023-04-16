@@ -1,12 +1,11 @@
 package com.dev6.home.adapter
 
 import android.text.TextUtils
-import android.util.DisplayMetrics
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.core.view.marginLeft
+import android.widget.TextView
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.dev6.core.util.formatTimeString
@@ -35,8 +34,13 @@ class BoardRecyclerAdapter(
                     item.createdDate[3],
                     item.createdDate[4]
                 )
-                var count = countNewLines(binding.itemMainContent.text.toString())
-                if(count > 3) binding.mainContentMore.visibility = View.VISIBLE
+
+                binding.itemMainContent.post {
+                    if(binding.itemMainContent.layout.lineCount == 3) binding.mainContentMore.visibility = View.VISIBLE
+                }
+              //  var count = countNewLines(binding.itemMainContent.text.toString())
+              //  if(count > 3) binding.mainContentMore.visibility = View.VISIBLE
+
 
                 binding.apply {
                     itemTypeTv.text = "카테고리 | ${item.postType}"
@@ -140,7 +144,9 @@ class BoardRecyclerAdapter(
         return items.size +1
     }
 
-    fun countNewLines(text: String): Int {
+    fun  countNewLines(text: String): Int {
         return Regex("\n").findAll(text).count()
     }
+
+
 }
