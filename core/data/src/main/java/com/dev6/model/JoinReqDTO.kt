@@ -1,5 +1,7 @@
 package com.dev6.model
 
 data class JoinReqDTO(
-    var name : String
+    val password : String,
+    val userId : String,
+    val roles : List<String>
 )

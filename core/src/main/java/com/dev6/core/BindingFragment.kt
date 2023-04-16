@@ -1,4 +1,4 @@
-package com.dev6.core.base
+package com.dev6.core
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -13,6 +13,7 @@ import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
 
 abstract class BindingFragment<T : ViewDataBinding>(
@@ -50,8 +51,8 @@ abstract class BindingFragment<T : ViewDataBinding>(
         _binding = null
     }
 
-    fun LifecycleOwner.repeatOnStartedFragment(block: suspend CoroutineScope.() -> Unit) {
-        viewLifecycleOwner.lifecycleScope.launch {
+    fun LifecycleOwner.repeatOnStartedFragment(block: suspend CoroutineScope.() -> Unit) : Job {
+       return  viewLifecycleOwner.lifecycleScope.launch {
             viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED, block)
         }
     }

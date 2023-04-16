@@ -1,5 +1,4 @@
 package com.jydev.rest_api_util.extension
-
 import com.dev6.core.exception.*
 import com.dev6.core.util.extension.HandleServerStatus
 
@@ -16,7 +15,7 @@ suspend fun <DATA> DATA?.executeErrorHandling(
                 throw ServerFailException(serverFailResult.message)
             }
             notAutorutyResult.status -> {
-                throw NotAutorityException(notAutorutyResult.message)
+                throw NotAutorityException("인증실패")
             }
             alreadyExit.status -> {
                 throw AleadyExitException(alreadyExit.message)

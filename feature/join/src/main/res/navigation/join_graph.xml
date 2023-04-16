@@ -9,6 +9,20 @@
         android:id="@+id/JoinFragment"
         android:name="com.dev6.join.JoinFragment"
         tools:layout="@layout/fragment_join">
+        <action
+            android:id="@+id/action_JoinFragment_to_JoinNickNameFragemnt"
+            app:destination="@id/JoinNickNameFragemnt" />
     </fragment>
+
+    <fragment
+        android:id="@+id/JoinNickNameFragemnt"
+        android:name="com.dev6.join.JoinNickNameFragment"
+        tools:layout="@layout/fragment_join_nick_name">
+        <action
+            android:id="@+id/action_JoinNickNameFragemnt_to_home_graph"
+            app:destination="@id/home_graph" />
+    </fragment>
+
+    <include app:graph="@navigation/home_graph" />
 
 </navigation>

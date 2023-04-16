@@ -1,28 +1,28 @@
 package com.dev6.rejord
-
 import android.os.Bundle
+import android.util.Log
+import android.widget.Toast
+import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
-import androidx.navigation.ui.AppBarConfiguration
-import com.dev6.core.base.BindingActivity
-import com.dev6.model.Testdata
+import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
+import androidx.navigation.findNavController
+import androidx.navigation.fragment.findNavController
+import com.dev6.common.uistate.UiState
+import com.dev6.core.util.DevicePrefs
+import com.dev6.core.util.extension.repeatOnStarted
+import com.dev6.login.LoginViewModel
 import com.dev6.rejord.databinding.ActivityMainBinding
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
-class MainActivity : BindingActivity<ActivityMainBinding>(R.layout.activity_main) {
-    override fun initView() {
-        super.initView()
-    }
+class MainActivity : AppCompatActivity() {
+    private lateinit var binding: ActivityMainBinding
 
-    override fun initViewModel() {
-        super.initViewModel()
-    }
+    override fun onCreate(savedInstanceState: Bundle?) {
+        installSplashScreen()
+        super.onCreate(savedInstanceState)
 
-    override fun initListener() {
-        super.initListener()
-    }
-
-    override fun afterOnCreate() {
-        super.afterOnCreate()
+        binding = ActivityMainBinding.inflate(layoutInflater)
+        setContentView(binding.root)
     }
 }

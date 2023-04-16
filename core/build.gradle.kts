@@ -9,10 +9,21 @@ android {
         viewBinding = true
         dataBinding = true
     }
+
+    testOptions{
+        unitTests.isReturnDefaultValues = true
+    }
 }
 
 
+
 dependencies {
+    testImplementation("junit:junit:4.13.2")
+    testImplementation("org.mockito:mockito-inline:2.21.0")
+    androidTestImplementation("androidx.test.ext:junit:1.1.4")
+    androidTestImplementation("org.mockito:mockito-android:2.24.5")
+    androidTestImplementation("androidx.annotation:annotation:1.5.0")
+
     implementation(project(":common"))
     //Android Core
     implementation(Kotlin.KOTLIN_STDLIB)

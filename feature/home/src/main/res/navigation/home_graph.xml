@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/home_graph"
+    app:startDestination="@id/homeFragment">
+
+    <fragment
+        android:id="@+id/homeFragment"
+        android:name="com.dev6.home.HomeFragment"
+        tools:layout="@layout/fragment_home">
+        <action
+            android:id="@+id/action_homeFragment_to_myPageBadgeFragment"
+            app:destination="@id/myPageBadgeFragment"
+            app:popUpTo="@id/myPageFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/myPageFragment"
+        android:name="com.dev6.home.fragment.MyPageFragment"
+        tools:layout="@layout/fragment_my_page" />
+
+    <fragment
+        android:id="@+id/myPageBadgeFragment"
+        android:name="com.dev6.home.fragment.MyBadgeFragment"
+        tools:layout="@layout/fragment_my_badge"></fragment>
+
+    <fragment
+        android:id="@+id/footPrintFragment"
+        android:name="com.dev6.home.fragment.FootPrintFragment"
+        tools:layout="@layout/footprint_item"></fragment>
+
+
+    <action
+        android:id="@+id/action_global_myPageBadgeFragment"
+        app:destination="@id/myPageBadgeFragment" />
+    <action
+        android:id="@+id/action_global_footPrintFragment"
+        app:destination="@id/footPrintFragment" />
+
+</navigation>

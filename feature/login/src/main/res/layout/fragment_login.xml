@@ -1,0 +1,242 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+
+        <LinearLayout
+            android:id="@+id/backHomeLl"
+            android:layout_width="72dp"
+            android:layout_height="35dp"
+            android:layout_marginTop="47dp"
+            android:layout_marginHorizontal="@dimen/layout_side_margin"
+            android:gravity="center|left"
+            android:orientation="horizontal"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <ImageView
+                android:layout_width="9dp"
+                android:layout_height="18dp"
+                android:layout_marginRight="10dp"
+                android:backgroundTint="@color/arrowColor"
+                android:src="@drawable/back_arrow"></ImageView>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="홈으로"
+                android:includeFontPadding="false"
+                android:fontFamily="@font/notosanskr_light"
+                android:textColor="@color/black"
+                android:textSize="14sp"></TextView>
+        </LinearLayout>
+
+
+
+        <TextView
+            android:id="@+id/textView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="@dimen/layout_side_margin"
+            android:layout_marginTop="102dp"
+            android:fontFamily="@font/notosanskr_bold"
+            android:includeFontPadding="false"
+            android:text="로그인"
+            android:textColor="@color/TitleColor"
+            android:textSize="25sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0" />
+
+
+        <TextView
+            android:id="@+id/textView10"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="@dimen/layout_side_margin"
+            android:text="@string/login_subTitleText"
+            android:textColor="@color/Grey8"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            android:layout_marginTop="17dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textView" />
+
+        <TextView
+            android:id="@+id/textView6"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="@dimen/layout_side_margin"
+            android:text="아이디"
+            android:textColor="@color/TitleColor"
+            android:textSize="14sp"
+            android:fontFamily="@font/notosanskr_light"
+            android:includeFontPadding="false"
+            android:layout_marginTop="42dp"
+            android:paddingVertical="5dp"
+            android:paddingHorizontal="10dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textView10" />
+
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/customEditTextId"
+            style="@style/CustomOutlineBox"
+            android:layout_width="match_parent"
+            android:layout_height="47dp"
+            app:boxBackgroundColor="@color/white"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textView6"
+            app:layout_constraintVertical_bias="0">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/customEditTextId_sub"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginHorizontal="26dp"
+                android:fontFamily="@font/roboto_medium"
+                android:textSize="14sp"
+                android:hint="아이디를 입력해주세요"
+                android:includeFontPadding="false"
+                android:padding="0dp"/>
+        </com.google.android.material.textfield.TextInputLayout>
+
+
+        <TextView
+            android:id="@+id/emailErrorText"
+            android:layout_width="wrap_content"
+            android:layout_height="18dp"
+            android:layout_marginHorizontal="@dimen/layout_side_margin"
+            android:text=""
+            android:textColor="#FF0000"
+            android:visibility="gone"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/customEditTextId" />
+
+        <LinearLayout
+            android:id="@+id/linearLayout"
+            android:layout_width="match_parent"
+            android:layout_height="10dp"
+            android:orientation="horizontal"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/emailErrorText" />
+
+        <TextView
+            android:id="@+id/textView7"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="@dimen/layout_side_margin"
+            android:text="비밀번호"
+            android:textColor="@color/TitleColor"
+            android:textSize="14sp"
+            android:includeFontPadding="false"
+            android:paddingVertical="5dp"
+            android:paddingHorizontal="10dp"
+            android:fontFamily="@font/notosanskr_light"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/linearLayout" />
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/customEditTextPassword1"
+            style="@style/CustomOutlineBox"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:boxBackgroundColor="@color/white"
+            app:endIconDrawable="@drawable/password_icon"
+            app:endIconMode="password_toggle"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textView7"
+            app:layout_constraintVertical_bias="0">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/customEditTextPasswordSub1"
+                android:layout_width="match_parent"
+                android:layout_height="47dp"
+                android:fontFamily="@font/roboto_medium"
+                android:hint="비밀번호를 입력해주세요"
+                android:textSize="14sp"
+                android:layout_marginHorizontal="26dp"
+                android:includeFontPadding="false"
+                android:inputType="textPassword"
+                android:padding="0dp" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+
+        <LinearLayout
+            android:id="@+id/linearLayout2"
+            android:layout_width="match_parent"
+            android:layout_height="25dp"
+            android:orientation="horizontal"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/passwordErrorText" />
+
+        <TextView
+            android:id="@+id/passwordErrorText"
+            android:layout_width="wrap_content"
+            android:layout_height="18dp"
+            android:layout_marginHorizontal="@dimen/layout_side_margin"
+            android:text="@string/login_error1"
+            android:textColor="#E10000"
+            android:visibility="gone"
+            android:textSize="14sp"
+            android:fontFamily="@font/notosanskr_light"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/customEditTextPassword1" />
+
+        <TextView
+            android:id="@+id/authButton"
+            android:layout_width="match_parent"
+            android:layout_height="48dp"
+            android:layout_marginHorizontal="@dimen/layout_side_margin"
+            android:layout_marginTop="27dp"
+            android:background="@drawable/round_button"
+            android:fontFamily="@font/notosanskr_bold"
+            android:gravity="center"
+            android:text="로그인"
+            android:includeFontPadding="false"
+            android:textColor="@color/white"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/linearLayout2"
+            app:layout_constraintVertical_bias="0" />
+
+        <TextView
+            android:id="@+id/goJoin"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="@dimen/layout_side_margin"
+            android:layout_marginTop="22dp"
+            android:text="@string/go_join"
+            android:textColor="@color/black"
+            android:textSize="14sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/authButton" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

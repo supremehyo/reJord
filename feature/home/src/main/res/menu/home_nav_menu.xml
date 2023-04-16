@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:gom="http://schemas.android.com/apk/res-auto">
+
+
+    <item
+        android:id="@+id/mainHomeFragment"
+        android:icon="@drawable/main_icon"
+        android:title="메인"/>
+
+    <item
+        android:title=""
+        gom:showAsAction="never"/>
+
+    <item
+        android:id="@+id/MypageFragment"
+        android:icon="@drawable/mypage_icon"
+        android:title="마이페이지"/>
+
+</menu>
