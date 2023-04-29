@@ -11,8 +11,8 @@
 
         <LinearLayout
             android:id="@+id/nickNameSkipLl"
-            android:layout_width="80dp"
-            android:layout_height="44dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:layout_marginHorizontal="@dimen/layout_side_margin"
             android:layout_marginTop="47dp"
             android:gravity="center"
@@ -26,9 +26,9 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginRight="7dp"
-                android:text="건너뛰기"
                 android:fontFamily="@font/notosanskr_light"
                 android:includeFontPadding="false"
+                android:text="건너뛰기"
                 android:textColor="@color/black"
                 android:textSize="14sp" />
 

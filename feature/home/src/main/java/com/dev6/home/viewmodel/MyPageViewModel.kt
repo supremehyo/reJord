@@ -5,9 +5,13 @@ import com.dev6.common.uistate.UiState
 import com.dev6.core.util.MutableEventFlow
 import com.dev6.core.util.asEventFlow
 import com.dev6.domain.model.challenge.ChallengeRes
+import com.dev6.domain.model.mypage.BadgeByUidResult
+import com.dev6.domain.model.mypage.FootPrintRes
 import com.dev6.domain.model.mypage.MyData
 import com.dev6.domain.model.post.read.PostReadRes
+import com.dev6.domain.usecase.mypage.MyPageGetMyBadgeInfoUseCase
 import com.dev6.domain.usecase.mypage.MyPageGetMyDataUseCase
+import com.dev6.domain.usecase.mypage.MyPageGetMyFootPrintUseCase
 import com.dev6.domain.usecase.post.ChallengeListWIthUidUseCase
 import com.dev6.domain.usecase.post.PostGetListWithUidUserCase
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -19,7 +23,9 @@ import javax.inject.Inject
 class MyPageViewModel @Inject constructor(
     private val postGetListWithUidUserCase: PostGetListWithUidUserCase,
     private val challengeListWIthUidUseCase: ChallengeListWIthUidUseCase,
-    private val myPageGetMyDataUseCase: MyPageGetMyDataUseCase
+    private val myPageGetMyDataUseCase: MyPageGetMyDataUseCase,
+    private val myPageGetMyFootPrintUseCase: MyPageGetMyFootPrintUseCase,
+    private val myPageGetMyBadgeInfoUseCase: MyPageGetMyBadgeInfoUseCase
 ): ViewModel(){
     private val _myPageFlow = MutableEventFlow<MyPageEvent>()
     val myPageFlow = _myPageFlow.asEventFlow()
@@ -72,11 +78,29 @@ class MyPageViewModel @Inject constructor(
         }
     }
 
+    suspend fun getMyFootPrintList(page:Int,size:Int){
+        viewModelScope.launch {
+            myPageGetMyFootPrintUseCase.getFootPrintList(page, size).collect{
+                Event(MyPageEvent.GetMyFootPrintList(it))
+            }
+        }
+    }
+
+    suspend fun getBadgeInfoList(){
+        viewModelScope.launch {
+            myPageGetMyBadgeInfoUseCase.getBadgeInfoList().collect{
+                Event(MyPageEvent.GetMyBadgeInfoList(it))
+            }
+        }
+    }
+
 
 
     sealed class MyPageEvent{
         data class GetPostListWithUid(val uistate : UiState<PostReadRes>) : MyPageEvent()
         data class GetChallengeListWithUid(val uistate: UiState<ChallengeRes>) : MyPageEvent()
         data class GetMyData(val uiState : UiState<MyData>) : MyPageEvent()
+        data class GetMyFootPrintList(val uiState : UiState<FootPrintRes>) : MyPageEvent()
+        data class GetMyBadgeInfoList(val uiState : UiState<List<BadgeByUidResult>>) : MyPageEvent()
     }
 }

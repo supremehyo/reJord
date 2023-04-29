@@ -130,23 +130,7 @@ class BoardRecyclerAdapter(
         }
     }
 
-    companion object {
-        val diffUtil = object : DiffUtil.ItemCallback<Content>() {
-            override fun areContentsTheSame(oldItem: Content, newItem: Content) =
-                oldItem == newItem
-
-            override fun areItemsTheSame(oldItem: Content, newItem: Content) =
-                oldItem.postId == newItem.postId
-        }
-    }
-
     override fun getItemCount(): Int {
         return items.size +1
     }
-
-    fun  countNewLines(text: String): Int {
-        return Regex("\n").findAll(text).count()
-    }
-
-
 }

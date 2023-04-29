@@ -26,7 +26,7 @@ class LoginViewModel @Inject constructor(
         }
     }
 
-    fun userLogin(loginReq: LoginReq) {
+    suspend fun userLogin(loginReq: LoginReq) {
         viewModelScope.launch{
             loginUseCase(loginReq).catch {}.collect{ uiState ->
                 event(Event.UiEvent(uiState))

@@ -38,12 +38,8 @@ internal fun PostReadResDTO.toDomain() = PostReadRes(
 )
 
 internal fun PageableDTO.toDomain() = Pageable(
-    offset = offset,
-    pageNumber = pageNumber,
-    pageSize = pageSize,
-    paged = paged,
-    unpaged = unpaged,
-    sort = sort.toDomain()
+    page = page,
+    size = size
 )
 
 internal fun SortDTO.toDomain()  = Sort(
@@ -78,12 +74,8 @@ internal fun PostReadRes.toData() = PostReadResDTO(
 )
 
 internal fun Pageable.toData() = PageableDTO(
-    offset = offset,
-    pageNumber = pageNumber,
-    pageSize = pageSize,
-    paged = paged,
-    unpaged = unpaged,
-    sort = sort.toData()
+    page = page,
+    size = size
 )
 
 internal fun Sort.toData()  = SortDTO(

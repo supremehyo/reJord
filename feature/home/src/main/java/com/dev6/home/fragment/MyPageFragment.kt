@@ -50,7 +50,6 @@ class MyPageFragment() : BindingFragment<FragmentMyPageBinding>(R.layout.fragmen
             override fun onStateChanged(appBarLayout: AppBarLayout?, state: State?) {
                 if(state == State.COLLAPSED){
                     binding.sdfsdf.visibility = View.VISIBLE
-                    Log.v("sfsdaf" ,"Asdfsfdf")
                 }else{
                     binding.sdfsdf.visibility = View.INVISIBLE
                 }

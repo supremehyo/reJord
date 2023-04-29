@@ -16,6 +16,7 @@ import com.dev6.domain.model.join.nickName.NicknameReq
 import com.dev6.join.databinding.FragmentJoinNickNameBinding
 import com.dev6.login.LoginViewModel
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
 class JoinNickNameFragment :
@@ -54,7 +55,12 @@ class JoinNickNameFragment :
         super.initListener()
 
         binding.nickNameSkipLl.setOnClickListener {
-            findNavController().navigate(R.id.action_JoinNickNameFragemnt_to_home_graph)
+            repeatOnStartedFragment {
+                launch {
+                    loginViewModel.userLogin(LoginReq(password, userId))
+                }.join()
+                findNavController().navigate(R.id.action_JoinNickNameFragemnt_to_home_graph)
+            }
         }
 
         binding.nameTextSub.addTextChangedListener(object : TextWatcher {
@@ -84,7 +90,9 @@ class JoinNickNameFragment :
                 }
                 is UiState.Success -> {
                     Log.v("join 회원정보 수정", "성공 홈으로 이동")
-                    loginViewModel.userLogin(LoginReq(password, userId))
+                    repeatOnStartedFragment {
+                        loginViewModel.userLogin(LoginReq(password, userId))
+                    }
                 }
                 is UiState.Error -> {
                     nickNameAlreadyError()

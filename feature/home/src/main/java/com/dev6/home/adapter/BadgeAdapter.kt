@@ -5,10 +5,11 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
+import com.dev6.domain.model.mypage.BadgeByUidResult
 import com.dev6.home.databinding.BadgeItemBinding
 
-class BadgeAdapter(private val callback: (String) -> Unit) :
-    ListAdapter<String, BadgeAdapter.RecommendViewHolder>(RecommendDiffUtil()) {
+class BadgeAdapter(private val callback: (BadgeByUidResult) -> Unit) :
+    ListAdapter<BadgeByUidResult, BadgeAdapter.RecommendViewHolder>(RecommendDiffUtil()) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecommendViewHolder {
         val binding = BadgeItemBinding.inflate(LayoutInflater.from(parent.context), parent, false)
@@ -23,8 +24,8 @@ class BadgeAdapter(private val callback: (String) -> Unit) :
 
     class RecommendViewHolder(private val binding: BadgeItemBinding) :
         RecyclerView.ViewHolder(binding.root) {
-        fun onBind(item: String) {
-            binding.badgeNameTv.text = item
+        fun onBind(item: BadgeByUidResult) {
+            binding.badgeNameTv.text = item.badgeName
             //이미지 데이터 받아오면 glide 로 set
         }
 
@@ -32,15 +33,15 @@ class BadgeAdapter(private val callback: (String) -> Unit) :
             return binding.root.layoutParams
         }
 
-        fun itemClickListener(item: String, callback: (String) -> Unit) {
+        fun itemClickListener(item: BadgeByUidResult, callback: (BadgeByUidResult) -> Unit) {
         }
     }
 
-    private class RecommendDiffUtil : DiffUtil.ItemCallback<String>() {
-        override fun areItemsTheSame(oldItem: String, newItem: String) =
+    private class RecommendDiffUtil : DiffUtil.ItemCallback<BadgeByUidResult>() {
+        override fun areItemsTheSame(oldItem: BadgeByUidResult, newItem: BadgeByUidResult) =
             oldItem == newItem
 
-        override fun areContentsTheSame(oldItem: String, newItem: String) =
+        override fun areContentsTheSame(oldItem: BadgeByUidResult, newItem: BadgeByUidResult) =
             oldItem == newItem
     }
 }
