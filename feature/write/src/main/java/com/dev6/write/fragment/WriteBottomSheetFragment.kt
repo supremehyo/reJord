@@ -24,8 +24,7 @@ class WriteBottomSheetFragment : BottomSheetDialogFragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         var radioGroup = view.findViewById<RadioGroup>(R.id.writeBottomSheetRadioGroup)
-
-        when(writeFragment.getCateGoryValue() ?: WriteType.SHARE){
+        when(writeFragment.getCateGoryValue()!!){
             WriteType.SHARE->{
                 radioGroup.check(R.id.shareRadio)
             }

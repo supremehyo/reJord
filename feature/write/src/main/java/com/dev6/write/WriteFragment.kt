@@ -41,8 +41,13 @@ class WriteFragment : BaseBottomSheetDialogFragment<FragmentWriteBinding>(R.layo
     override fun initView() {
         writeType = arguments?.getString("writeType")
 
-        if(this.tag == "CHALLENGE")
-            binding.challCateCl.visibility = View.VISIBLE else binding.challCateCl.visibility = View.GONE
+        if(this.tag == "CHALLENGE"){
+            binding.challCateCl.visibility = View.VISIBLE
+            writeViewModel.updateCateGoryValue(WriteType.CHALLENGE)
+        }else{
+            binding.challCateCl.visibility = View.GONE
+        }
+
 
         writeViewModel.categoryLiveData.observe(viewLifecycleOwner){
             writeType = it.toString()
@@ -51,14 +56,17 @@ class WriteFragment : BaseBottomSheetDialogFragment<FragmentWriteBinding>(R.layo
                     writeType = "CHALLENGE"
                     binding.challCateCl.visibility = View.VISIBLE
                     binding.challengeChipGroup.check(R.id.feelChip)
+                    Log.v("zzzzz" , "zzzzz3")
                 }
                 WriteType.SHARE ->{
                     writeType = "SHARE"
                     binding.challCateCl.visibility = View.GONE
+                    Log.v("zzzzz" , "zzzzz4")
                 }
                 WriteType.ETC->{
                     writeType = "ETC"
                     binding.challCateCl.visibility = View.GONE
+                    Log.v("zzzzz" , "zzzzz5")
                 }
             }
         }

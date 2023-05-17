@@ -64,6 +64,9 @@
             android:layout_marginHorizontal="@dimen/layout_side_margin"
             android:text="@string/login_subTitleText"
             android:textColor="@color/Grey8"
+            android:includeFontPadding="false"
+            android:fontFamily="@font/notosanskr_light"
+            android:textStyle="bold"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
             android:layout_marginTop="17dp"
@@ -74,15 +77,15 @@
             android:id="@+id/textView6"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginHorizontal="@dimen/layout_side_margin"
+            android:layout_marginLeft="16dp"
+            android:paddingHorizontal="10dp"
             android:text="아이디"
+            android:textStyle="bold"
             android:textColor="@color/TitleColor"
             android:textSize="14sp"
             android:fontFamily="@font/notosanskr_light"
             android:includeFontPadding="false"
             android:layout_marginTop="42dp"
-            android:paddingVertical="5dp"
-            android:paddingHorizontal="10dp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/textView10" />
 
@@ -90,13 +93,14 @@
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/customEditTextId"
             style="@style/CustomOutlineBox"
-            android:layout_width="match_parent"
+            android:layout_width="0dp"
             android:layout_height="47dp"
+            android:layout_marginRight="16dp"
             app:boxBackgroundColor="@color/white"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0"
-            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintStart_toStartOf="@+id/textView6"
             app:layout_constraintTop_toBottomOf="@+id/textView6"
             app:layout_constraintVertical_bias="0">
 
@@ -104,12 +108,12 @@
                 android:id="@+id/customEditTextId_sub"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_marginHorizontal="26dp"
-                android:fontFamily="@font/roboto_medium"
-                android:textSize="14sp"
+                android:fontFamily="@font/notosanskr_light"
                 android:hint="아이디를 입력해주세요"
+                android:textStyle="bold"
                 android:includeFontPadding="false"
-                android:padding="0dp"/>
+                android:padding="0dp"
+                android:textSize="14sp" />
         </com.google.android.material.textfield.TextInputLayout>
 
 
@@ -139,13 +143,14 @@
             android:id="@+id/textView7"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginHorizontal="@dimen/layout_side_margin"
+            android:layout_marginLeft="16dp"
+            android:paddingHorizontal="10dp"
             android:text="비밀번호"
             android:textColor="@color/TitleColor"
             android:textSize="14sp"
+            android:textStyle="bold"
             android:includeFontPadding="false"
             android:paddingVertical="5dp"
-            android:paddingHorizontal="10dp"
             android:fontFamily="@font/notosanskr_light"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0"
@@ -155,15 +160,16 @@
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/customEditTextPassword1"
             style="@style/CustomOutlineBox"
-            android:layout_width="match_parent"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:layout_marginRight="16dp"
             app:boxBackgroundColor="@color/white"
             app:endIconDrawable="@drawable/password_icon"
             app:endIconMode="password_toggle"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintStart_toStartOf="@+id/textView7"
             app:layout_constraintTop_toBottomOf="@+id/textView7"
             app:layout_constraintVertical_bias="0">
 
@@ -171,35 +177,36 @@
                 android:id="@+id/customEditTextPasswordSub1"
                 android:layout_width="match_parent"
                 android:layout_height="47dp"
-                android:fontFamily="@font/roboto_medium"
+                android:fontFamily="@font/notosanskr_light"
                 android:hint="비밀번호를 입력해주세요"
-                android:textSize="14sp"
-                android:layout_marginHorizontal="26dp"
                 android:includeFontPadding="false"
+                android:textStyle="bold"
                 android:inputType="textPassword"
-                android:padding="0dp" />
+                android:padding="0dp"
+                android:textSize="14sp" />
         </com.google.android.material.textfield.TextInputLayout>
 
 
         <LinearLayout
             android:id="@+id/linearLayout2"
-            android:layout_width="match_parent"
-            android:layout_height="25dp"
+            android:layout_width="0dp"
+            android:layout_height="20dp"
             android:orientation="horizontal"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintStart_toStartOf="@+id/customEditTextPassword1"
             app:layout_constraintTop_toBottomOf="@+id/passwordErrorText" />
 
         <TextView
             android:id="@+id/passwordErrorText"
             android:layout_width="wrap_content"
-            android:layout_height="18sp"
+            android:layout_height="17dp"
+            android:paddingStart="10dp"
+            android:visibility="gone"
             android:layout_marginHorizontal="@dimen/layout_side_margin"
             android:text="@string/login_error1"
             android:textColor="#E10000"
             android:gravity="center_vertical"
             android:textSize="14sp"
-            android:visibility="gone"
             android:includeFontPadding="false"
             android:fontFamily="@font/notosanskr_light"
             app:layout_constraintEnd_toEndOf="parent"

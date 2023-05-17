@@ -15,7 +15,9 @@ import com.dev6.home.R
 import com.dev6.home.databinding.FragmentHomeMainBinding
 import com.dev6.home.viewmodel.BoardViewModel
 import com.dev6.home.viewmodel.ChallengeViewModel
+import com.dev6.write.WriteFragment
 import com.dev6.write.viewmodel.WriteViewModel
+import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.google.android.material.tabs.TabLayout
 import com.google.android.material.tabs.TabLayout.OnTabSelectedListener
 import com.google.android.material.tabs.TabLayoutMediator
@@ -29,19 +31,36 @@ class MainHomeFragment : BindingFragment<FragmentHomeMainBinding>(R.layout.fragm
     private val boardViewModel: BoardViewModel by activityViewModels()
     private val challengeViewModel: ChallengeViewModel by activityViewModels()
     val writeViewModel : WriteViewModel by activityViewModels()
+    lateinit var bottomSheet : BottomSheetDialogFragment
+    var writeType = ""
 
     lateinit var job: Job
     override fun initView() {
         super.initView()
+
+        binding.challengeBanner.setOnClickListener {
+            binding.challengeBanner.changeBanner{
+                bottomSheet =  WriteFragment()
+                bottomSheet.show(parentFragmentManager,"CHALLENGE")
+            }
+        }
+
+        boardViewModel.boardTabTypeFlag.observe(viewLifecycleOwner){
+            writeType = it.toString()
+        }
+
+
         binding.pagerContent.adapter = HomeContentPagerAdapter(this@MainHomeFragment)
         binding.pagerContent.isSaveEnabled = false
         binding.tableLayout.addOnTabSelectedListener(object : OnTabSelectedListener {
             override fun onTabSelected(tab: TabLayout.Tab?) {
                 when (tab?.position) {
                     0 -> {
+                        writeViewModel.updateCateGoryValue(WriteType.CHALLENGE)
                         boardViewModel.checkBoardTabType(WriteType.CHALLENGE)
                     }
                     1 -> {
+                        writeViewModel.updateCateGoryValue(WriteType.SHARE)
                         boardViewModel.checkBoardTabType(WriteType.SHARE)
                     }
                 }
@@ -135,7 +154,7 @@ class MainHomeFragment : BindingFragment<FragmentHomeMainBinding>(R.layout.fragm
         writeViewModel.changeChallengeIdData(
             challengeInfoRes.challengeId
         )
-        binding.dataf.setBannerLayout(challengeInfoRes)
+        binding.challengeBanner.setBannerLayout(challengeInfoRes)
     }
 
     override fun onResume() {

@@ -10,6 +10,7 @@ import com.dev6.common.uistate.UiState
 import com.dev6.core.BindingFragment
 import com.dev6.core.util.DevicePrefs
 import com.dev6.core.util.Validation
+import com.dev6.core.util.extension.repeatOnStarted
 import com.dev6.domain.model.join.login.LoginReq
 import com.dev6.login.databinding.FragmentLoginBinding
 import dagger.hilt.android.AndroidEntryPoint
@@ -65,7 +66,9 @@ class LoginFragment : BindingFragment<FragmentLoginBinding>(R.layout.fragment_lo
                     binding.passwordErrorText.visibility = View.VISIBLE
                 }
                 else{
-                    loginViewModel.userLogin(LoginReq(passWord,userId))
+                    repeatOnStarted {
+                        loginViewModel.userLogin(LoginReq(passWord,userId))
+                    }
                 }
         }
 

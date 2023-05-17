@@ -134,7 +134,7 @@ class JoinNickNameFragment :
         binding.nickNameStatusTv.setTextColor(
             ContextCompat.getColor(requireActivity(), com.dev6.designsystem.R.color.typoError)
         )
-        binding.nickNameStatusTv.text ="형식에 맞지 않은 닉네임입니다."
+        binding.nickNameStatusTv.text ="영문과 숫자를 이용하여 최소 5글자 이상 입력해주세요."
         editTextHandler(false)
     }
 

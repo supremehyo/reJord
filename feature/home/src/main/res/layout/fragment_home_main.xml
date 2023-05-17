@@ -48,11 +48,12 @@
                         app:layout_constraintVertical_bias="0.0">
 
                         <com.dev6.home.ChallengeBanner
-                            android:id="@+id/dataf"
+                            android:id="@+id/challengeBanner"
                             android:layout_width="0dp"
                             android:layout_height="0dp"
                             app:textColorInActivedz="@color/white"
                             app:textColorActivedz="@color/black"
+                            android:layout_marginTop="17dp"
                             app:titlez="찬물"
                             app:contenzt="에에?"
                             app:imageURz=""
@@ -66,7 +67,6 @@
                             app:layout_constraintLeft_toLeftOf="parent"
                             app:layout_constraintRight_toRightOf="parent"
                             app:layout_constraintTop_toTopOf="parent">
-
                         </com.dev6.home.ChallengeBanner>
                     </androidx.constraintlayout.widget.ConstraintLayout>
                 </com.google.android.material.appbar.CollapsingToolbarLayout>
