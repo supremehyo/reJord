@@ -78,7 +78,6 @@
                 android:id="@+id/nameText_sub"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginHorizontal="22dp"
                 android:background="@color/white"
                 android:fontFamily="@font/notosanskr_bold"
                 android:hint="닉네임을 등록하세요."

@@ -76,6 +76,10 @@
         <item name="android:textColor">@color/chiptext_color</item>
     </style>
 
+    <style name="ChipTextAppearance" parent="TextAppearance.MaterialComponents.Chip">
+        <item name="android:textAlignment">center</item>
+    </style>
+
     <style name="Colors_Widget.MaterialComponents.Chip.Choice2" parent="Widget.MaterialComponents.Chip.Choice">
         <item name="chipBackgroundColor">@color/chipbackground_color</item>
         <item name="chipStrokeColor">@color/chipstroke_color</item>

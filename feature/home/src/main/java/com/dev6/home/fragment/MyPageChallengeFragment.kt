@@ -2,8 +2,10 @@ package com.dev6.home.fragment
 
 import android.util.Log
 import android.view.MotionEvent
+import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.lifecycleScope
+import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.dev6.common.uistate.UiState
 import com.dev6.core.BindingFragment
@@ -12,11 +14,16 @@ import com.dev6.domain.model.challenge.ChallengeReadReq
 import com.dev6.domain.model.challenge.ChallengeReviewResult
 import com.dev6.home.R
 import com.dev6.home.adapter.ChallengeRecyclerAdapter
+import com.dev6.home.bottomsheet.OptionBottomSheetFragment
 import com.dev6.home.databinding.FragmentMyPageChallengeBinding
+import com.dev6.home.viewmodel.ChallengeViewModel
 import com.dev6.home.viewmodel.MyPageViewModel
+import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.cancel
+import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 import java.time.LocalDateTime
 
@@ -29,10 +36,9 @@ class MyPageChallengeFragment :
     private var mutableList: MutableList<ChallengeReviewResult> = arrayListOf()
     private var count = 0
     private var index = 0
-
+    lateinit var bottomSheet : BottomSheetDialogFragment
     override fun initView() {
         super.initView()
-        //recyclerView init
         myPageViewModel.clearChallCount()
         MychallengeRc = binding.MychallengeRc
         count = myPageViewModel.myChallCount
@@ -50,51 +56,12 @@ class MyPageChallengeFragment :
             override fun onTouchEvent(rv: RecyclerView, e: MotionEvent) {}
             override fun onRequestDisallowInterceptTouchEvent(disallowIntercept: Boolean) {}
         })
-
-        repeatOnStarted {
-            myPageViewModel.myPageFlow.collect { event ->
-                when (event) {
-                    is MyPageViewModel.MyPageEvent.GetChallengeListWithUid -> {
-                        when (event.uistate) {
-                            is UiState.Success -> {
-                                Log.v("GetChallengeListWithUid test", event.uistate.data.toString())
-                                mutableList.addAll(index, event.uistate.data.content)
-                                challengeRecyclerAdapter = ChallengeRecyclerAdapter("MYPAGE",mutableList,
-                                    {  //클릭 이벤트
-
-                                    },
-                                    {
-                                        if (event.uistate.data.totalElements > myPageViewModel.myChallCount * 5) {
-                                            index = it
-                                            myPageViewModel.plusChallCount()
-                                            lifecycleScope.launch(Dispatchers.IO) {
-                                                myPageViewModel.getChaalengeListWithUid(
-                                                    myPageViewModel.myChallCount, 5)
-                                            }
-
-                                        }
-                                    })
-                            }
-                            is UiState.Loding -> {
-
-                            }
-                            is UiState.Error -> {
-
-                            }
-                        }
-                    }
-                    else -> {
-
-                    }
-                }
-            }
-        }
     }
 
     override fun initViewModel() {
         super.initViewModel()
         repeatOnStarted {
-            myPageViewModel.getChaalengeListWithUid(0, 1)
+            myPageViewModel.getChaalengeListWithUid(0, 5)
         }
     }
 
@@ -105,5 +72,49 @@ class MyPageChallengeFragment :
 
     override fun afterViewCreated() {
         super.afterViewCreated()
+        repeatOnStartedFragment {
+            myPageViewModel.myPageFlow.collect{ event ->
+                if(event is MyPageViewModel.MyPageEvent.GetChallengeListWithUid){
+                    when (event.uistate) {
+                        is UiState.Success -> {
+                            Log.v("GetChallengeListWithUid", event.uistate.data.toString())
+                            mutableList.addAll(index, event.uistate.data.content)
+                            challengeRecyclerAdapter = ChallengeRecyclerAdapter("MYPAGE",mutableList,
+                                {  //클릭 이벤트
+
+                                },
+                                {
+                                    if (event.uistate.data.totalElements > myPageViewModel.myChallCount * 5) {
+                                        index = it
+                                        myPageViewModel.plusChallCount()
+                                        lifecycleScope.launch(Dispatchers.IO) {
+                                            myPageViewModel.getChaalengeListWithUid(
+                                                myPageViewModel.myChallCount, 5)
+                                        }
+
+                                    }
+                                },{
+                                    bottomSheet =  OptionBottomSheetFragment()
+                                    bottomSheet.show(parentFragmentManager , bottomSheet.tag)
+                                })
+                            MychallengeRc.apply {
+                                adapter = challengeRecyclerAdapter
+                                layoutManager = LinearLayoutManager(context)
+                            }
+                        }
+                        is UiState.Loding -> {
+                            Log.v("GetChallengeListWithUid", "로딩")
+                        }
+                        is UiState.Error -> {
+                            Log.v("GetChallengeListWithUid", event.uistate.error.toString())
+                        }
+                    }
+                }else{
+                    this.cancel()
+               }
+            }
+        }
     }
+
+
 }

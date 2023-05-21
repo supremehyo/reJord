@@ -7,7 +7,7 @@ import kotlinx.coroutines.flow.MutableSharedFlow
 
 interface EventFlow<out T> : Flow<T> {
     companion object {
-        const val DEFAULT_REPLAY: Int = 1
+        const val DEFAULT_REPLAY: Int = 3
     }
 }
 

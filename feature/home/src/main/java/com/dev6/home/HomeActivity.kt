@@ -1,8 +1,6 @@
 package com.dev6.home
 
-import androidx.appcompat.app.AppCompatActivity
-import android.os.Bundle
-import com.dev6.core.base.BindingActivity
+import com.dev6.core.BindingActivity
 import com.dev6.home.databinding.ActivityHomeBinding
 import dagger.hilt.android.AndroidEntryPoint
 

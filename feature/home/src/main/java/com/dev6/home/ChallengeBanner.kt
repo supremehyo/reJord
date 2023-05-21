@@ -68,8 +68,17 @@ class ChallengeBanner(
 
 
    //클릭시 배너 컬러 바꾸는 코드
-   fun changeBanner(callback: ()->Unit , challengeInfoRes: ChallengeInfoRes){
-      var color = challengeInfoRes.textColor
+   fun changeBanner(callback: ()->Unit , challengeInfoRes: ChallengeInfoRes? = ChallengeInfoRes(
+      badgeCode = "",
+      challengeId = "",
+      contents = "",
+      footprintAmount = "15",
+      imgBack = "",
+      imgFront = "",
+      textColor = "",
+      title = "타이틀"
+   )){
+      var color = challengeInfoRes?.textColor
       if(binding.changedbannerFl.visibility != View.VISIBLE){
          binding.normalBanner.visibility = View.GONE
          binding.changedtopText.setTextColor(Color.parseColor(color))

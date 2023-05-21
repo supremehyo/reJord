@@ -150,7 +150,7 @@ class BoardFragment : BindingFragment<FragmentBoardBinding>(R.layout.fragment_bo
                     is UiState.Success -> {
                         Log.v("testtt", event.uiState.data.content.toString())
                         mutableList.addAll(index,event.uiState.data.content)
-                        boardRecyclerAdapter = BoardRecyclerAdapter(mutableList,{
+                        boardRecyclerAdapter = BoardRecyclerAdapter("DEFAULT",mutableList,{
 
 
                         }, {
@@ -164,6 +164,8 @@ class BoardFragment : BindingFragment<FragmentBoardBinding>(R.layout.fragment_bo
                                     )
                                 }
                             }
+                        },{
+
                         })
                         recyclerViewState = boardRc.layoutManager?.onSaveInstanceState()
                         boardRc.apply {

@@ -39,10 +39,12 @@ class MainHomeFragment : BindingFragment<FragmentHomeMainBinding>(R.layout.fragm
         super.initView()
 
         binding.challengeBanner.setOnClickListener {
-            binding.challengeBanner.changeBanner{
+            binding.challengeBanner.changeBanner({
                 bottomSheet =  WriteFragment()
                 bottomSheet.show(parentFragmentManager,"CHALLENGE")
-            }
+            },
+                null
+            )
         }
 
         boardViewModel.boardTabTypeFlag.observe(viewLifecycleOwner){
@@ -65,7 +67,6 @@ class MainHomeFragment : BindingFragment<FragmentHomeMainBinding>(R.layout.fragm
                     }
                 }
             }
-
             override fun onTabUnselected(tab: TabLayout.Tab?) {}
             override fun onTabReselected(tab: TabLayout.Tab?) {}
         })
@@ -129,8 +130,7 @@ class MainHomeFragment : BindingFragment<FragmentHomeMainBinding>(R.layout.fragm
                 when (event.uiState) {
                     is UiState.Success -> {
                         initBanner(event.uiState.data)
-                        job.cancel()// 다른화면에서도 BoardeventFlow 를
-                        //collect 하고 있어서 구독을 풀어줘야함
+                        job.cancel()
                     }
                     is UiState.Loding -> {
 

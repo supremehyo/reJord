@@ -15,16 +15,18 @@
             app:layout_constraintTop_toTopOf="parent">
 
             <TextView
-                android:id="@+id/mychallengeTitleTv"
+                android:id="@+id/myPostTitleTv"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="20dp"
                 android:layout_marginTop="10dp"
                 android:fontFamily="@font/notosanskr_bold"
                 android:includeFontPadding="false"
-                android:text="[챌린지 미션] 샤워 10분안에 끝내기"
+                android:text="본문-가나다라마바사아자차카타파하"
                 android:textColor="@color/Grey8"
                 android:textStyle="bold"
+                android:maxLength="13"
+                android:ellipsize="end"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
@@ -34,20 +36,20 @@
                 android:layout_height="wrap_content"
                 android:src="@drawable/option_dot"
                 android:layout_marginRight="16dp"
-                app:layout_constraintBottom_toBottomOf="@+id/mychallengeTitleTv"
+                app:layout_constraintBottom_toBottomOf="@+id/myPostTitleTv"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="@+id/mychallengeTitleTv" />
+                app:layout_constraintTop_toTopOf="@+id/myPostTitleTv" />
 
             <TextView
-                android:id="@+id/challengeDate"
+                android:id="@+id/myPostDate"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="2022.12.25 | 5분전"
                 android:textColor="#8B8B8B"
                 android:textSize="12sp"
                 app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintStart_toStartOf="@+id/mychallengeTitleTv"
-                app:layout_constraintTop_toBottomOf="@+id/mychallengeTitleTv" />
+                app:layout_constraintStart_toStartOf="@+id/myPostTitleTv"
+                app:layout_constraintTop_toBottomOf="@+id/myPostTitleTv" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 

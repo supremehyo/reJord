@@ -132,7 +132,7 @@ class ChallengeFragment : BindingFragment<FragmentChallengeBinding>(R.layout.fra
                                 }
 
                             }
-                        })
+                        },{})
                         recyclerViewState = challengeRc.layoutManager?.onSaveInstanceState()
                         challengeRc.apply {
                             adapter = challengeRecyclerAdapter

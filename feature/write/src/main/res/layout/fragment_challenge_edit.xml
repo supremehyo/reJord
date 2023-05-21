@@ -27,10 +27,24 @@
                 android:layout_height="36dp"
                 android:layout_marginStart="16dp"
                 android:layout_marginTop="11dp"
-                android:backgroundTint="@color/g2"
+                android:backgroundTint="@color/Grey8"
                 android:src="@drawable/x_icon"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/notosanskr_bold"
+                android:text="챌린지글 수정하기"
+                android:textColor="@color/Grey8"
+                android:textSize="20sp"
+                android:textStyle="bold"
+                android:includeFontPadding="false"
+                app:layout_constraintBottom_toBottomOf="@+id/view"
+                app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
@@ -41,9 +55,9 @@
                 android:layout_marginRight="11dp"
                 android:gravity="center"
                 android:text="완료"
+                android:textColor="@color/Grey8"
                 android:includeFontPadding="false"
                 android:fontFamily="@font/notosanskr_light"
-                android:textColor="@color/Grey8"
                 android:textSize="16sp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -76,9 +90,11 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="22dp"
-                android:text="카테고리를 선택해주세요."
-                android:textColor="@color/typo4"
-                android:textSize="16sp" />
+                android:includeFontPadding="false"
+                android:text="[챌린지 미션] 샤워 10분 안에 끝내기"
+                android:fontFamily="@font/notosanskr_bold"
+                android:textColor="@color/Grey8"
+                android:textSize="18sp" />
         </LinearLayout>
 
         <View
@@ -121,7 +137,6 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/textView"
-                app:chipSpacingHorizontal="10dp"
                 app:selectionRequired="true"
                 app:singleLine="true"
                 app:singleSelection="true">
@@ -129,25 +144,30 @@
                 <com.google.android.material.chip.Chip
                     android:id="@+id/feelChip"
                     style="@style/Colors_Widget.MaterialComponents.Chip.Choice"
-                    android:layout_width="109dp"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:paddingHorizontal="31dp"
+                    android:paddingVertical="8dp"
                     android:text="느낀점"
                     app:chipMinTouchTargetSize="0dp" />
 
                 <com.google.android.material.chip.Chip
                     android:id="@+id/DiffChip"
                     style="@style/Colors_Widget.MaterialComponents.Chip.Choice"
-                    android:layout_width="109dp"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:paddingHorizontal="31dp"
+                    android:paddingVertical="8dp"
                     android:text="어려웠던점"
                     app:chipMinTouchTargetSize="0dp" />
 
                 <com.google.android.material.chip.Chip
                     android:id="@+id/tipChip"
-                    android:textAppearance="@style/ChipTextAppearance"
                     style="@style/Colors_Widget.MaterialComponents.Chip.Choice"
-                    android:layout_width="109dp"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:paddingHorizontal="31dp"
+                    android:paddingVertical="8dp"
                     android:text="TIP"
                     app:chipMinTouchTargetSize="0dp" />
             </com.google.android.material.chip.ChipGroup>

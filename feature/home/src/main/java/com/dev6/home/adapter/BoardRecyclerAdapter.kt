@@ -1,26 +1,35 @@
 package com.dev6.home.adapter
 
+import android.content.Context
 import android.text.TextUtils
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
+import androidx.fragment.app.Fragment
+import androidx.fragment.app.FragmentManager
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.dev6.core.util.formatTimeString
 import com.dev6.domain.model.post.read.Content
+import com.dev6.home.bottomsheet.OptionBottomSheetFragment
 import com.dev6.home.databinding.MoreItemBinding
+import com.dev6.home.databinding.MypostItemBinding
 import com.dev6.home.databinding.PostItemBinding
+import com.dev6.write.fragment.WriteBottomSheetFragment
+import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 
 
 @Suppress("IMPLICIT_CAST_TO_ANY")
 class BoardRecyclerAdapter(
+    private val type : String,
     private val items : List<Content?>,
     private val itemClick: (Content) -> Unit,
-    private val getMore: (Int) -> Unit
+    private val getMore: (Int) -> Unit,
+    private val getOption: () -> Unit
 ) : RecyclerView.Adapter<RecyclerView.ViewHolder>(){
-
+    lateinit var bottomSheet : BottomSheetDialogFragment
     //뷰홀더: 내가 넣고자하는 data를 실제 레이아웃의 데이터로 연결시키는 기능
     inner class PostViewHolder(private val binding: PostItemBinding) :
         RecyclerView.ViewHolder(binding.root) {
@@ -38,9 +47,6 @@ class BoardRecyclerAdapter(
                 binding.itemMainContent.post {
                     if(binding.itemMainContent.layout.lineCount == 3) binding.mainContentMore.visibility = View.VISIBLE
                 }
-              //  var count = countNewLines(binding.itemMainContent.text.toString())
-              //  if(count > 3) binding.mainContentMore.visibility = View.VISIBLE
-
 
                 binding.apply {
                     itemTypeTv.text = "카테고리 | ${item.postType}"
@@ -65,8 +71,49 @@ class BoardRecyclerAdapter(
                     postItemRootCl.setOnClickListener {
                         itemClick(item)
                     } }
-            }else{
+            }
+        }
+    }
 
+    inner class MyPostViewHolder(private val binding:MypostItemBinding) :
+        RecyclerView.ViewHolder(binding.root) {
+        fun bind(item: Content?) {
+            //시간 차 구하기
+            if(item != null){
+                var timeDiff = formatTimeString(
+                    item.createdDate[0],
+                    item.createdDate[1],
+                    item.createdDate[2],
+                    item.createdDate[3],
+                    item.createdDate[4]
+                )
+
+                binding.itemMainContent.post {
+                    if(binding.itemMainContent.layout.lineCount == 3) binding.mainContentMore.visibility = View.VISIBLE
+                }
+
+                binding.apply {
+                    itemTypeTv.text = "게시판 | ${item.postType}"
+                    myPostDate.text =
+                        "${item.createdDate[0]}.${item.createdDate[1]}.${item.createdDate[2]}" + "|" + timeDiff
+                    itemMainContent.text = item.contents
+                    myPostTitleTv.text = item.contents.substring(0,13)+""
+                    mainContentMore.setOnClickListener {
+                        if(mainContentMore.text == "접기"){
+                            mainContentMore.text = "..더보기"
+                            itemMainContent.setEllipsize(TextUtils.TruncateAt.END)
+                            itemMainContent.maxLines = 3
+                        }else{
+                            mainContentMore.text = "접기"
+                            itemMainContent.ellipsize = null
+                            itemMainContent.maxLines = 100
+
+                        }
+                    }
+                }
+            }
+            binding.optionDot.setOnClickListener {
+               getOption()
             }
         }
     }
@@ -81,11 +128,20 @@ class BoardRecyclerAdapter(
     }
 
     override fun getItemViewType(position: Int): Int {
-        if(position ==  items.size){
-            return 1
-        }
-        else{
-            return 0
+        if(type == "DEFAULT"){
+            if(position == items.size){
+                return 1
+            }
+            else{
+                return 0
+            }
+        }else {
+            if(position == items.size){
+                return 1
+            }
+            else{
+                return 2
+            }
         }
     }
 
@@ -110,8 +166,8 @@ class BoardRecyclerAdapter(
                 )
             }
             else -> {
-                holder = PostViewHolder(
-                    binding = PostItemBinding.inflate(
+                holder = MyPostViewHolder(
+                    binding = MypostItemBinding.inflate(
                         LayoutInflater.from(parent.context), parent, false
                     )
                 )}
@@ -124,9 +180,12 @@ class BoardRecyclerAdapter(
         if(holder.itemViewType == 1){
             var moreViewHolder : MoreViewHolder = holder as MoreViewHolder
             moreViewHolder.bind(position)
-        }else{
+        }else if(holder.itemViewType == 0){
             var postViewHolder : PostViewHolder = holder as PostViewHolder
             postViewHolder.bind(items[position] ?: null)
+        }else{
+            val myPostViewHolder : MyPostViewHolder = holder as MyPostViewHolder
+            myPostViewHolder.bind(items[position] ?:null)
         }
     }
 

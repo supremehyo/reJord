@@ -9,6 +9,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.lifecycleScope
+import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.dev6.common.uistate.UiState
 import com.dev6.core.BindingFragment
@@ -17,10 +18,15 @@ import com.dev6.domain.model.challenge.ChallengeReviewResult
 import com.dev6.domain.model.post.read.Content
 import com.dev6.home.R
 import com.dev6.home.adapter.BoardRecyclerAdapter
+import com.dev6.home.adapter.ChallengeRecyclerAdapter
+import com.dev6.home.bottomsheet.OptionBottomSheetFragment
 import com.dev6.home.databinding.FragmentMyPageBoardBinding
 import com.dev6.home.viewmodel.MyPageViewModel
+import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.cancel
+import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
@@ -32,7 +38,7 @@ class MyPageBoardFragment :
     private var mutableList: MutableList<Content> = arrayListOf()
     private var count = 0
     private var index = 0
-
+    lateinit var bottomSheet : BottomSheetDialogFragment
     override fun initView() {
         super.initView()
         //recyclerView init
@@ -55,50 +61,14 @@ class MyPageBoardFragment :
         })
 
 
-        repeatOnStarted {
-            myPageViewModel.myPageFlow.collect { event ->
-                when (event) {
-                    is MyPageViewModel.MyPageEvent.GetPostListWithUid -> {
-                        when (event.uistate) {
-                            is UiState.Success -> {
-                                Log.v("GetPostListWithUid test", event.uistate.data.toString())
-                                mutableList.addAll(index, event.uistate.data.content)
-                                boardRecyclerAdapter = BoardRecyclerAdapter(mutableList, {
-
-                                },
-                                    {
-                                        if (event.uistate.data.totalElements > myPageViewModel.myBoardCount * 5) {
-                                            index = it
-                                            myPageViewModel.plusBoardCount()
-                                            lifecycleScope.launch(Dispatchers.IO) {
-                                                myPageViewModel.getPostListWithUid(
-                                                    myPageViewModel.myBoardCount, 5)
-                                            }
-
-                                        }
-                                    }
-                                )
-                            }
-                            is UiState.Loding -> {
-
-                            }
-                            is UiState.Error -> {
-
-                            }
-                        }
-                    }
-                    else -> {
-
-                    }
-                }
-            }
-        }
     }
+
+
 
     override fun initViewModel() {
         super.initViewModel()
         repeatOnStarted {
-            myPageViewModel.getPostListWithUid(0, 1)
+            myPageViewModel.getPostListWithUid(0, 5)
         }
     }
 
@@ -108,5 +78,47 @@ class MyPageBoardFragment :
 
     override fun afterViewCreated() {
         super.afterViewCreated()
+        repeatOnStarted {
+            myPageViewModel.myPageFlow.collect{ event->
+                if(event is MyPageViewModel.MyPageEvent.GetPostListWithUid ){
+                    when (event.uistate) {
+                        is UiState.Success -> {
+                            Log.v("GetPostListWithUid test", event.uistate.data.toString())
+                            mutableList.addAll(index, event.uistate.data.content)
+                            boardRecyclerAdapter = BoardRecyclerAdapter("MYBOARD",mutableList, {
+
+                            },
+                                {
+                                    if (event.uistate.data.totalElements > myPageViewModel.myBoardCount * 5) {
+                                        index = it
+                                        myPageViewModel.plusBoardCount()
+                                        lifecycleScope.launch(Dispatchers.IO) {
+                                            myPageViewModel.getPostListWithUid(
+                                                myPageViewModel.myBoardCount, 5)
+                                        }
+
+                                    }
+                                }
+                                ,{
+                                    bottomSheet =  OptionBottomSheetFragment()
+                                    bottomSheet.show(parentFragmentManager , bottomSheet.tag)
+                                })
+                            MyBoardRc.apply {
+                                adapter = boardRecyclerAdapter
+                                layoutManager = LinearLayoutManager(context)
+                            }
+                        }
+                        is UiState.Loding -> {
+
+                        }
+                        is UiState.Error -> {
+
+                        }
+                    }
+                }else{
+                    this.cancel()
+                }
+            }
+        }
     }
 }

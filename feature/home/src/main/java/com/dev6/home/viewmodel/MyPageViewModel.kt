@@ -1,4 +1,5 @@
 package com.dev6.home.viewmodel
+import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.dev6.common.uistate.UiState
@@ -29,12 +30,18 @@ class MyPageViewModel @Inject constructor(
 ): ViewModel(){
     private val _myPageFlow = MutableEventFlow<MyPageEvent>()
     val myPageFlow = _myPageFlow.asEventFlow()
+
+
     var myChallCount = 0
     var myBoardCount = 0
 
     private suspend fun Event(event : MyPageEvent){
         viewModelScope.launch {
-            _myPageFlow.emit(event)
+            try {
+                _myPageFlow.emit(event)
+            }catch (e : Exception){
+                Log.e("sdfsdf" , e.message.toString())
+            }
         }
     }
 

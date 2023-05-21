@@ -1,24 +1,27 @@
 package com.dev6.home.adapter
+import android.content.Context
 import android.text.TextUtils
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.RecyclerView
 import com.dev6.core.util.formatTimeString
 import com.dev6.domain.model.challenge.ChallengeReviewResult
+import com.dev6.home.bottomsheet.OptionBottomSheetFragment
 import com.dev6.home.databinding.ChallengeItemBinding
 import com.dev6.home.databinding.MoreItemBinding
 import com.dev6.home.databinding.MychallegneItemBinding
+import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 
 class ChallengeRecyclerAdapter(
     private val type : String,
     private val items : List<ChallengeReviewResult?>,
     private val itemClick: (ChallengeReviewResult) -> Unit,
-    private val getMore: (Int) -> Unit
+    private val getMore: (Int) -> Unit,
+    private val getOption: () -> Unit,
 ) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
-
-
     inner class ChallengeViewHolder(private val binding: ChallengeItemBinding):
         RecyclerView.ViewHolder(binding.root) {
         fun bind(item: ChallengeReviewResult?) {
@@ -103,7 +106,6 @@ class ChallengeRecyclerAdapter(
             var challengeViewHolder : ChallengeRecyclerAdapter.ChallengeViewHolder = holder as ChallengeViewHolder
             challengeViewHolder.bind(items[position] ?: null)
         }else{
-            //내 챌린지
             val mychallengeViewHolder : ChallengeRecyclerAdapter.MyChallengeViewHolder = holder as MyChallengeViewHolder
             mychallengeViewHolder.bind(items[position] ?: null)
         }
@@ -139,6 +141,7 @@ class ChallengeRecyclerAdapter(
     inner class MyChallengeViewHolder(private val binding: MychallegneItemBinding):
         RecyclerView.ViewHolder(binding.root) {
         fun bind(item: ChallengeReviewResult?) {
+            Log.v("Sdfsdgege" , item!!.title.toString())
             binding.mychallengeTitleTv.text = "[챌린지 미션] ${item!!.title}"
             binding.mainContentMore.setOnClickListener {
                 if(binding.mainContentMore.text == "접기"){
@@ -156,6 +159,9 @@ class ChallengeRecyclerAdapter(
             }
             binding.itemMainContent.isClickable = false
             binding.itemTypeTv.text = "챌린지 후기 | ${item.challengeReviewType}"
+            binding.optionDot.setOnClickListener {
+               getOption()
+            }
         }
     }
 
