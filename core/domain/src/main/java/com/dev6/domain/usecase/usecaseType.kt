@@ -1,6 +1,7 @@
 package com.dev6.domain.usecase
 import com.dev6.common.uistate.UiState
-import com.dev6.domain.model.challenge.ChallengeInfoRes
+import com.dev6.domain.model.challenge.ChallengeEditReq
+import com.dev6.domain.model.challenge.ChallengeEditRes
 import com.dev6.domain.model.challenge.ChallengeReadReq
 import com.dev6.domain.model.challenge.ChallengeRes
 import com.dev6.domain.model.join.JoinReq
@@ -10,6 +11,8 @@ import com.dev6.domain.model.join.login.LoginRes
 import com.dev6.domain.model.join.nickName.NicknameExistCheckRes
 import com.dev6.domain.model.join.nickName.NicknameReq
 import com.dev6.domain.model.join.nickName.NicknameUpdateRes
+import com.dev6.domain.model.post.delete.PostEditReq
+import com.dev6.domain.model.post.delete.PostEditRes
 import com.dev6.domain.model.post.read.PostReadReq
 import com.dev6.domain.model.post.read.PostReadRes
 import com.dev6.domain.model.post.write.ChallengeWriteReq
@@ -27,4 +30,6 @@ typealias PostGetListReposBaseUseCase = BaseUseCase<PostReadReq, Flow<UiState<Po
 typealias ChallengeGetListReposBaseUseCase = BaseUseCase<ChallengeReadReq, Flow<UiState<ChallengeRes>>>
 typealias PostWriteBaseUseCase = BaseUseCase<PostWriteReq, Flow<UiState<PostWriteRes>>>
 typealias ChallengeWriteBaseUseCase = BaseUseCase<ChallengeWriteReq , Flow<UiState<ChallengeWriteRes>>>
-
+typealias PostDeleteBaseUseCase = BaseUseCase<String , Flow<UiState<String>>>
+typealias PostEditBaseUseCase = BaseUseCase<PostEditReq, Flow<UiState<PostEditRes>>>
+typealias ChallengeEditBaseUseCase = BaseUseCase<ChallengeEditReq, Flow<UiState<ChallengeEditRes>>>

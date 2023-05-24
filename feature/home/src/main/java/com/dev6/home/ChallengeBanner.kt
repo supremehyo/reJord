@@ -38,46 +38,22 @@ class ChallengeBanner(
 
 
    @SuppressLint("ResourceType")
-   fun setBannerLayout(challengeInfoRes: ChallengeInfoRes = ChallengeInfoRes(
-      badgeCode = "",
-      challengeId = "",
-      contents = "",
-      footprintAmount = "15",
-      imgBack = "",
-      imgFront = "",
-      textColor = "",
-      title = "타이틀"
-   ))  {
-      try {
-         binding.normalBanner.visibility = View.VISIBLE
-         binding.changedbannerFl.visibility = View.GONE
-         binding.topText.text = challengeInfoRes.challengeId
-         binding.bannerTitle.text = challengeInfoRes.title
-         binding.bannerBackground.backgroundTintList=
-            ColorStateList.valueOf(ContextCompat.getColor(context, Color.parseColor(challengeInfoRes.textColor)))
-         binding.bannerContent.text = challengeInfoRes.contents
-         Glide.with(context).load(challengeInfoRes.imgFront).into(binding.bannerImage)
-      }catch (e : Exception){
-         Log.e("bannerError" , e.message.toString())
-      }
-      invalidate()
-      requestLayout()
+   fun setBannerLayout(challengeInfoRes: ChallengeInfoRes)  {
+      Log.v("sdfsdfsdf" ,challengeInfoRes.textColor)
+      binding.normalBanner.visibility = View.VISIBLE
+      binding.changedbannerFl.visibility = View.GONE
+      binding.topText.text = challengeInfoRes.challengeId
+      binding.bannerTitle.text = challengeInfoRes.title
+      binding.bannerContent.text = challengeInfoRes.contents
+      binding.bannerFl.backgroundTintList = ColorStateList.valueOf(Color.parseColor(challengeInfoRes.textColor))
+      Glide.with(context).load(challengeInfoRes.imgFront).into(binding.bannerImage)
    }
 
 
 
 
    //클릭시 배너 컬러 바꾸는 코드
-   fun changeBanner(callback: ()->Unit , challengeInfoRes: ChallengeInfoRes? = ChallengeInfoRes(
-      badgeCode = "",
-      challengeId = "",
-      contents = "",
-      footprintAmount = "15",
-      imgBack = "",
-      imgFront = "",
-      textColor = "",
-      title = "타이틀"
-   )){
+   fun changeBanner(callback: ()->Unit , challengeInfoRes: ChallengeInfoRes?){
       var color = challengeInfoRes?.textColor
       if(binding.changedbannerFl.visibility != View.VISIBLE){
          binding.normalBanner.visibility = View.GONE

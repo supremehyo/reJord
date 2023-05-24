@@ -11,6 +11,7 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
 import com.dev6.core.util.formatTimeString
 import com.dev6.domain.model.post.read.Content
 import com.dev6.home.bottomsheet.OptionBottomSheetFragment
@@ -43,6 +44,8 @@ class BoardRecyclerAdapter(
                     item.createdDate[3],
                     item.createdDate[4]
                 )
+
+                Glide.with(itemView.context).load("https://cdn.mhnse.com/news/photo/202303/170740_168142_349.jpg").circleCrop().into(binding.imageView)
 
                 binding.itemMainContent.post {
                     if(binding.itemMainContent.layout.lineCount == 3) binding.mainContentMore.visibility = View.VISIBLE

@@ -142,6 +142,15 @@ class ChallengeRecyclerAdapter(
         RecyclerView.ViewHolder(binding.root) {
         fun bind(item: ChallengeReviewResult?) {
             Log.v("Sdfsdgege" , item!!.title.toString())
+            //시간 차 구하기
+            var timeDiff = formatTimeString(
+                item.createdDate[0],
+                item.createdDate[1],
+                item.createdDate[2],
+                item.createdDate[3],
+                item.createdDate[4]
+            )
+
             binding.mychallengeTitleTv.text = "[챌린지 미션] ${item!!.title}"
             binding.mainContentMore.setOnClickListener {
                 if(binding.mainContentMore.text == "접기"){
@@ -158,6 +167,8 @@ class ChallengeRecyclerAdapter(
                 text =  item.contents
             }
             binding.itemMainContent.isClickable = false
+            binding.challengeDate.text =
+                "${item.createdDate[0]}.${item.createdDate[1]}.${item.createdDate[2]}"+" | "+timeDiff
             binding.itemTypeTv.text = "챌린지 후기 | ${item.challengeReviewType}"
             binding.optionDot.setOnClickListener {
                getOption()

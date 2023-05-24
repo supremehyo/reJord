@@ -32,6 +32,7 @@ class MainHomeFragment : BindingFragment<FragmentHomeMainBinding>(R.layout.fragm
     private val challengeViewModel: ChallengeViewModel by activityViewModels()
     val writeViewModel : WriteViewModel by activityViewModels()
     lateinit var bottomSheet : BottomSheetDialogFragment
+    lateinit var challengeInfoRes: ChallengeInfoRes
     var writeType = ""
 
     lateinit var job: Job
@@ -43,7 +44,7 @@ class MainHomeFragment : BindingFragment<FragmentHomeMainBinding>(R.layout.fragm
                 bottomSheet =  WriteFragment()
                 bottomSheet.show(parentFragmentManager,"CHALLENGE")
             },
-                null
+                challengeInfoRes
             )
         }
 
@@ -129,7 +130,8 @@ class MainHomeFragment : BindingFragment<FragmentHomeMainBinding>(R.layout.fragm
             is BoardViewModel.BoardEvent.BannerEvent -> {
                 when (event.uiState) {
                     is UiState.Success -> {
-                        initBanner(event.uiState.data)
+                        challengeInfoRes = event.uiState.data
+                        initBanner(challengeInfoRes)
                         job.cancel()
                     }
                     is UiState.Loding -> {

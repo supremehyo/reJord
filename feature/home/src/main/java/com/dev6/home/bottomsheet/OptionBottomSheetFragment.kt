@@ -15,13 +15,18 @@ import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 
 class OptionBottomSheetFragment : BaseBottomSheetDialogFragment<FragmentOptionBottomSheetBinding>(
     com.dev6.home.R.layout.fragment_option_bottom_sheet) {
-    val writeFragment : WriteViewModel by activityViewModels()
+    val writeViewModel : WriteViewModel by activityViewModels()
 
     override fun initView() {
 
     }
-
+    //TODO 수정 삭제 연동
     override fun initListener() {
+        binding.editCl.setOnClickListener {
+         //   writeViewModel.
+        }
+        binding.deleteCl.setOnClickListener {
 
+        }
     }
 }

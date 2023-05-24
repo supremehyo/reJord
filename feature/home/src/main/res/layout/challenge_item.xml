@@ -16,8 +16,8 @@
 
         <ImageView
             android:id="@+id/imageView"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="38dp"
+            android:layout_height="38dp"
             android:layout_marginStart="24dp"
             android:background="@color/mainColor"
             android:src="@drawable/account_circle"
@@ -63,7 +63,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="22dp"
-            android:layout_marginTop="14dp"
+            android:layout_marginVertical="14dp"
             android:text=""
             android:textSize="12sp"
             android:ellipsize="end"
@@ -97,7 +97,7 @@
         android:id="@+id/item_typeTv"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="28dp"
+        android:layout_marginStart="22dp"
         android:layout_marginVertical="10dp"
         android:text="챌린지 후기 | 느낀점"
         android:textSize="12sp"

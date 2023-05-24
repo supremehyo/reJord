@@ -1,6 +1,10 @@
 package com.dev6.repositoryImple
 
+import com.dev6.domain.model.challenge.ChallengeEditReq
+import com.dev6.domain.model.challenge.ChallengeEditRes
 import com.dev6.domain.model.challenge.ChallengeRes
+import com.dev6.domain.model.post.delete.PostEditReq
+import com.dev6.domain.model.post.delete.PostEditRes
 import com.dev6.domain.model.post.read.PostReadRes
 import com.dev6.domain.model.post.write.ChallengeWriteReq
 import com.dev6.domain.model.post.write.ChallengeWriteRes
@@ -32,5 +36,17 @@ class PostRepositoryImple @Inject constructor(
 
     override suspend fun getPostListWithUid(page: Int, size: Int): PostReadRes =
         postRemoteDataSource.getPostListWithUid(page, size).toDomain()
+
+    override suspend fun deletePost(postId: String): String {
+        TODO("Not yet implemented")
+    }
+
+    override suspend fun editPost(postEditReq: PostEditReq): PostEditRes {
+        TODO("Not yet implemented")
+    }
+
+    override suspend fun editChallenge(editChallengeReq: ChallengeEditReq): ChallengeEditRes {
+        TODO("Not yet implemented")
+    }
 
 }
