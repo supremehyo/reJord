@@ -33,7 +33,8 @@
                 android:includeFontPadding="false"
                 android:text="게시글 수정하기"
                 android:textColor="@color/g2"
-                android:textSize="20sp" />
+                android:textSize="20sp"
+                android:textStyle="bold"/>
 
             <ImageView
                 android:layout_width="wrap_content"
@@ -71,6 +72,7 @@
                 android:text="수정하기"
                 android:textColor="@color/g2"
                 android:textSize="18sp"
+                android:textStyle="bold"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
@@ -106,6 +108,7 @@
                 android:text="삭제하기"
                 android:textColor="@color/g2"
                 android:textSize="18sp"
+                android:textStyle="bold"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />

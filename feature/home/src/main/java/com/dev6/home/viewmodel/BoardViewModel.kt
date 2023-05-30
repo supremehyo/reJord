@@ -33,6 +33,7 @@ class BoardViewModel @Inject constructor(
     var boardTabTypeFlag: MutableLiveData<WriteType> = MutableLiveData()
     var scrollFlag: MutableLiveData<ScrollType> = MutableLiveData()
     var postType : MutableLiveData<String> = MutableLiveData()
+    var refreshFlag: MutableLiveData<Boolean> = MutableLiveData()
     var boardCount = 0
 
     private fun Boardevent(event: BoardEvent) {
@@ -43,6 +44,10 @@ class BoardViewModel @Inject constructor(
                 Log.e("sdfsdf" , e.message.toString())
             }
         }
+    }
+
+    fun postRefreshFlag(refresh : Boolean){
+        refreshFlag.value = refresh
     }
 
     fun changePostType(postType : String){

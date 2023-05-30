@@ -31,5 +31,6 @@ typealias ChallengeGetListReposBaseUseCase = BaseUseCase<ChallengeReadReq, Flow<
 typealias PostWriteBaseUseCase = BaseUseCase<PostWriteReq, Flow<UiState<PostWriteRes>>>
 typealias ChallengeWriteBaseUseCase = BaseUseCase<ChallengeWriteReq , Flow<UiState<ChallengeWriteRes>>>
 typealias PostDeleteBaseUseCase = BaseUseCase<String , Flow<UiState<String>>>
+typealias ChallengeDeleteBaseUseCase = BaseUseCase<String , Flow<UiState<String>>>
 typealias PostEditBaseUseCase = BaseUseCase<PostEditReq, Flow<UiState<PostEditRes>>>
 typealias ChallengeEditBaseUseCase = BaseUseCase<ChallengeEditReq, Flow<UiState<ChallengeEditRes>>>

@@ -37,16 +37,16 @@ class PostRepositoryImple @Inject constructor(
     override suspend fun getPostListWithUid(page: Int, size: Int): PostReadRes =
         postRemoteDataSource.getPostListWithUid(page, size).toDomain()
 
-    override suspend fun deletePost(postId: String): String {
-        TODO("Not yet implemented")
-    }
+    override suspend fun deletePost(postId: String): String =
+        postRemoteDataSource.deletePost(postId)
 
-    override suspend fun editPost(postEditReq: PostEditReq): PostEditRes {
-        TODO("Not yet implemented")
-    }
+    override suspend fun challengeDelete(challengeReviewId: String): String =
+        postRemoteDataSource.challengeDelete(challengeReviewId)
 
-    override suspend fun editChallenge(editChallengeReq: ChallengeEditReq): ChallengeEditRes {
-        TODO("Not yet implemented")
-    }
+    override suspend fun editPost(postEditReq: PostEditReq): PostEditRes =
+        postRemoteDataSource.editPost(postEditReq.toData()).toDomain()
+
+    override suspend fun editChallenge(editChallengeReq: ChallengeEditReq): ChallengeEditRes =
+        postRemoteDataSource.editChallenge(editChallengeReq.toData()).toDomain()
 
 }

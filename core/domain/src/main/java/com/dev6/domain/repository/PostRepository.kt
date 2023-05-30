@@ -18,6 +18,7 @@ interface PostRepository {
     suspend fun getChallengeListWithUid(page: Int, size: Int) : ChallengeRes
     suspend fun  getPostListWithUid(page: Int, size: Int) : PostReadRes
     suspend fun deletePost(postId : String) : String
+    suspend fun challengeDelete(challengeReviewId : String) : String
     suspend fun editPost(postEditReq : PostEditReq) : PostEditRes
     suspend fun editChallenge(editChallengeReq : ChallengeEditReq) : ChallengeEditRes
 }

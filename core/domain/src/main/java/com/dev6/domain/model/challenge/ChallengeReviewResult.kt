@@ -8,4 +8,4 @@ data class ChallengeReviewResult(
     val nickname : String,
     val title : String,
     val uid : String,
-)
+) : java.io.Serializable

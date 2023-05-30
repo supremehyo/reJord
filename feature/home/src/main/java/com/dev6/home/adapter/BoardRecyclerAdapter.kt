@@ -14,6 +14,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.dev6.core.util.formatTimeString
 import com.dev6.domain.model.post.read.Content
+import com.dev6.home.R
 import com.dev6.home.bottomsheet.OptionBottomSheetFragment
 import com.dev6.home.databinding.MoreItemBinding
 import com.dev6.home.databinding.MypostItemBinding
@@ -28,7 +29,7 @@ class BoardRecyclerAdapter(
     private val items : List<Content?>,
     private val itemClick: (Content) -> Unit,
     private val getMore: (Int) -> Unit,
-    private val getOption: () -> Unit
+    private val getOption: (Content?) -> Unit
 ) : RecyclerView.Adapter<RecyclerView.ViewHolder>(){
     lateinit var bottomSheet : BottomSheetDialogFragment
     //뷰홀더: 내가 넣고자하는 data를 실제 레이아웃의 데이터로 연결시키는 기능
@@ -45,7 +46,7 @@ class BoardRecyclerAdapter(
                     item.createdDate[4]
                 )
 
-                Glide.with(itemView.context).load("https://cdn.mhnse.com/news/photo/202303/170740_168142_349.jpg").circleCrop().into(binding.imageView)
+                Glide.with(itemView.context).load("").circleCrop().error(R.drawable.main_icon) .into(binding.imageView)
 
                 binding.itemMainContent.post {
                     if(binding.itemMainContent.layout.lineCount == 3) binding.mainContentMore.visibility = View.VISIBLE
@@ -98,9 +99,13 @@ class BoardRecyclerAdapter(
                 binding.apply {
                     itemTypeTv.text = "게시판 | ${item.postType}"
                     myPostDate.text =
-                        "${item.createdDate[0]}.${item.createdDate[1]}.${item.createdDate[2]}" + "|" + timeDiff
+                        "${item.createdDate[0]}.${item.createdDate[1]}.${item.createdDate[2]}" + " | " + timeDiff
                     itemMainContent.text = item.contents
-                    myPostTitleTv.text = item.contents.substring(0,13)+""
+                    if(item.contents.length > 13){
+                        myPostTitleTv.text = item.contents.substring(0,13)+""
+                    }else{
+                        myPostTitleTv.text = item.contents
+                    }
                     mainContentMore.setOnClickListener {
                         if(mainContentMore.text == "접기"){
                             mainContentMore.text = "..더보기"
@@ -116,7 +121,7 @@ class BoardRecyclerAdapter(
                 }
             }
             binding.optionDot.setOnClickListener {
-               getOption()
+               getOption(item)
             }
         }
     }

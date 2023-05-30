@@ -15,14 +15,18 @@ import com.dev6.core.BindingFragment
 import com.dev6.core.util.extension.repeatOnStarted
 import com.dev6.home.R
 import com.dev6.home.adapter.BadgeAdapter
+import com.dev6.home.bottomsheet.BestBadgeSheetFragment
 import com.dev6.home.databinding.FragmentMyBadgeBinding
 import com.dev6.home.viewmodel.MyPageViewModel
+import com.dev6.write.fragment.WriteBottomSheetFragment
+import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 
 
 class MyBadgeFragment : BindingFragment<FragmentMyBadgeBinding>(R.layout.fragment_my_badge) {
     lateinit var badgeRc : RecyclerView
     lateinit var badgeRcAdapter : BadgeAdapter
     private val myPageViewModel: MyPageViewModel by activityViewModels()
+    lateinit var bottomSheet : BottomSheetDialogFragment
     override fun initView() {
         super.initView()
         badgeRc = binding.badgeRc
@@ -42,6 +46,10 @@ class MyBadgeFragment : BindingFragment<FragmentMyBadgeBinding>(R.layout.fragmen
 
     override fun initListener() {
         super.initListener()
+        binding.myPageIv.setOnClickListener {
+            bottomSheet =  BestBadgeSheetFragment()
+            bottomSheet.show(parentFragmentManager , bottomSheet.tag)
+        }
     }
 
     override fun afterViewCreated() {

@@ -20,7 +20,7 @@ class ChallengeRecyclerAdapter(
     private val items : List<ChallengeReviewResult?>,
     private val itemClick: (ChallengeReviewResult) -> Unit,
     private val getMore: (Int) -> Unit,
-    private val getOption: () -> Unit,
+    private val getOption: (ChallengeReviewResult) -> Unit,
 ) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
     inner class ChallengeViewHolder(private val binding: ChallengeItemBinding):
         RecyclerView.ViewHolder(binding.root) {
@@ -171,7 +171,7 @@ class ChallengeRecyclerAdapter(
                 "${item.createdDate[0]}.${item.createdDate[1]}.${item.createdDate[2]}"+" | "+timeDiff
             binding.itemTypeTv.text = "챌린지 후기 | ${item.challengeReviewType}"
             binding.optionDot.setOnClickListener {
-               getOption()
+               getOption(item)
             }
         }
     }

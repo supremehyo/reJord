@@ -71,9 +71,17 @@ interface PostAPI {
 
     //일반 게시글 수정
     @Headers("Content-Type: application/json")
-    @PATCH("/v1/challengeReviewInfos/withChallengeReviewId")
-    suspend fun PostPatch(
+    @PATCH("/v1/postInfos/withPostId")
+    suspend fun postEdit(
         @Body postPatchReqDTO: PostPatchReqDTO
     ): Response<PostPatchResDTO>
+
+    //챌린지 리뷰 게시글 삭제
+    @Headers("Content-Type: application/json")
+    @DELETE("/v1/challengeReviews/{challengeReviewId}")
+    suspend fun challengeDelete(
+        @Path("challengeReviewId") challengeReviewId : String
+    ): Response<String>
+
 
 }

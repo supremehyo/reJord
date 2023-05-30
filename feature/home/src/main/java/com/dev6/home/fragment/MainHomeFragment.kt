@@ -2,19 +2,25 @@ package com.dev6.home.fragment
 
 import android.util.Log
 import android.view.animation.AnimationUtils
+import android.widget.Toast
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.lifecycleScope
 import com.dev6.common.uistate.UiState
 import com.dev6.core.BindingFragment
 import com.dev6.core.enums.ScrollType
 import com.dev6.core.enums.WriteType
+import com.dev6.core.util.extension.repeatOnStarted
 import com.dev6.domain.model.challenge.ChallengeInfoRes
+import com.dev6.domain.model.challenge.ChallengeReadReq
 import com.dev6.domain.model.post.read.PostReadReq
+import com.dev6.domain.model.post.write.ChallengeWriteRes
+import com.dev6.domain.model.post.write.PostWriteRes
 import com.dev6.home.adapter.HomeContentPagerAdapter
 import com.dev6.home.R
 import com.dev6.home.databinding.FragmentHomeMainBinding
 import com.dev6.home.viewmodel.BoardViewModel
 import com.dev6.home.viewmodel.ChallengeViewModel
+import com.dev6.home.viewmodel.MyPageViewModel
 import com.dev6.write.WriteFragment
 import com.dev6.write.viewmodel.WriteViewModel
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
@@ -22,7 +28,10 @@ import com.google.android.material.tabs.TabLayout
 import com.google.android.material.tabs.TabLayout.OnTabSelectedListener
 import com.google.android.material.tabs.TabLayoutMediator
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 import java.time.LocalDateTime
 
@@ -30,8 +39,9 @@ import java.time.LocalDateTime
 class MainHomeFragment : BindingFragment<FragmentHomeMainBinding>(R.layout.fragment_home_main) {
     private val boardViewModel: BoardViewModel by activityViewModels()
     private val challengeViewModel: ChallengeViewModel by activityViewModels()
-    val writeViewModel : WriteViewModel by activityViewModels()
-    lateinit var bottomSheet : BottomSheetDialogFragment
+    private val myPageViewModel: MyPageViewModel by activityViewModels()
+    val writeViewModel: WriteViewModel by activityViewModels()
+    lateinit var bottomSheet: BottomSheetDialogFragment
     lateinit var challengeInfoRes: ChallengeInfoRes
     var writeType = ""
 
@@ -40,15 +50,16 @@ class MainHomeFragment : BindingFragment<FragmentHomeMainBinding>(R.layout.fragm
         super.initView()
 
         binding.challengeBanner.setOnClickListener {
-            binding.challengeBanner.changeBanner({
-                bottomSheet =  WriteFragment()
-                bottomSheet.show(parentFragmentManager,"CHALLENGE")
-            },
+            binding.challengeBanner.changeBanner(
+                {
+                    bottomSheet = WriteFragment()
+                    bottomSheet.show(parentFragmentManager, "CHALLENGE")
+                },
                 challengeInfoRes
             )
         }
 
-        boardViewModel.boardTabTypeFlag.observe(viewLifecycleOwner){
+        boardViewModel.boardTabTypeFlag.observe(viewLifecycleOwner) {
             writeType = it.toString()
         }
 
@@ -68,6 +79,7 @@ class MainHomeFragment : BindingFragment<FragmentHomeMainBinding>(R.layout.fragm
                     }
                 }
             }
+
             override fun onTabUnselected(tab: TabLayout.Tab?) {}
             override fun onTabReselected(tab: TabLayout.Tab?) {}
         })
@@ -91,7 +103,6 @@ class MainHomeFragment : BindingFragment<FragmentHomeMainBinding>(R.layout.fragm
         boardViewModel.scrollFlag.observe(viewLifecycleOwner) {
             when (it) {
                 ScrollType.TOP -> {
-
                     binding.upFab.alpha = 1.0f
                 }
                 ScrollType.SCROLLUP -> {
@@ -123,6 +134,12 @@ class MainHomeFragment : BindingFragment<FragmentHomeMainBinding>(R.layout.fragm
                 eventHandler(it)
             }
         }
+
+        repeatOnStartedFragment {
+            writeViewModel.eventFlow.collect {
+                writeEventHandler(it)
+            }
+        }
     }
 
     private fun eventHandler(event: BoardViewModel.BoardEvent) {
@@ -149,6 +166,132 @@ class MainHomeFragment : BindingFragment<FragmentHomeMainBinding>(R.layout.fragm
         }
     }
 
+    private fun writeEventHandler(event: WriteViewModel.Event) {
+        when (event) {
+            is WriteViewModel.Event.postWriteEvent -> {
+                when (event.uiState) {
+                    is UiState.Success -> {
+                        lifecycleScope.launch(Dispatchers.IO) {
+                            delay(1000)
+                            boardViewModel.getPostList(
+                                PostReadReq(
+                                    0,
+                                    (event.uiState as UiState.Success<PostWriteRes>).data.postType,
+                                    LocalDateTime.now().toString(),
+                                    5
+                                )
+                            )
+                        }
+
+                    }
+                    is UiState.Loding -> {
+
+                    }
+                    is UiState.Error -> {
+
+                    }
+
+                }
+            }
+            is WriteViewModel.Event.postChallegeEvent -> {
+                when (event.uiState) {
+                    is UiState.Success -> {
+                        Log.v("Sdfsdf" , (event.uiState as UiState.Success<ChallengeWriteRes>).data.toString())
+                        lifecycleScope.launch(Dispatchers.IO) {
+                            delay(1000)
+                            challengeViewModel.getChallengeList(
+                                ChallengeReadReq(0, LocalDateTime.now().toString(), 5)
+                            )
+                        }
+                        challengeViewModel.postRefreshFlag(true)
+                    }
+                    is UiState.Loding -> {
+
+                    }
+                    is UiState.Error -> {
+
+                    }
+
+                }
+            }
+            is WriteViewModel.Event.deletePostEvent -> {
+                when (event.uiState) {
+                    is UiState.Success -> {
+                        Toast.makeText(
+                            requireContext(),
+                            "게시글을 삭제했습니다.", Toast.LENGTH_SHORT
+                        ).show()
+                        lifecycleScope.launch(Dispatchers.IO) {
+                            delay(1000)
+                            myPageViewModel.getPostListWithUid(0, 5)
+                        }
+                    }
+                    is UiState.Loding -> {
+
+                    }
+                    is UiState.Error -> {
+
+                    }
+
+                }
+            }
+            is WriteViewModel.Event.deleteChallengeEvent -> {
+                when (event.uiState) {
+                    is UiState.Success -> {
+                        Toast.makeText(
+                            requireContext(),
+                            "게시글을 삭제했습니다.", Toast.LENGTH_SHORT
+                        ).show()
+                        lifecycleScope.launch(Dispatchers.IO) {
+                            delay(1000)
+                            myPageViewModel.getChaalengeListWithUid(0, 5)
+                        }
+                    }
+                    is UiState.Loding -> {
+
+                    }
+                    is UiState.Error -> {
+
+                    }
+
+                }
+            }
+            is WriteViewModel.Event.editPostEvent -> {
+                when (event.uiState) {
+                    is UiState.Success -> {
+                        lifecycleScope.launch(Dispatchers.IO) {
+                            delay(1000)
+                            myPageViewModel.getPostListWithUid(0, 5)
+                        }
+                    }
+                    is UiState.Loding -> {
+
+                    }
+                    is UiState.Error -> {
+
+                    }
+
+                }
+            }
+            is WriteViewModel.Event.editChallengeEvent -> {
+                when (event.uiState) {
+                    is UiState.Success -> {
+                        lifecycleScope.launch(Dispatchers.IO) {
+                            delay(1000)
+                            myPageViewModel.getChaalengeListWithUid(0, 5)
+                        }
+                    }
+                    is UiState.Loding -> {
+
+                    }
+                    is UiState.Error -> {
+
+                    }
+
+                }
+            }
+        }
+    }
 
 
     private fun initBanner(challengeInfoRes: ChallengeInfoRes) {

@@ -28,13 +28,40 @@ class ChallengeFragment : BindingFragment<FragmentChallengeBinding>(R.layout.fra
     private  var mutableList: MutableList<ChallengeReviewResult> = arrayListOf()
     var count = 0
     var index = 0
+    var tempIndex = 0
     private var recyclerViewState: Parcelable? = null
+
+    var totalElements = 0
 
     override fun initView() {
         super.initView()
         challengeViewModel.clearChallCount()
         challengeRc = binding.challengeRc
         count = challengeViewModel.challCount
+
+
+        challengeRecyclerAdapter = ChallengeRecyclerAdapter("DEFAULT",mutableList, {
+
+        },{
+            //총 갯수가 현재 페이지 * 5 보다 많으면 더 불러올 수 있으니 count 를 늘리고 불러온다.
+            if(totalElements > challengeViewModel.challCount * 5){
+                index = it
+                challengeViewModel.plusChallCount()
+                repeatOnStarted {
+                    challengeViewModel.getChallengeList(ChallengeReadReq(
+                        challengeViewModel.challCount,
+                        LocalDateTime.now().toString(),
+                        5
+                    ))
+                }
+
+            }
+        },{})
+        challengeRc.apply {
+            adapter = challengeRecyclerAdapter
+            layoutManager = LinearLayoutManager(context)
+            addOnScrollListener(scrollCheck(this))
+        }
 
     }
 
@@ -46,6 +73,15 @@ class ChallengeFragment : BindingFragment<FragmentChallengeBinding>(R.layout.fra
                 LocalDateTime.now().toString(),
                 5
             ))
+        }
+
+        challengeViewModel.refreshFlag.observe(viewLifecycleOwner){
+            if(it == true){
+                index =0
+                mutableList.clear()
+                challengeRecyclerAdapter.notifyDataSetChanged()
+                challengeViewModel.postRefreshFlag(false)
+            }
         }
 
     }
@@ -107,8 +143,7 @@ class ChallengeFragment : BindingFragment<FragmentChallengeBinding>(R.layout.fra
     }
 
     private fun eventHandler(event : ChallengeViewModel.ChallengeEvent){
-        when(event){
-            is ChallengeViewModel.ChallengeEvent.GetChallengeUiEvent ->{
+            if (event is ChallengeViewModel.ChallengeEvent.GetChallengeUiEvent){
                 when(event.uiState){
                     is UiState.Loding ->{
 
@@ -116,29 +151,9 @@ class ChallengeFragment : BindingFragment<FragmentChallengeBinding>(R.layout.fra
                     is UiState.Success ->{
                         Log.v("챌린지 테스트" , event.uiState.data.toString())
                         mutableList.addAll(index,event.uiState.data.content)
-                        challengeRecyclerAdapter = ChallengeRecyclerAdapter("DEFAULT",mutableList, {
-
-                        },{
-                            //총 갯수가 현재 페이지 * 5 보다 많으면 더 불러올 수 있으니 count 를 늘리고 불러온다.
-                            if(event.uiState.data.totalElements > challengeViewModel.challCount * 5){
-                                index = it
-                                challengeViewModel.plusChallCount()
-                                repeatOnStarted {
-                                    challengeViewModel.getChallengeList(ChallengeReadReq(
-                                        challengeViewModel.challCount,
-                                        LocalDateTime.now().toString(),
-                                        5
-                                    ))
-                                }
-
-                            }
-                        },{})
+                        totalElements = event.uiState.data.totalElements
                         recyclerViewState = challengeRc.layoutManager?.onSaveInstanceState()
-                        challengeRc.apply {
-                            adapter = challengeRecyclerAdapter
-                            layoutManager = LinearLayoutManager(context)
-                            addOnScrollListener(scrollCheck(this))
-                        }
+                        challengeRecyclerAdapter.notifyItemRangeChanged(0,5)
                         challengeRc.layoutManager?.onRestoreInstanceState(recyclerViewState)
                     }
                     is UiState.Error ->{
@@ -150,7 +165,6 @@ class ChallengeFragment : BindingFragment<FragmentChallengeBinding>(R.layout.fra
                     }
                 }
             }
-        }
     }
 
     override fun onResume() {

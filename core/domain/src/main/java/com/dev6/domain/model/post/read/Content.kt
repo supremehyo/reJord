@@ -7,4 +7,4 @@ data class Content(
     val postId: String,
     val postType: String,
     val uid: String
-)
+) : java.io.Serializable

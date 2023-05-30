@@ -4,6 +4,7 @@ package com.dev6.write.fragment
 import android.app.Activity
 import android.app.Dialog
 import android.opengl.Visibility
+import android.os.Build
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
@@ -18,6 +19,8 @@ import androidx.fragment.app.activityViewModels
 import com.dev6.core.BaseBottomSheetDialogFragment
 import com.dev6.core.enums.WriteType
 import com.dev6.core.util.extension.repeatOnStarted
+import com.dev6.domain.model.challenge.ChallengeEditReq
+import com.dev6.domain.model.challenge.ChallengeReviewResult
 import com.dev6.domain.model.post.write.ChallengeWriteReq
 import com.dev6.domain.model.post.write.PostWriteReq
 import com.dev6.write.R
@@ -37,8 +40,36 @@ class ChallengeEditFragment : BaseBottomSheetDialogFragment<FragmentChallengeEdi
     var writeType : String? = ""
     var contens = ""
     var challengeId = ""
+    lateinit var challengeReviewResult : ChallengeReviewResult
 
     override fun initView() {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+            requireArguments().getSerializable("data", ChallengeReviewResult::class.java)?.run {
+                challengeReviewResult = this
+            }
+        } else {
+            (requireArguments().getSerializable("data") as? ChallengeReviewResult)?.run {
+                challengeReviewResult = this
+            }
+        }
+
+        //초기값 세팅
+        binding.apply {
+            editChallTitle.text = "[챌린지 미션] ${challengeReviewResult.title}"
+            writeContentEt.setText(challengeReviewResult.contents)
+            when(challengeReviewResult.challengeReviewType){
+                "FEELING"->{
+                    binding.challengeChipGroup.check(0)
+                }
+                "DIFF" ->{
+                    binding.challengeChipGroup.check(1)
+                }
+                "TIP"->{
+                    binding.challengeChipGroup.check(2)
+                }
+            }
+        }
+
 
     }
 
@@ -64,10 +95,8 @@ class ChallengeEditFragment : BaseBottomSheetDialogFragment<FragmentChallengeEdi
         }
         binding.writeComplete.setOnClickListener {
             repeatOnStarted {
-                //챌린지 수정 함수 viewmodel 에서 호출로 변경 필요
-                writeViewModel.challengeWrite(ChallengeWriteReq(
-                    challengeId,
-                    challengeReviewType = challengeReviewType ?: "FEELING",
+                writeViewModel.editChallenge(ChallengeEditReq(
+                    challengeReviewId = challengeReviewResult.challengeReviewId,
                     contents = contens
                 ))
             }

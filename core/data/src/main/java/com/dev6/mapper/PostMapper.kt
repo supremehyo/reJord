@@ -1,9 +1,9 @@
 package com.dev6.mapper
-import com.dev6.domain.model.challenge.ChallengePage
-import com.dev6.domain.model.challenge.ChallengeRes
-import com.dev6.domain.model.challenge.ChallengeReviewResult
+import com.dev6.domain.model.challenge.*
 import com.dev6.domain.model.common.Pageable
 import com.dev6.domain.model.common.Sort
+import com.dev6.domain.model.post.delete.PostEditReq
+import com.dev6.domain.model.post.delete.PostEditRes
 import com.dev6.domain.model.post.read.Content
 import com.dev6.domain.model.post.read.PostReadRes
 import com.dev6.domain.model.post.write.ChallengeWriteReq
@@ -15,6 +15,10 @@ import com.dev6.model.challenge.ChallengeResDTO
 import com.dev6.model.challenge.ChallengeReviewResultDTO
 import com.dev6.model.common.PageableDTO
 import com.dev6.model.common.SortDTO
+import com.dev6.model.post.patch.ChallengePatchReqDTO
+import com.dev6.model.post.patch.ChallengePatchResDTO
+import com.dev6.model.post.patch.PostPatchReqDTO
+import com.dev6.model.post.patch.PostPatchResDTO
 import com.dev6.model.post.read.ContentDTO
 import com.dev6.model.post.read.PostReadResDTO
 import com.dev6.model.post.write.ChallengeWriteReqDTO
@@ -101,6 +105,35 @@ internal fun PostWriteReq.toData() = PostWriteReqDTO(
 
 internal fun PostWriteResDTO.toDomain() = PostWriteRes(
     contents = contents,
+    postId = postId,
+    postType = postType,
+    uid = uid
+)
+
+internal fun ChallengeEditReq.toData() = ChallengePatchReqDTO(
+    challengeReviewId = challengeReviewId,
+    contents = contents
+)
+
+internal fun ChallengePatchResDTO.toDomain() = ChallengeEditRes(
+    challengeReviewId = challengeReviewId,
+    challengeReviewType = challengeReviewType,
+    contents = contents,
+    createdDate = createdDate,
+    nickname = nickname,
+    title = title,
+    uid = uid
+)
+
+internal fun PostEditReq.toData() = PostPatchReqDTO(
+    contents = contents,
+    postId = postId
+)
+
+internal fun PostPatchResDTO.toDomain() = PostEditRes(
+    contents = contents,
+    createdDate =createdDate,
+    nickname = nickname,
     postId = postId,
     postType = postType,
     uid = uid

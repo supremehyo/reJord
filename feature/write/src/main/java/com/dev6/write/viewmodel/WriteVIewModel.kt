@@ -16,12 +16,10 @@ import com.dev6.domain.model.post.write.ChallengeWriteRes
 import com.dev6.domain.model.post.write.PostWriteReq
 import com.dev6.domain.model.post.write.PostWriteRes
 import com.dev6.domain.usecase.post.ChallengeEditUseCase
-import com.dev6.domain.usecase.write.ChallengeWriteUseCase
-import com.dev6.domain.usecase.write.PostDeleteUseCase
-import com.dev6.domain.usecase.write.PostEditUseCase
-import com.dev6.domain.usecase.write.WriteUseCase
+import com.dev6.domain.usecase.write.*
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.catch
+import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -31,7 +29,8 @@ class WriteViewModel @Inject constructor(
     private val postDeleteUseCase : PostDeleteUseCase,
     private val postEditUseCase : PostEditUseCase,
     private val challengeEditUseCase : ChallengeEditUseCase,
-    private val challengeWriteUseCase: ChallengeWriteUseCase
+    private val challengeWriteUseCase: ChallengeWriteUseCase,
+    private val challengeDeleteUseCase: ChallengeDeleteUseCase
 ) : ViewModel(){
     private val _categoryLiveData = MutableLiveData<WriteType>()
     val categoryLiveData : LiveData<WriteType>
@@ -55,6 +54,13 @@ class WriteViewModel @Inject constructor(
     }
 
 
+    fun challengeDelete(challengeReviewId : String){
+        viewModelScope.launch {
+            challengeDeleteUseCase(challengeReviewId).collect{ uiState->
+                event(Event.deleteChallengeEvent(uiState))
+            }
+        }
+    }
 
     fun changeChallengeIdData(id : String){
         _challengeId.value = id
@@ -116,6 +122,7 @@ class WriteViewModel @Inject constructor(
         data class postWriteEvent(val uiState: UiState<PostWriteRes>) : Event()
         data class postChallegeEvent(val uiState: UiState<ChallengeWriteRes>) : Event()
         data class deletePostEvent(val uiState: UiState<String>) : Event()
+        data class deleteChallengeEvent(val uiState: UiState<String>) : Event()
         data class editPostEvent(val uiState: UiState<PostEditRes>) : Event()
         data class editChallengeEvent(val uiState: UiState<ChallengeEditRes>) : Event()
     }

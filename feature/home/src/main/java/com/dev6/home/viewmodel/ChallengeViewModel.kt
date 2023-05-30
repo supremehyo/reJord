@@ -28,12 +28,17 @@ class ChallengeViewModel @Inject constructor(
     val ChallengeEventFlow = _ChallengeEventFlow.asEventFlow()
     var scrollFlag: MutableLiveData<ScrollType> = MutableLiveData()
     var upScrollFlag: MutableLiveData<Boolean> = MutableLiveData()
+    var refreshFlag: MutableLiveData<Boolean> = MutableLiveData()
     var challCount = 0
 
     private fun ChallengeEvent(event: ChallengeEvent) {
         viewModelScope.launch {
             _ChallengeEventFlow.emit(event)
         }
+    }
+
+    fun postRefreshFlag(refresh : Boolean){
+        refreshFlag.value = refresh
     }
 
     fun clearChallCount(){

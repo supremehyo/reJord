@@ -1,8 +1,8 @@
 package com.dev6.home.fragment
 
+import android.os.Bundle
 import android.util.Log
 import android.view.MotionEvent
-import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -10,22 +10,17 @@ import androidx.recyclerview.widget.RecyclerView
 import com.dev6.common.uistate.UiState
 import com.dev6.core.BindingFragment
 import com.dev6.core.util.extension.repeatOnStarted
-import com.dev6.domain.model.challenge.ChallengeReadReq
 import com.dev6.domain.model.challenge.ChallengeReviewResult
 import com.dev6.home.R
 import com.dev6.home.adapter.ChallengeRecyclerAdapter
 import com.dev6.home.bottomsheet.OptionBottomSheetFragment
 import com.dev6.home.databinding.FragmentMyPageChallengeBinding
-import com.dev6.home.viewmodel.ChallengeViewModel
 import com.dev6.home.viewmodel.MyPageViewModel
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.cancel
-import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
-import java.time.LocalDateTime
 
 @AndroidEntryPoint
 class MyPageChallengeFragment :
@@ -95,6 +90,10 @@ class MyPageChallengeFragment :
                                     }
                                 },{
                                     bottomSheet =  OptionBottomSheetFragment()
+                                    val args = Bundle()
+                                    args.putString("type", "CHALLENGE")
+                                    args.putSerializable("data", it)
+                                    bottomSheet.arguments = args
                                     bottomSheet.show(parentFragmentManager , bottomSheet.tag)
                                 })
                             MychallengeRc.apply {

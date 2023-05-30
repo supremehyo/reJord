@@ -101,6 +101,10 @@ class MyPageBoardFragment :
                                 }
                                 ,{
                                     bottomSheet =  OptionBottomSheetFragment()
+                                    val args = Bundle()
+                                    args.putString("type", "POST")
+                                    args.putSerializable("data", it)
+                                    bottomSheet.arguments = args
                                     bottomSheet.show(parentFragmentManager , bottomSheet.tag)
                                 })
                             MyBoardRc.apply {

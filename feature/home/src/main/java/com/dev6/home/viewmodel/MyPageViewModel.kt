@@ -1,5 +1,6 @@
 package com.dev6.home.viewmodel
 import android.util.Log
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.dev6.common.uistate.UiState
@@ -30,7 +31,7 @@ class MyPageViewModel @Inject constructor(
 ): ViewModel(){
     private val _myPageFlow = MutableEventFlow<MyPageEvent>()
     val myPageFlow = _myPageFlow.asEventFlow()
-
+    var refreshFlag: MutableLiveData<Boolean> = MutableLiveData()
 
     var myChallCount = 0
     var myBoardCount = 0
@@ -44,6 +45,11 @@ class MyPageViewModel @Inject constructor(
             }
         }
     }
+
+    fun postRefreshFlag(refresh : Boolean){
+        refreshFlag.value = refresh
+    }
+
 
     fun clearBoardCount(){
         myBoardCount = 0

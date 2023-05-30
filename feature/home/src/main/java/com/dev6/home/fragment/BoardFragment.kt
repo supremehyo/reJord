@@ -13,6 +13,7 @@ import com.dev6.core.BindingFragment
 import com.dev6.core.enums.PostType
 import com.dev6.core.enums.ScrollType
 import com.dev6.core.util.extension.repeatOnStarted
+import com.dev6.domain.model.challenge.ChallengeReadReq
 import com.dev6.domain.model.post.read.Content
 import com.dev6.domain.model.post.read.PostReadReq
 import com.dev6.home.R
@@ -93,6 +94,22 @@ class BoardFragment : BindingFragment<FragmentBoardBinding>(R.layout.fragment_bo
                 )
             }
         }
+
+        boardViewModel.refreshFlag.observe(viewLifecycleOwner){
+            if(it == true){
+                postType = postType
+                index = 0
+                mutableList.clear()
+                boardViewModel.clearBoardCount()
+                repeatOnStarted {
+                    boardViewModel.getPostList(
+                        PostReadReq(0, postType,
+                            LocalDateTime.now().toString(), 5)
+                    )
+                }
+                boardViewModel.postRefreshFlag(false)
+            }
+        }
     }
 
     override fun initListener() {
@@ -142,46 +159,40 @@ class BoardFragment : BindingFragment<FragmentBoardBinding>(R.layout.fragment_bo
     }
 
     private fun eventHandler(event: BoardViewModel.BoardEvent) {
-        when (event) {
-            //게시글 데이터
-            is BoardViewModel.BoardEvent.GetPostUiEvent -> {
-                when (event.uiState) {
-                    is UiState.Loding -> {}
-                    is UiState.Success -> {
-                        Log.v("testtt", event.uiState.data.content.toString())
-                        mutableList.addAll(index,event.uiState.data.content)
-                        boardRecyclerAdapter = BoardRecyclerAdapter("DEFAULT",mutableList,{
+        if(event is BoardViewModel.BoardEvent.GetPostUiEvent){
+            when (event.uiState) {
+                is UiState.Loding -> {}
+                is UiState.Success -> {
+                    Log.v("게시글 테스트", event.uiState.data.content.toString())
+                    mutableList.addAll(index,event.uiState.data.content)
+                    boardRecyclerAdapter = BoardRecyclerAdapter("DEFAULT",mutableList,{
 
 
-                        }, {
-                            if(event.uiState.data.totalElements > boardViewModel.boardCount * 5){
-                                index = it
-                                boardViewModel.plusBoardCount()
-                                lifecycleScope.launch(Dispatchers.IO) {
-                                    boardViewModel.getPostList(
-                                        PostReadReq(boardViewModel.boardCount, postType,
-                                            LocalDateTime.now().toString(), 5)
-                                    )
-                                }
+                    }, {
+                        if(event.uiState.data.totalElements > boardViewModel.boardCount * 5){
+                            index = it
+                            boardViewModel.plusBoardCount()
+                            lifecycleScope.launch(Dispatchers.IO) {
+                                boardViewModel.getPostList(
+                                    PostReadReq(boardViewModel.boardCount, postType,
+                                        LocalDateTime.now().toString(), 5)
+                                )
                             }
-                        },{
-
-                        })
-                        recyclerViewState = boardRc.layoutManager?.onSaveInstanceState()
-                        boardRc.apply {
-                            adapter = boardRecyclerAdapter
-                            layoutManager = LinearLayoutManager(context)
-                            addOnScrollListener(scrollCheck(this))
                         }
-                        boardRc.layoutManager?.onRestoreInstanceState(recyclerViewState)
-                    }
-                    is UiState.Error -> {
-                        Log.e("sdfsdf" , event.uiState.error.toString())
-                    }
-                }
-            }
-            else -> {
+                    },{
 
+                    })
+                    recyclerViewState = boardRc.layoutManager?.onSaveInstanceState()
+                    boardRc.apply {
+                        adapter = boardRecyclerAdapter
+                        layoutManager = LinearLayoutManager(context)
+                        addOnScrollListener(scrollCheck(this))
+                    }
+                    boardRc.layoutManager?.onRestoreInstanceState(recyclerViewState)
+                }
+                is UiState.Error -> {
+                    Log.e("sdfsdf" , event.uiState.error.toString())
+                }
             }
         }
     }

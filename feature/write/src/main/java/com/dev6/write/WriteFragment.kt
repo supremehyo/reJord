@@ -56,17 +56,17 @@ class WriteFragment : BaseBottomSheetDialogFragment<FragmentWriteBinding>(R.layo
                     writeType = "CHALLENGE"
                     binding.challCateCl.visibility = View.VISIBLE
                     binding.challengeChipGroup.check(R.id.feelChip)
-                    Log.v("zzzzz" , "zzzzz3")
+                    binding.writeCateTv.text = "챌린지 후기"
                 }
                 WriteType.SHARE ->{
                     writeType = "SHARE"
                     binding.challCateCl.visibility = View.GONE
-                    Log.v("zzzzz" , "zzzzz4")
+                    binding.writeCateTv.text = "공유하기"
                 }
                 WriteType.ETC->{
                     writeType = "ETC"
                     binding.challCateCl.visibility = View.GONE
-                    Log.v("zzzzz" , "zzzzz5")
+                    binding.writeCateTv.text = "기타"
                 }
             }
         }
@@ -76,7 +76,7 @@ class WriteFragment : BaseBottomSheetDialogFragment<FragmentWriteBinding>(R.layo
         }
     }
 
-
+//writeCate
     override fun initListener() {
         binding.writeCate.setOnClickListener {
             bottomSheet =  WriteBottomSheetFragment()
@@ -139,6 +139,8 @@ class WriteFragment : BaseBottomSheetDialogFragment<FragmentWriteBinding>(R.layo
                 }
             }
         }
+
+
     }
 
 

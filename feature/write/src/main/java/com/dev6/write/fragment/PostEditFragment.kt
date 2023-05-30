@@ -4,6 +4,7 @@ package com.dev6.write.fragment
 import android.app.Activity
 import android.app.Dialog
 import android.opengl.Visibility
+import android.os.Build
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
@@ -18,6 +19,9 @@ import androidx.fragment.app.activityViewModels
 import com.dev6.core.BaseBottomSheetDialogFragment
 import com.dev6.core.enums.WriteType
 import com.dev6.core.util.extension.repeatOnStarted
+import com.dev6.domain.model.challenge.ChallengeReviewResult
+import com.dev6.domain.model.post.delete.PostEditReq
+import com.dev6.domain.model.post.read.Content
 import com.dev6.domain.model.post.write.ChallengeWriteReq
 import com.dev6.domain.model.post.write.PostWriteReq
 import com.dev6.write.R
@@ -34,24 +38,36 @@ import com.google.android.material.chip.Chip
 class PostEditFragment : BaseBottomSheetDialogFragment<FragmentPostEditBinding>(R.layout.fragment_post_edit) {
     val writeViewModel : WriteViewModel by activityViewModels()
     lateinit var bottomSheet : BottomSheetDialogFragment
-
     var challengeReviewType : String? = ""
     var writeType : String? = ""
     var contens = ""
     var challengeId = ""
+    lateinit var content : Content
 
     override fun initView() {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+            requireArguments().getSerializable("data", Content::class.java)?.run {
+                content = this
+            }
+        } else {
+            (requireArguments().getSerializable("data") as? Content)?.run {
+                content = this
+            }
+        }
 
+        //초기값 세팅
+        binding.apply {
+            postCateTv.text = content.postType
+            writeContentEt.setText(content.contents)
+        }
     }
-
 
     override fun initListener() {
         binding.writeComplete.setOnClickListener {
             repeatOnStarted {
-                writeViewModel.postWrite(PostWriteReq(
+                writeViewModel.editPost(PostEditReq(
                     contents = contens,
-                    postType = writeType ?: "SHARE",
-                    postId = ""
+                    postId = content.postId
                 ))
             }
             binding.writeContentEt.text.clear()
