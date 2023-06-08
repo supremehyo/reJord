@@ -2,6 +2,7 @@ package com.dev6.home.fragment
 import android.util.Log
 import android.view.View
 import android.view.View.OnTouchListener
+import android.widget.Toast
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
@@ -14,20 +15,26 @@ import com.dev6.home.AppBarStateChangeListener
 import com.dev6.home.R
 import com.dev6.home.adapter.MyPageContentPagerAdapter
 import com.dev6.home.databinding.FragmentMyPageBinding
+import com.dev6.home.viewmodel.BoardViewModel
+import com.dev6.home.viewmodel.ChallengeViewModel
 import com.dev6.home.viewmodel.MyPageViewModel
+import com.dev6.write.viewmodel.WriteViewModel
 import com.google.android.material.appbar.AppBarLayout
 import com.google.android.material.tabs.TabLayout
 import com.google.android.material.tabs.TabLayout.OnTabSelectedListener
 import com.google.android.material.tabs.TabLayoutMediator
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.coroutines.Job
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.cancel
+import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
 class MyPageFragment() : BindingFragment<FragmentMyPageBinding>(R.layout.fragment_my_page) {
     private val myPageViewModel: MyPageViewModel by activityViewModels()
-    lateinit var job : Job
+    val challengeViewModel : ChallengeViewModel by activityViewModels()
+    val boardViewModel : BoardViewModel by activityViewModels()
+
     override fun initView() {
         super.initView()
     }
@@ -54,17 +61,18 @@ class MyPageFragment() : BindingFragment<FragmentMyPageBinding>(R.layout.fragmen
             }
         }.attach()
 
+
         binding.tableLayout.addOnTabSelectedListener(object : OnTabSelectedListener {
             override fun onTabSelected(tab: TabLayout.Tab?) {
                 when (tab?.position) {
                     0 -> {
                         repeatOnStartedFragment {
-                            myPageViewModel.getChaalengeListWithUid(0, 5)
+                         //   myPageViewModel.getChaalengeListWithUid(0, 5)
                         }
                     }
                     1 -> {
                         repeatOnStartedFragment {
-                            myPageViewModel.getPostListWithUid(0, 5)
+                         //   myPageViewModel.getPostListWithUid(0, 5)
                         }
                     }
                 }
@@ -81,23 +89,132 @@ class MyPageFragment() : BindingFragment<FragmentMyPageBinding>(R.layout.fragmen
                 }
             }
         })
+
+        binding.myInfoEdit.setOnClickListener {
+            findNavController().navigate(R.id.action_global_userInfoFragment)
+        }
     }
 
     override fun afterViewCreated() {
         super.afterViewCreated()
-        job = lifecycleScope.launch {
+        repeatOnStarted {
             myPageViewModel.myPageFlow.collect{event->
-                if(event is MyPageViewModel.MyPageEvent.GetMyData ){
-                    when(event.uiState){
+                    if(event is MyPageViewModel.MyPageEvent.GetMyData){
+                        when(event.uiState){
+                            is UiState.Success -> {
+                                initMyData(event.uiState.data)
+                                this.cancel()
+                            }
+                            is UiState.Loding -> {
+
+                            }
+                            is UiState.Error -> {
+                                Log.v("MyPage Error", event.toString())
+                            }
+                        }
+                    }
+
+            }
+        }
+
+        repeatOnStarted {
+            myPageViewModel.myEditFlow.collect{event->
+                when(event){
+                    is MyPageViewModel.MyEditEvent.deletePostEvent->{
+                        when (event.uiState) {
+                            is UiState.Success -> {
+                                Log.v("asdfasdfs", "agwegegegegegeg")
+                                lifecycleScope.launch(Dispatchers.IO) {
+                                    launch {
+                                        myPageViewModel.postRefreshFlag(true)
+                                    }.join()
+                                    launch {
+                                        myPageViewModel.getPostListWithUid(0, 5)
+                                    }.join()
+                                    launch(Dispatchers.Main) {
+                                        Toast.makeText(
+                                            requireContext(),
+                                            "게시글을 삭제했습니다.", Toast.LENGTH_SHORT
+                                        ).show()
+                                    }
+                                }
+                            }
+                            is UiState.Loding -> {
+
+                            }
+                            is UiState.Error -> {
+
+                            }
+
+                        }
+                    }
+                    is MyPageViewModel.MyEditEvent.deleteChallengeEvent ->{
+                    when (event.uiState) {
                         is UiState.Success -> {
-                            initMyData(event.uiState.data)
-                            job.cancel()
+                            lifecycleScope.launch(Dispatchers.IO) {
+                                launch {
+                                    myPageViewModel.challengeRefreshFlag(true)
+                                }.join()
+                                launch {
+                                    myPageViewModel.getChaalengeListWithUid(0, 5)
+                                }.join()
+                                launch(Dispatchers.Main) {
+                                    Toast.makeText(
+                                        requireContext(),
+                                        "게시글을 삭제했습니다.", Toast.LENGTH_SHORT
+                                    ).show()
+                                }
+                            }
                         }
                         is UiState.Loding -> {
 
                         }
                         is UiState.Error -> {
-                            Log.v("MyPage Error", event.toString())
+
+                        }
+
+                    }
+                }
+                    is MyPageViewModel.MyEditEvent.editPostEvent ->{
+                        when (event.uiState) {
+                            is UiState.Success -> {
+                                lifecycleScope.launch {
+                                    launch {
+                                        myPageViewModel.postRefreshFlag(true)
+                                    }.join()
+                                    launch {
+                                        myPageViewModel.getPostListWithUid(0, 5)
+                                    }.join()
+                                }
+                            }
+                            is UiState.Loding -> {
+                                Log.v("에딧포스트","로딩")
+                            }
+                            is UiState.Error -> {
+                                Log.v("에딧포스트", event.uiState.error.toString())
+                            }
+                        }
+                    }
+                     is MyPageViewModel.MyEditEvent.editChallengeEvent->{
+                        when (event.uiState) {
+                            is UiState.Success -> {
+                                Log.v("에딧캘린지","ㅇㅇ")
+                                lifecycleScope.launch(Dispatchers.IO) {
+                                    launch {
+                                        myPageViewModel.challengeRefreshFlag(true)
+                                    }.join()
+                                    launch {
+                                        myPageViewModel.getChaalengeListWithUid(0, 5)
+                                    }.join()
+                                }
+                            }
+                            is UiState.Loding -> {
+
+                            }
+                            is UiState.Error -> {
+                                Log.v("에딧캘린지", event.uiState.error.toString())
+                            }
+
                         }
                     }
                 }

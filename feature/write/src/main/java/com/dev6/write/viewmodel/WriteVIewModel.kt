@@ -26,11 +26,8 @@ import javax.inject.Inject
 @HiltViewModel
 class WriteViewModel @Inject constructor(
     private val writeUseCase: WriteUseCase,
-    private val postDeleteUseCase : PostDeleteUseCase,
-    private val postEditUseCase : PostEditUseCase,
-    private val challengeEditUseCase : ChallengeEditUseCase,
     private val challengeWriteUseCase: ChallengeWriteUseCase,
-    private val challengeDeleteUseCase: ChallengeDeleteUseCase
+
 ) : ViewModel(){
     private val _categoryLiveData = MutableLiveData<WriteType>()
     val categoryLiveData : LiveData<WriteType>
@@ -44,6 +41,10 @@ class WriteViewModel @Inject constructor(
     private val _eventFlow = MutableEventFlow<Event>()
     val eventFlow = _eventFlow.asEventFlow()
 
+    private val _writeType = MutableLiveData<String>()
+    val writeType : LiveData<String>
+        get() = _writeType
+
     init {
         _categoryLiveData.value = WriteType.SHARE
     }
@@ -53,14 +54,11 @@ class WriteViewModel @Inject constructor(
         }
     }
 
-
-    fun challengeDelete(challengeReviewId : String){
-        viewModelScope.launch {
-            challengeDeleteUseCase(challengeReviewId).collect{ uiState->
-                event(Event.deleteChallengeEvent(uiState))
-            }
-        }
+    fun changeWriteType(type : String){
+        _writeType.value = type
     }
+
+
 
     fun changeChallengeIdData(id : String){
         _challengeId.value = id
@@ -82,29 +80,7 @@ class WriteViewModel @Inject constructor(
         }
     }
 
-    fun deletePost(postId : String){
-        viewModelScope.launch {
-            postDeleteUseCase(postId).collect{uiState->
-                event(Event.deletePostEvent(uiState))
-            }
-        }
-    }
 
-    fun editPost(postEditReq : PostEditReq){
-        viewModelScope.launch {
-            postEditUseCase(postEditReq).collect{uiState->
-                event(Event.editPostEvent(uiState))
-            }
-        }
-    }
-
-    fun editChallenge(challengeEditReq : ChallengeEditReq){
-        viewModelScope.launch {
-            challengeEditUseCase(challengeEditReq).collect{uiState->
-                event(Event.editChallengeEvent(uiState))
-            }
-        }
-    }
 
     fun initWriteData(){
         _categoryLiveData.value = WriteType.SHARE
@@ -121,9 +97,5 @@ class WriteViewModel @Inject constructor(
     sealed class Event {
         data class postWriteEvent(val uiState: UiState<PostWriteRes>) : Event()
         data class postChallegeEvent(val uiState: UiState<ChallengeWriteRes>) : Event()
-        data class deletePostEvent(val uiState: UiState<String>) : Event()
-        data class deleteChallengeEvent(val uiState: UiState<String>) : Event()
-        data class editPostEvent(val uiState: UiState<PostEditRes>) : Event()
-        data class editChallengeEvent(val uiState: UiState<ChallengeEditRes>) : Event()
     }
 }

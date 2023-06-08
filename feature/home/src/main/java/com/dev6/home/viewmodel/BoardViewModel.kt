@@ -47,7 +47,7 @@ class BoardViewModel @Inject constructor(
     }
 
     fun postRefreshFlag(refresh : Boolean){
-        refreshFlag.value = refresh
+        refreshFlag.postValue(refresh)
     }
 
     fun changePostType(postType : String){

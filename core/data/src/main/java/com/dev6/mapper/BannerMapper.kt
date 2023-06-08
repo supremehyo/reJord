@@ -5,6 +5,7 @@ import com.dev6.model.challenge.ChallengeInfoResDTO
 
 internal fun ChallengeInfoResDTO.toDomain() = ChallengeInfoRes(
     badgeCode = badgeCode,
+    badgeName = badgeName,
     challengeId = challengeId,
     contents = contents,
     footprintAmount = footprintAmount,

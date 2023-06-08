@@ -16,9 +16,16 @@
     </fragment>
 
     <fragment
+        android:id="@+id/userInfoFragment"
+        android:name="com.dev6.home.fragment.UserInfoFragment"
+        tools:layout="@layout/fragment_user_info">
+    </fragment>
+
+    <fragment
         android:id="@+id/myPageFragment"
         android:name="com.dev6.home.fragment.MyPageFragment"
-        tools:layout="@layout/fragment_my_page" />
+        tools:layout="@layout/fragment_my_page" >
+    </fragment>
 
     <fragment
         android:id="@+id/myPageBadgeFragment"
@@ -32,10 +39,20 @@
 
 
     <action
+        app:popUpTo="@id/myPageFragment"
         android:id="@+id/action_global_myPageBadgeFragment"
         app:destination="@id/myPageBadgeFragment" />
     <action
+        app:popUpTo="@id/myPageFragment"
         android:id="@+id/action_global_footPrintFragment"
         app:destination="@id/footPrintFragment" />
+
+    <action
+        app:popUpTo="@id/myPageFragment"
+        android:id="@+id/action_global_userInfoFragment"
+        app:destination="@id/userInfoFragment"/>
+
+
+    <action android:id="@+id/action_global_myPageFragment" app:destination="@id/myPageFragment"/><action android:id="@+id/action_global_homeFragment" app:destination="@id/homeFragment"/>
 
 </navigation>

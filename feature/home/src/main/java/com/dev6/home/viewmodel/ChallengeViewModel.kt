@@ -38,7 +38,7 @@ class ChallengeViewModel @Inject constructor(
     }
 
     fun postRefreshFlag(refresh : Boolean){
-        refreshFlag.value = refresh
+        refreshFlag.postValue(refresh)
     }
 
     fun clearChallCount(){

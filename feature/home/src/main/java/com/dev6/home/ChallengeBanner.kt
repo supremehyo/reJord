@@ -59,7 +59,7 @@ class ChallengeBanner(
          binding.normalBanner.visibility = View.GONE
          binding.changedtopText.setTextColor(Color.parseColor(color))
          binding.changedbannerTitle.text = challengeInfoRes?.title
-         binding.changedbannerSubContent.text = "탄소발자국 ${challengeInfoRes?.footprintAmount} | ${challengeInfoRes?.badgeCode}"
+         binding.changedbannerSubContent.text = "탄소발자국 ${challengeInfoRes?.footprintAmount} | ${challengeInfoRes?.badgeName}"
          binding.changedbannerContent.text = challengeInfoRes?.contents
          binding.changedbannerTitle.setTextColor(Color.parseColor(color))
          binding.changedbannerSubContent.setTextColor(Color.parseColor(color))

@@ -2,7 +2,7 @@ package com.dev6.model.mypage
 
 data class FootPrintResultDTO(
     val badgeCode : String,
-    val createdDate : String,
+    val createdDate : List<String>,
     val footprintAcquirementType : String,
     val footprintAmount : Int,
     val footprintId : String,

@@ -40,7 +40,6 @@ class HomeFragment : BindingFragment<FragmentHomeBinding>(R.layout.fragment_home
     override fun initListener() {
         super.initListener()
         binding.writeButtonIv.setOnClickListener {
-            Log.v("sdfsdfs", writeType.toString())
             bottomSheet.show(parentFragmentManager, writeType.toString())
         }
     }

@@ -130,7 +130,7 @@
                 <com.google.android.material.chip.Chip
                     android:id="@+id/feelChip"
                     style="@style/Colors_Widget.MaterialComponents.Chip.Choice"
-                    android:layout_width="109dp"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="느낀점"
                     app:chipMinTouchTargetSize="0dp" />
@@ -138,7 +138,7 @@
                 <com.google.android.material.chip.Chip
                     android:id="@+id/DiffChip"
                     style="@style/Colors_Widget.MaterialComponents.Chip.Choice"
-                    android:layout_width="109dp"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="어려웠던점"
                     app:chipMinTouchTargetSize="0dp" />
@@ -147,7 +147,7 @@
                     android:id="@+id/tipChip"
                     android:textAppearance="@style/ChipTextAppearance"
                     style="@style/Colors_Widget.MaterialComponents.Chip.Choice"
-                    android:layout_width="109dp"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="TIP"
                     app:chipMinTouchTargetSize="0dp" />

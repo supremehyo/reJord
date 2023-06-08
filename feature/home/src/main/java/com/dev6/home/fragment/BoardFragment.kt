@@ -97,16 +97,9 @@ class BoardFragment : BindingFragment<FragmentBoardBinding>(R.layout.fragment_bo
 
         boardViewModel.refreshFlag.observe(viewLifecycleOwner){
             if(it == true){
-                postType = postType
                 index = 0
                 mutableList.clear()
                 boardViewModel.clearBoardCount()
-                repeatOnStarted {
-                    boardViewModel.getPostList(
-                        PostReadReq(0, postType,
-                            LocalDateTime.now().toString(), 5)
-                    )
-                }
                 boardViewModel.postRefreshFlag(false)
             }
         }

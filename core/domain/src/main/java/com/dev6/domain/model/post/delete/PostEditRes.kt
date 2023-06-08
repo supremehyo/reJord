@@ -2,7 +2,7 @@ package com.dev6.domain.model.post.delete
 
 data class PostEditRes(
     val contents : String,
-    val createdDate : String,
+    val createdDate : List<String>,
     val nickname : String,
     val postId : String,
     val postType : String,

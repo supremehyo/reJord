@@ -70,6 +70,17 @@ class MyPageBoardFragment :
         repeatOnStarted {
             myPageViewModel.getPostListWithUid(0, 5)
         }
+
+        myPageViewModel.postRefreshFlag.observe(viewLifecycleOwner){
+            if(it){
+                Log.v("어어어","에")
+                index =0
+                mutableList.clear()
+                myPageViewModel.clearBoardCount()
+                boardRecyclerAdapter.notifyDataSetChanged()
+                myPageViewModel.postRefreshFlag(false)
+            }
+        }
     }
 
     override fun initListener() {
@@ -90,6 +101,7 @@ class MyPageBoardFragment :
                             },
                                 {
                                     if (event.uistate.data.totalElements > myPageViewModel.myBoardCount * 5) {
+                                        Log.v("GetPostListWithUid22", event.uistate.data.toString())
                                         index = it
                                         myPageViewModel.plusBoardCount()
                                         lifecycleScope.launch(Dispatchers.IO) {
@@ -119,8 +131,6 @@ class MyPageBoardFragment :
 
                         }
                     }
-                }else{
-                    this.cancel()
                 }
             }
         }

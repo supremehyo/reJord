@@ -52,8 +52,9 @@ class MainHomeFragment : BindingFragment<FragmentHomeMainBinding>(R.layout.fragm
         binding.challengeBanner.setOnClickListener {
             binding.challengeBanner.changeBanner(
                 {
+                    writeViewModel.changeWriteType("CHALLENGE")
                     bottomSheet = WriteFragment()
-                    bottomSheet.show(parentFragmentManager, "CHALLENGE")
+                    bottomSheet.show(parentFragmentManager, "")
                 },
                 challengeInfoRes
             )
@@ -87,8 +88,10 @@ class MainHomeFragment : BindingFragment<FragmentHomeMainBinding>(R.layout.fragm
         TabLayoutMediator(binding.tableLayout, binding.pagerContent) { tab, position ->
             if (position == 0) {
                 tab.text = "챌린지 후기"
+                writeViewModel.changeWriteType("CHALLENGE")
             } else {
                 tab.text = "게시판"
+                writeViewModel.changeWriteType("BOARD")
             }
         }.attach()
 
@@ -172,17 +175,20 @@ class MainHomeFragment : BindingFragment<FragmentHomeMainBinding>(R.layout.fragm
                 when (event.uiState) {
                     is UiState.Success -> {
                         lifecycleScope.launch(Dispatchers.IO) {
-                            delay(1000)
-                            boardViewModel.getPostList(
-                                PostReadReq(
-                                    0,
-                                    (event.uiState as UiState.Success<PostWriteRes>).data.postType,
-                                    LocalDateTime.now().toString(),
-                                    5
+                            launch {
+                                boardViewModel.postRefreshFlag(true)
+                            }.join()
+                            launch {
+                                boardViewModel.getPostList(
+                                    PostReadReq(
+                                        0,
+                                        (event.uiState as UiState.Success<PostWriteRes>).data.postType,
+                                        LocalDateTime.now().toString(),
+                                        5
+                                    )
                                 )
-                            )
+                            }.join()
                         }
-
                     }
                     is UiState.Loding -> {
 
@@ -198,87 +204,14 @@ class MainHomeFragment : BindingFragment<FragmentHomeMainBinding>(R.layout.fragm
                     is UiState.Success -> {
                         Log.v("Sdfsdf" , (event.uiState as UiState.Success<ChallengeWriteRes>).data.toString())
                         lifecycleScope.launch(Dispatchers.IO) {
-                            delay(1000)
-                            challengeViewModel.getChallengeList(
-                                ChallengeReadReq(0, LocalDateTime.now().toString(), 5)
-                            )
-                        }
-                        challengeViewModel.postRefreshFlag(true)
-                    }
-                    is UiState.Loding -> {
-
-                    }
-                    is UiState.Error -> {
-
-                    }
-
-                }
-            }
-            is WriteViewModel.Event.deletePostEvent -> {
-                when (event.uiState) {
-                    is UiState.Success -> {
-                        Toast.makeText(
-                            requireContext(),
-                            "게시글을 삭제했습니다.", Toast.LENGTH_SHORT
-                        ).show()
-                        lifecycleScope.launch(Dispatchers.IO) {
-                            delay(1000)
-                            myPageViewModel.getPostListWithUid(0, 5)
-                        }
-                    }
-                    is UiState.Loding -> {
-
-                    }
-                    is UiState.Error -> {
-
-                    }
-
-                }
-            }
-            is WriteViewModel.Event.deleteChallengeEvent -> {
-                when (event.uiState) {
-                    is UiState.Success -> {
-                        Toast.makeText(
-                            requireContext(),
-                            "게시글을 삭제했습니다.", Toast.LENGTH_SHORT
-                        ).show()
-                        lifecycleScope.launch(Dispatchers.IO) {
-                            delay(1000)
-                            myPageViewModel.getChaalengeListWithUid(0, 5)
-                        }
-                    }
-                    is UiState.Loding -> {
-
-                    }
-                    is UiState.Error -> {
-
-                    }
-
-                }
-            }
-            is WriteViewModel.Event.editPostEvent -> {
-                when (event.uiState) {
-                    is UiState.Success -> {
-                        lifecycleScope.launch(Dispatchers.IO) {
-                            delay(1000)
-                            myPageViewModel.getPostListWithUid(0, 5)
-                        }
-                    }
-                    is UiState.Loding -> {
-
-                    }
-                    is UiState.Error -> {
-
-                    }
-
-                }
-            }
-            is WriteViewModel.Event.editChallengeEvent -> {
-                when (event.uiState) {
-                    is UiState.Success -> {
-                        lifecycleScope.launch(Dispatchers.IO) {
-                            delay(1000)
-                            myPageViewModel.getChaalengeListWithUid(0, 5)
+                            launch {
+                                challengeViewModel.postRefreshFlag(true)
+                            }.join()
+                            launch {
+                                challengeViewModel.getChallengeList(
+                                    ChallengeReadReq(0, LocalDateTime.now().toString(), 5)
+                                )
+                            }.join()
                         }
                     }
                     is UiState.Loding -> {

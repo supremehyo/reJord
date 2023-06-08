@@ -26,6 +26,7 @@
         </ImageView>
 
         <TextView
+            android:id="@+id/footprintBack"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="뒤로가기"
@@ -41,6 +42,7 @@
         android:layout_height="0dp"
         app:dividerColor="@color/gray4"
         dividerHeight="0.5dp"
+        android:layout_marginTop="12dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

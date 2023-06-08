@@ -5,15 +5,16 @@
 <androidx.constraintlayout.widget.ConstraintLayout
     android:orientation="vertical"
     android:id="@+id/writeBottomSheetRootCl"
-    android:backgroundTint="@null"
+    android:background="@color/white"
     android:layout_width="match_parent"
+    android:paddingBottom="16dp"
     android:layout_height="436dp">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/constraintLayout5"
         android:layout_width="match_parent"
         android:layout_height="65dp"
-        android:background="@drawable/bottom_sheet_radius"
+        android:background="@drawable/round_top"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0">

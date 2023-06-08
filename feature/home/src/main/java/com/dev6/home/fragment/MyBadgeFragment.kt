@@ -7,6 +7,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.activityViewModels
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -20,6 +21,7 @@ import com.dev6.home.databinding.FragmentMyBadgeBinding
 import com.dev6.home.viewmodel.MyPageViewModel
 import com.dev6.write.fragment.WriteBottomSheetFragment
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
+import kotlinx.coroutines.cancel
 
 
 class MyBadgeFragment : BindingFragment<FragmentMyBadgeBinding>(R.layout.fragment_my_badge) {
@@ -30,7 +32,9 @@ class MyBadgeFragment : BindingFragment<FragmentMyBadgeBinding>(R.layout.fragmen
     override fun initView() {
         super.initView()
         badgeRc = binding.badgeRc
-        badgeRcAdapter = BadgeAdapter{}
+        badgeRcAdapter = BadgeAdapter{
+
+        }
         badgeRc.apply {
             adapter = badgeRcAdapter
             layoutManager = GridLayoutManager(requireContext(),3)
@@ -50,30 +54,29 @@ class MyBadgeFragment : BindingFragment<FragmentMyBadgeBinding>(R.layout.fragmen
             bottomSheet =  BestBadgeSheetFragment()
             bottomSheet.show(parentFragmentManager , bottomSheet.tag)
         }
+        binding.badgeBack.setOnClickListener {
+            findNavController().popBackStack()
+        }
     }
 
     override fun afterViewCreated() {
         super.afterViewCreated()
         repeatOnStarted {
             myPageViewModel.myPageFlow.collect{it->
-                when (it) {
-                    is MyPageViewModel.MyPageEvent.GetMyBadgeInfoList ->{
-                        when(it.uiState){
-                            is UiState.Success -> {
-                                badgeRcAdapter.submitList(
-                                    it.uiState.data
-                                )
-                            }
-                            is UiState.Loding -> {
-
-                            }
-                            is UiState.Error -> {
-                                Log.v("MyPage Error", it.toString())
-                            }
+                if(it is MyPageViewModel.MyPageEvent.GetMyBadgeInfoList){
+                    when(it.uiState){
+                        is UiState.Success -> {
+                            badgeRcAdapter.submitList(
+                                it.uiState.data
+                            )
+                            this.cancel()
                         }
-                    }
-                    else -> {
+                        is UiState.Loding -> {
 
+                        }
+                        is UiState.Error -> {
+                            Log.v("MyPage Error", it.toString())
+                        }
                     }
                 }
             }

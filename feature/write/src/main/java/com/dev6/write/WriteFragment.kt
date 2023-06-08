@@ -39,15 +39,14 @@ class WriteFragment : BaseBottomSheetDialogFragment<FragmentWriteBinding>(R.layo
     var challengeId = ""
 
     override fun initView() {
-        writeType = arguments?.getString("writeType")
-
-        if(this.tag == "CHALLENGE"){
-            binding.challCateCl.visibility = View.VISIBLE
-            writeViewModel.updateCateGoryValue(WriteType.CHALLENGE)
-        }else{
-            binding.challCateCl.visibility = View.GONE
+        writeViewModel.writeType.observe(viewLifecycleOwner){
+            if(it== "CHALLENGE"){
+                binding.challCateCl.visibility = View.VISIBLE
+                writeViewModel.updateCateGoryValue(WriteType.CHALLENGE)
+            }else{
+                binding.challCateCl.visibility = View.GONE
+            }
         }
-
 
         writeViewModel.categoryLiveData.observe(viewLifecycleOwner){
             writeType = it.toString()

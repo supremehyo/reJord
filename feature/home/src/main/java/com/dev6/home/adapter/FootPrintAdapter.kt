@@ -71,7 +71,7 @@ class FootPrintAdapter(
         RecyclerView.ViewHolder(binding.root) {
         fun bind(position: Int) {
             if(currentList.size == 0){
-                binding.moreText.text = "탄소 발자국을 만들지 않았습니다"
+                //binding.moreText.text = "탄소 발자국을 만들지 않았습니다"
             }
             binding.moreClick.setOnClickListener {
                 getMore(position)
@@ -83,7 +83,8 @@ class FootPrintAdapter(
     class FootPrintViewHolder(private val binding: FootprintItemBinding) :
         RecyclerView.ViewHolder(binding.root) {
         fun onBind(item: FootPrintResult) {
-
+            binding.footprintDetailTv.text = "${item.createdDate[0]}.${item.createdDate[1]}.${item.createdDate[2]} | 탄소발자국 ${item.footprintAmount}걸음 | ${item.footprintAcquirementType}"
+            binding.footprintTitleTv.text = item.title
         }
 
         fun getLayoutParams(): ViewGroup.LayoutParams {

@@ -58,6 +58,15 @@ class MyPageChallengeFragment :
         repeatOnStarted {
             myPageViewModel.getChaalengeListWithUid(0, 5)
         }
+        myPageViewModel.challengeRefreshFlag.observe(viewLifecycleOwner){
+            if(it){
+                index =0
+                mutableList.clear()
+                myPageViewModel.clearChallCount()
+                challengeRecyclerAdapter.notifyDataSetChanged()
+                myPageViewModel.challengeRefreshFlag(false)
+            }
+        }
     }
 
     override fun initListener() {
@@ -72,7 +81,6 @@ class MyPageChallengeFragment :
                 if(event is MyPageViewModel.MyPageEvent.GetChallengeListWithUid){
                     when (event.uistate) {
                         is UiState.Success -> {
-                            Log.v("GetChallengeListWithUid", event.uistate.data.toString())
                             mutableList.addAll(index, event.uistate.data.content)
                             challengeRecyclerAdapter = ChallengeRecyclerAdapter("MYPAGE",mutableList,
                                 {  //클릭 이벤트
@@ -80,6 +88,7 @@ class MyPageChallengeFragment :
                                 },
                                 {
                                     if (event.uistate.data.totalElements > myPageViewModel.myChallCount * 5) {
+                                        Log.v("GetChallengeListWithUid", event.uistate.data.toString())
                                         index = it
                                         myPageViewModel.plusChallCount()
                                         lifecycleScope.launch(Dispatchers.IO) {
@@ -108,9 +117,7 @@ class MyPageChallengeFragment :
                             Log.v("GetChallengeListWithUid", event.uistate.error.toString())
                         }
                     }
-                }else{
-                    this.cancel()
-               }
+                }
             }
         }
     }
