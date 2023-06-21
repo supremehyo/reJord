@@ -39,7 +39,6 @@
 
 
     <action
-        app:popUpTo="@id/myPageFragment"
         android:id="@+id/action_global_myPageBadgeFragment"
         app:destination="@id/myPageBadgeFragment" />
     <action
@@ -48,11 +47,17 @@
         app:destination="@id/footPrintFragment" />
 
     <action
-        app:popUpTo="@id/myPageFragment"
+
         android:id="@+id/action_global_userInfoFragment"
         app:destination="@id/userInfoFragment"/>
 
 
-    <action android:id="@+id/action_global_myPageFragment" app:destination="@id/myPageFragment"/><action android:id="@+id/action_global_homeFragment" app:destination="@id/homeFragment"/>
+    <action
+        android:id="@+id/action_global_myPageFragment"
+        app:destination="@id/myPageFragment"/>
+
+    <action
+        android:id="@+id/action_global_homeFragment"
+        app:destination="@id/homeFragment"/>
 
 </navigation>

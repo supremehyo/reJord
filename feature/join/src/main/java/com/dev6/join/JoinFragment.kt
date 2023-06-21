@@ -10,6 +10,7 @@ import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
 import com.dev6.common.uistate.UiState
 import com.dev6.core.BindingFragment
+import com.dev6.core.util.DevicePrefs
 import com.dev6.core.util.Validation
 import com.dev6.domain.model.join.JoinReq
 import com.dev6.join.databinding.FragmentJoinBinding
@@ -185,6 +186,7 @@ class JoinFragment : BindingFragment<FragmentJoinBinding>(R.layout.fragment_join
 
                 }
                 is UiState.Success -> {
+                    DevicePrefs(requireContext()).saveUserUid(event.uiState.data.uid)
                     val bundle = bundleOf(
                         "userUid" to event.uiState.data.uid ,
                         "password" to passWord,

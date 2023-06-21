@@ -39,7 +39,6 @@ import java.time.LocalDateTime
 class MainHomeFragment : BindingFragment<FragmentHomeMainBinding>(R.layout.fragment_home_main) {
     private val boardViewModel: BoardViewModel by activityViewModels()
     private val challengeViewModel: ChallengeViewModel by activityViewModels()
-    private val myPageViewModel: MyPageViewModel by activityViewModels()
     val writeViewModel: WriteViewModel by activityViewModels()
     lateinit var bottomSheet: BottomSheetDialogFragment
     lateinit var challengeInfoRes: ChallengeInfoRes

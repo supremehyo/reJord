@@ -55,6 +55,7 @@ class MyBadgeFragment : BindingFragment<FragmentMyBadgeBinding>(R.layout.fragmen
             bottomSheet.show(parentFragmentManager , bottomSheet.tag)
         }
         binding.badgeBack.setOnClickListener {
+            myPageViewModel.postmypageBackEvent(true)
             findNavController().popBackStack()
         }
     }

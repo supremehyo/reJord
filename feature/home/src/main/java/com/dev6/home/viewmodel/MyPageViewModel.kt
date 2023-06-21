@@ -51,9 +51,11 @@ class MyPageViewModel @Inject constructor(
     private val _myEditFlow = MutableEventFlow<MyEditEvent>()
     val myEditFlow = _myEditFlow.asEventFlow()
 
+    var mypageBackEvent: MutableLiveData<Boolean> = MutableLiveData()
     var postRefreshFlag: MutableLiveData<Boolean> = MutableLiveData()
     var challengeRefreshFlag: MutableLiveData<Boolean> = MutableLiveData()
 
+    var userNickName = ""
     var myChallCount = 0
     var myBoardCount = 0
 
@@ -67,6 +69,10 @@ class MyPageViewModel @Inject constructor(
         viewModelScope.launch {
             _myEditFlow.emit(event)
         }
+    }
+
+    fun postmypageBackEvent(back : Boolean){
+        mypageBackEvent.postValue(back)
     }
 
     fun postRefreshFlag(refresh : Boolean){

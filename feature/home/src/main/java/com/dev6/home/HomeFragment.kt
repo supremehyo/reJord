@@ -10,6 +10,7 @@ import com.dev6.home.databinding.FragmentHomeBinding
 import com.dev6.home.fragment.MainHomeFragment
 import com.dev6.home.fragment.MyPageFragment
 import com.dev6.home.viewmodel.BoardViewModel
+import com.dev6.home.viewmodel.MyPageViewModel
 import com.dev6.write.WriteFragment
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import dagger.hilt.android.AndroidEntryPoint
@@ -18,6 +19,9 @@ import dagger.hilt.android.AndroidEntryPoint
 @AndroidEntryPoint
 class HomeFragment : BindingFragment<FragmentHomeBinding>(R.layout.fragment_home) {
     val boardViewModel : BoardViewModel by activityViewModels()
+    private val myPageViewModel: MyPageViewModel by activityViewModels()
+
+
     val mainHomeFragment: MainHomeFragment by lazy { MainHomeFragment() }
     val myPageFragment: MyPageFragment by lazy { MyPageFragment() }
     lateinit var selected: Fragment
@@ -27,12 +31,22 @@ class HomeFragment : BindingFragment<FragmentHomeBinding>(R.layout.fragment_home
     override fun initView() {
         super.initView()
         bottomSheet =  WriteFragment()
+        Log.v("sdgsdgsg" , "일로")
     }
 
     override fun initViewModel() {
         super.initViewModel()
         boardViewModel.boardTabTypeFlag.observe(viewLifecycleOwner){
                 writeType = it
+        }
+
+        myPageViewModel.mypageBackEvent.observe(viewLifecycleOwner){
+            if(it){
+                Log.v("SDgwegeg" , it.toString())
+                selected = myPageFragment
+                replaceFragment(selected)
+                myPageViewModel.postmypageBackEvent(false)
+            }
         }
 
     }

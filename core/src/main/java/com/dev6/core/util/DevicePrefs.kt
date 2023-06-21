@@ -11,6 +11,12 @@ class DevicePrefs(context: Context) {
         edit.putString(REFRESHTOKEN, refresh).apply()
     }
 
+    fun saveUserUid(userUid : String){
+        edit.putString(userUID, userUid).apply()
+    }
+
+
+    fun getUserUID() = prefs.getString(userUID , "") ?: ""
     fun getToken() = prefs.getString(ACCESSTOKEN , "") ?: ""
     fun getRefreshToken() = prefs.getString(REFRESHTOKEN , "") ?: ""
     companion object {
@@ -25,5 +31,6 @@ class DevicePrefs(context: Context) {
         const val PREF_NAME = "REJORD DATA"
         const val ACCESSTOKEN = "ACCESSTOKEN"
         const val REFRESHTOKEN = "REFRESHTOKEN"
+        const val userUID = "userUid"
     }
 }

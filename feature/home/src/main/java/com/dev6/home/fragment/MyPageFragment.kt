@@ -32,8 +32,6 @@ import kotlinx.coroutines.launch
 @AndroidEntryPoint
 class MyPageFragment() : BindingFragment<FragmentMyPageBinding>(R.layout.fragment_my_page) {
     private val myPageViewModel: MyPageViewModel by activityViewModels()
-    val challengeViewModel : ChallengeViewModel by activityViewModels()
-    val boardViewModel : BoardViewModel by activityViewModels()
 
     override fun initView() {
         super.initView()
@@ -102,6 +100,7 @@ class MyPageFragment() : BindingFragment<FragmentMyPageBinding>(R.layout.fragmen
                     if(event is MyPageViewModel.MyPageEvent.GetMyData){
                         when(event.uiState){
                             is UiState.Success -> {
+                                myPageViewModel.userNickName = event.uiState.data.nickname
                                 initMyData(event.uiState.data)
                                 this.cancel()
                             }

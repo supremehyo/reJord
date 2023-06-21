@@ -48,6 +48,7 @@ class FootPrintFragment : BindingFragment<FragmentFootPrintBinding>(R.layout.fra
     override fun initListener() {
         super.initListener()
         binding.footprintBack.setOnClickListener {
+            myPageViewModel.postmypageBackEvent(true)
             findNavController().popBackStack()
         }
     }
