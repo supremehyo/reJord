@@ -15,6 +15,7 @@ import com.dev6.domain.model.post.read.PostReadRes
 import com.dev6.domain.usecase.post.ChallengeListUseCase
 import com.dev6.domain.usecase.post.PostGetListUserCase
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.launch
 import javax.inject.Inject
@@ -62,8 +63,8 @@ class ChallengeViewModel @Inject constructor(
     }
 
     suspend fun getChallengeList(challengeReadReq: ChallengeReadReq) {
-        viewModelScope.launch {
-            challengeListUseCase(challengeReadReq).catch {}.collect{ uiState ->
+        viewModelScope.launch(Dispatchers.IO) {
+            challengeListUseCase(challengeReadReq).collect{ uiState ->
                 ChallengeEvent(ChallengeEvent.GetChallengeUiEvent(uiState))
             }
         }

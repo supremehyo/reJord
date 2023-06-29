@@ -178,12 +178,14 @@ class MyPageFragment() : BindingFragment<FragmentMyPageBinding>(R.layout.fragmen
                         when (event.uiState) {
                             is UiState.Success -> {
                                 lifecycleScope.launch {
-                                    launch {
-                                        myPageViewModel.postRefreshFlag(true)
-                                    }.join()
-                                    launch {
-                                        myPageViewModel.getPostListWithUid(0, 5)
-                                    }.join()
+                                    lifecycleScope.launch(Dispatchers.IO) {
+                                        launch {
+                                            myPageViewModel.postRefreshFlag(true)
+                                        }.join()
+                                        launch {
+                                            myPageViewModel.getPostListWithUid(0, 5)
+                                        }.join()
+                                    }
                                 }
                             }
                             is UiState.Loding -> {

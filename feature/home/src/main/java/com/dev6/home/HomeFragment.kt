@@ -20,8 +20,6 @@ import dagger.hilt.android.AndroidEntryPoint
 class HomeFragment : BindingFragment<FragmentHomeBinding>(R.layout.fragment_home) {
     val boardViewModel : BoardViewModel by activityViewModels()
     private val myPageViewModel: MyPageViewModel by activityViewModels()
-
-
     val mainHomeFragment: MainHomeFragment by lazy { MainHomeFragment() }
     val myPageFragment: MyPageFragment by lazy { MyPageFragment() }
     lateinit var selected: Fragment
@@ -31,7 +29,6 @@ class HomeFragment : BindingFragment<FragmentHomeBinding>(R.layout.fragment_home
     override fun initView() {
         super.initView()
         bottomSheet =  WriteFragment()
-        Log.v("sdgsdgsg" , "일로")
     }
 
     override fun initViewModel() {
@@ -42,13 +39,11 @@ class HomeFragment : BindingFragment<FragmentHomeBinding>(R.layout.fragment_home
 
         myPageViewModel.mypageBackEvent.observe(viewLifecycleOwner){
             if(it){
-                Log.v("SDgwegeg" , it.toString())
                 selected = myPageFragment
                 replaceFragment(selected)
                 myPageViewModel.postmypageBackEvent(false)
             }
         }
-
     }
 
     override fun initListener() {

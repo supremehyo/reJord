@@ -149,18 +149,19 @@ class ChallengeFragment : BindingFragment<FragmentChallengeBinding>(R.layout.fra
 
                     }
                     is UiState.Success ->{
+                        Log.v("작성4","ㅇㅇ")
                         Log.v("챌린지 테스트" , event.uiState.data.toString())
                         mutableList.addAll(index,event.uiState.data.content)
                         totalElements = event.uiState.data.totalElements
                         recyclerViewState = challengeRc.layoutManager?.onSaveInstanceState()
-                        //challengeRecyclerAdapter.notifyItemRangeChanged(0,5)
+                        challengeRecyclerAdapter.notifyItemRangeChanged(0,5)
                         challengeRc.layoutManager?.onRestoreInstanceState(recyclerViewState)
                     }
                     is UiState.Error ->{
                         Log.v("챌린지 테스트  에러" , event.uiState.error!!.message.toString())
                         if(event.uiState.error!!.message.toString() == "인증실패"){
                             //Toast.makeText(requireContext(), "자동 로그인 만료", Toast.LENGTH_SHORT).show()
-                           // findNavController().popBackStack()
+                            findNavController().popBackStack()
                         }
                     }
                 }

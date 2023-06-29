@@ -20,6 +20,7 @@ import com.dev6.home.R
 import com.dev6.home.databinding.FragmentHomeMainBinding
 import com.dev6.home.viewmodel.BoardViewModel
 import com.dev6.home.viewmodel.ChallengeViewModel
+import com.dev6.home.viewmodel.MainViewModel
 import com.dev6.home.viewmodel.MyPageViewModel
 import com.dev6.write.WriteFragment
 import com.dev6.write.viewmodel.WriteViewModel
@@ -40,11 +41,13 @@ class MainHomeFragment : BindingFragment<FragmentHomeMainBinding>(R.layout.fragm
     private val boardViewModel: BoardViewModel by activityViewModels()
     private val challengeViewModel: ChallengeViewModel by activityViewModels()
     val writeViewModel: WriteViewModel by activityViewModels()
+    val mainViewModel: MainViewModel by activityViewModels()
+
     lateinit var bottomSheet: BottomSheetDialogFragment
     lateinit var challengeInfoRes: ChallengeInfoRes
     var writeType = ""
-
     lateinit var job: Job
+
     override fun initView() {
         super.initView()
 
@@ -95,7 +98,7 @@ class MainHomeFragment : BindingFragment<FragmentHomeMainBinding>(R.layout.fragm
         }.attach()
 
         repeatOnStartedFragment {
-            boardViewModel.getBannerData()
+            mainViewModel.getBannerData()
         }
 
     }
@@ -131,8 +134,8 @@ class MainHomeFragment : BindingFragment<FragmentHomeMainBinding>(R.layout.fragm
 
     override fun afterViewCreated() {
         super.afterViewCreated()
-        job = lifecycleScope.launch {
-            boardViewModel.BoardeventFlow.collect {
+        lifecycleScope.launch {
+            mainViewModel.bannereventFlow.collect {
                 eventHandler(it)
             }
         }
@@ -144,14 +147,13 @@ class MainHomeFragment : BindingFragment<FragmentHomeMainBinding>(R.layout.fragm
         }
     }
 
-    private fun eventHandler(event: BoardViewModel.BoardEvent) {
+    private fun eventHandler(event: MainViewModel.HomeEvent) {
         when (event) {
-            is BoardViewModel.BoardEvent.BannerEvent -> {
+            is MainViewModel.HomeEvent.BannerEvent -> {
                 when (event.uiState) {
                     is UiState.Success -> {
                         challengeInfoRes = event.uiState.data
                         initBanner(challengeInfoRes)
-                        job.cancel()
                     }
                     is UiState.Loding -> {
 
@@ -162,9 +164,6 @@ class MainHomeFragment : BindingFragment<FragmentHomeMainBinding>(R.layout.fragm
 
                 }
             }
-            else -> {
-
-            }
         }
     }
 
@@ -173,20 +172,21 @@ class MainHomeFragment : BindingFragment<FragmentHomeMainBinding>(R.layout.fragm
             is WriteViewModel.Event.postWriteEvent -> {
                 when (event.uiState) {
                     is UiState.Success -> {
-                        lifecycleScope.launch(Dispatchers.IO) {
-                            launch {
-                                boardViewModel.postRefreshFlag(true)
-                            }.join()
-                            launch {
-                                boardViewModel.getPostList(
-                                    PostReadReq(
-                                        0,
-                                        (event.uiState as UiState.Success<PostWriteRes>).data.postType,
-                                        LocalDateTime.now().toString(),
-                                        5
+                            lifecycleScope.launch(Dispatchers.IO) {
+                                delay(1000)
+                                launch {
+                                    boardViewModel.postRefreshFlag(true)
+                                }.join()
+                                launch {
+                                    boardViewModel.getPostList(
+                                        PostReadReq(
+                                            0,
+                                            (event.uiState as UiState.Success<PostWriteRes>).data.postType,
+                                            LocalDateTime.now().toString(),
+                                            5
+                                        )
                                     )
-                                )
-                            }.join()
+                                }.join()
                         }
                     }
                     is UiState.Loding -> {
@@ -201,17 +201,20 @@ class MainHomeFragment : BindingFragment<FragmentHomeMainBinding>(R.layout.fragm
             is WriteViewModel.Event.postChallegeEvent -> {
                 when (event.uiState) {
                     is UiState.Success -> {
-                        Log.v("Sdfsdf" , (event.uiState as UiState.Success<ChallengeWriteRes>).data.toString())
-                        lifecycleScope.launch(Dispatchers.IO) {
-                            launch {
-                                challengeViewModel.postRefreshFlag(true)
-                            }.join()
-                            launch {
-                                challengeViewModel.getChallengeList(
-                                    ChallengeReadReq(0, LocalDateTime.now().toString(), 5)
-                                )
-                            }.join()
-                        }
+                            lifecycleScope.launch(Dispatchers.IO)  {
+                                delay(1000)
+                                Log.v("작성1","ㅇㅇ")
+                                launch {
+                                    Log.v("작성2","ㅇㅇ")
+                                    challengeViewModel.postRefreshFlag(true)
+                                }.join()
+                                launch {
+                                    Log.v("작성3","ㅇㅇ")
+                                    challengeViewModel.getChallengeList(
+                                        ChallengeReadReq(0, LocalDateTime.now().toString(), 5)
+                                    )
+                                }.join()
+                            }
                     }
                     is UiState.Loding -> {
 
