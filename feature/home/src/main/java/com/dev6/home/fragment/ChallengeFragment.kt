@@ -154,7 +154,6 @@ class ChallengeFragment : BindingFragment<FragmentChallengeBinding>(R.layout.fra
                         mutableList.addAll(index,event.uiState.data.content)
                         totalElements = event.uiState.data.totalElements
                         recyclerViewState = challengeRc.layoutManager?.onSaveInstanceState()
-                        challengeRecyclerAdapter.notifyItemRangeChanged(0,5)
                         challengeRc.layoutManager?.onRestoreInstanceState(recyclerViewState)
                     }
                     is UiState.Error ->{

@@ -44,7 +44,7 @@ class MyPageBoardFragment :
         //recyclerView init
         myPageViewModel.clearBoardCount()
         MyBoardRc = binding.MyBoardRc
-        count = myPageViewModel.myBoardCount
+       // count = myPageViewModel.myBoardCount
 
         //잘되는지 확인필요
         MyBoardRc.addOnItemTouchListener(object : RecyclerView.OnItemTouchListener {

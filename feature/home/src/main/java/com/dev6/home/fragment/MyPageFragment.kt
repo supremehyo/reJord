@@ -130,12 +130,6 @@ class MyPageFragment() : BindingFragment<FragmentMyPageBinding>(R.layout.fragmen
                                     launch {
                                         myPageViewModel.getPostListWithUid(0, 5)
                                     }.join()
-                                    launch(Dispatchers.Main) {
-                                        Toast.makeText(
-                                            requireContext(),
-                                            "게시글을 삭제했습니다.", Toast.LENGTH_SHORT
-                                        ).show()
-                                    }
                                 }
                             }
                             is UiState.Loding -> {
@@ -157,12 +151,6 @@ class MyPageFragment() : BindingFragment<FragmentMyPageBinding>(R.layout.fragmen
                                 launch {
                                     myPageViewModel.getChaalengeListWithUid(0, 5)
                                 }.join()
-                                launch(Dispatchers.Main) {
-                                    Toast.makeText(
-                                        requireContext(),
-                                        "게시글을 삭제했습니다.", Toast.LENGTH_SHORT
-                                    ).show()
-                                }
                             }
                         }
                         is UiState.Loding -> {
